@@ -1,0 +1,7 @@
+{
+   "extends": "@votemate/tsconfig/node.json",
+   "compilerOptions": {
+      "baseUrl": "src",
+      "outDir": "dist"
+   },
+}

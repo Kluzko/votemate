@@ -1,0 +1,5 @@
+{
+   "extends": "./base.json",
+   "compilerOptions": { "module": "commonjs" },
+   "ts-node": { "swc": true }
+}

@@ -1,0 +1,1 @@
+{ "extends": ["@votemate/eslint-config"] }

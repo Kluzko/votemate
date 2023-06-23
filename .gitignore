@@ -1,0 +1,25 @@
+# dependencies
+node_modules
+
+# builds
+dist
+
+# vite
+dev-dist
+
+# misc
+.DS_Store
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+tsconfig.tsbuildinfo
+
+# env files
+.env
+
+# turbo
+.turbo
+
