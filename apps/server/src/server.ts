@@ -1,14 +1,14 @@
-import express from 'express'
-import http from 'http'
+import Fastify from 'fastify'
 
 import 'dotenv/config'
-
 import './setup'
 
-import { logger } from './utils'
+import { logger } from 'utils'
 
-const app = express()
+const fastify = Fastify()
 
-const server = http.createServer(app)
+fastify.listen({ port: 3001 }, (error, address) => {
+   if (error) logger.error(error)
 
-server.listen(3001, () => logger.info(`🚀 Server has launched`))
+   logger.info(`Server listening on on ${address}`)
+})
