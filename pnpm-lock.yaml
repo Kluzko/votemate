@@ -70,12 +70,18 @@ importers:
       fastify:
         specifier: ^4.18.0
         version: 4.18.0
+      inversify:
+        specifier: ^6.0.1
+        version: 6.0.1
       pino:
         specifier: ^8.14.1
         version: 8.14.1
       pino-pretty:
         specifier: ^10.0.0
         version: 10.0.0
+      reflect-metadata:
+        specifier: ^0.1.13
+        version: 0.1.13
       zod:
         specifier: ^3.19.1
         version: 3.20.2
@@ -3668,6 +3674,10 @@ packages:
       has: 1.0.3
       side-channel: 1.0.4
 
+  /inversify@6.0.1:
+    resolution: {integrity: sha512-B3ex30927698TJENHR++8FfEaJGqoWOgI6ZY5Ht/nLUsFCwHn6akbwtnUAPCgUepAnTpe2qHxhDNjoKLyz6rgQ==}
+    dev: false
+
   /ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
     engines: {node: '>= 0.10'}
@@ -4403,6 +4413,10 @@ packages:
   /real-require@0.2.0:
     resolution: {integrity: sha512-57frrGM/OCTLqLOAh0mhVA9VBMHd+9U7Zb2THMGdBUoZVOtGbJzjxsYGDJ3A9AYYCP4hn6y1TVbaOfzWtm5GFg==}
     engines: {node: '>= 12.13.0'}
+    dev: false
+
+  /reflect-metadata@0.1.13:
+    resolution: {integrity: sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==}
     dev: false
 
   /regenerate-unicode-properties@10.1.0:

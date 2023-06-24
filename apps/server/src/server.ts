@@ -1,13 +1,27 @@
-import Fastify from 'fastify'
-
 import 'dotenv/config'
+import 'reflect-metadata'
+import fastify from 'fastify'
+
 import './setup'
 
 import { logger } from 'utils'
 
-const fastify = Fastify()
+import { ContainerSingleton } from './container'
 
-fastify.listen({ port: 3001 }, (error, address) => {
+import { type PoolHttpController } from 'modules/pool/api/poolHttpController'
+import { symbols } from 'modules/pool/symbols'
+
+const container = ContainerSingleton.getInstance()
+
+const app = fastify()
+
+const port = parseInt(process.env.PORT)
+
+const poolHttpController = container.get<PoolHttpController>(symbols.poolHttpController)
+
+app.post('/pool', (res, reply) => poolHttpController.createPool(res, reply))
+
+app.listen({ port }, (error, address) => {
    if (error) logger.error(error)
 
    logger.info(`Server listening on on ${address}`)
