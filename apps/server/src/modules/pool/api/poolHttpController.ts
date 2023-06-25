@@ -1,10 +1,15 @@
 import { type FastifyReply, type FastifyRequest } from 'fastify'
 import { inject, injectable } from 'inversify'
-import { type CreatePoolCommandHandler } from '../application/commands/createPoolCommandHandler'
+
+import { InvalidInputError } from 'common/errors'
+
+import { type CreatePoolCommandHandler } from '../application/commands'
+
+import { type GetPoolQueryHandler } from '../application/queries'
+
 import { symbols } from '../symbols'
+
 import { createPoolSchema, getPoolSchema } from './schemas'
-import { type GetPoolQueryHandler } from '../application/queries/getPoolQueryHandler'
-import { InvalidInputError } from 'common/errors/InvalidInputError'
 
 @injectable()
 export class PoolHttpController {

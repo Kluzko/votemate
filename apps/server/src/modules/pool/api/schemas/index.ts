@@ -5,7 +5,9 @@ export const createPoolSchema = z.object({
    expiresAt: z.coerce.date(),
    answers: z.string().array(),
 })
-export const getPoolSchema = z.object({ id: z.string().transform(id => Number(id)) })
 
 export type CreatePool = z.infer<typeof createPoolSchema>
+
+export const getPoolSchema = z.object({ id: z.string().transform(id => Number(id)) })
+
 export type GetPool = z.infer<typeof getPoolSchema>
