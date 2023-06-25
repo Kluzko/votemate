@@ -1,5 +1,4 @@
 import { Container } from 'inversify'
-
 import { PoolModule } from 'modules/pool/poolModule'
 
 export class ContainerSingleton extends Container {

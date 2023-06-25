@@ -1,10 +1,16 @@
 import { type Container } from 'inversify'
+
 import { PoolHttpController } from './api/poolHttpController'
-import { CreatePoolCommandHandler } from './application/commands/createPoolCommandHandler'
-import { PoolRepository } from './infrastructure/repositories/poolRepository'
+
+import { PoolRepository } from './infrastructure/repositories'
+
+import { PoolMapper } from './infrastructure/mappers'
+
+import { CreatePoolCommandHandler } from './application/commands'
+
+import { GetPoolQueryHandler } from './application/queries'
+
 import { symbols } from './symbols'
-import { PoolMapper } from './infrastructure/mappers/poolMapper'
-import { GetPoolQueryHandler } from './application/queries/getPoolQueryHandler'
 
 export class PoolModule {
    public static registerDependencies(container: Container) {

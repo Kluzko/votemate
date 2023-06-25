@@ -4,5 +4,41 @@
    "semi": false,
    "singleQuote": true,
    "arrowParens": "avoid",
-   "trailingComma": "es5"
+   "trailingComma": "es5",
+   "importOrderParserPlugins": ["typescript", "decorators-legacy"],
+   "plugins": ["./node_modules/@trivago/prettier-plugin-sort-imports"],
+   "importOrderSeparation": true,
+   "importOrderSortSpecifiers": true,
+   "importOrder": [
+      "reflect-metadata",
+
+      "<THIRD_PARTY_MODULES>",
+
+      "^dotenv/config$",
+
+      "^./setup$",
+      "^./container$",
+
+      "^@votemate(.*)",
+
+      "^prisma$",
+
+      "^common(.*)",
+
+      "(.*)api",
+
+      "(.*)repositories$",
+      "(.*)mappers$",
+
+      "(.*)commands$",
+      "(.*)queries$",
+
+      "(.*)symbols$",
+
+      "^utils$",
+      "(.*)/utils$",
+      "^@utils$",
+
+      "^[./]"
+   ]
 }

@@ -1,17 +1,20 @@
-import 'dotenv/config'
 import 'reflect-metadata'
+
 import fastify from 'fastify'
+
+import 'dotenv/config'
 
 import './setup'
 
-import { logger } from 'utils'
-
 import { ContainerSingleton } from './container'
 
+import { InvalidInputError, NotFoundError } from 'common/errors'
+
 import { type PoolHttpController } from './modules/pool/api/poolHttpController'
+
 import { symbols } from './modules/pool/symbols'
-import { NotFoundError } from 'common/errors/NotFoundError'
-import { InvalidInputError } from 'common/errors/InvalidInputError'
+
+import { logger } from 'utils'
 
 const container = ContainerSingleton.getInstance()
 
@@ -25,6 +28,7 @@ app.setErrorHandler(function (error, _request, reply) {
    if (error instanceof NotFoundError) {
       reply.status(400).send(error.message)
    }
+
    if (error instanceof InvalidInputError) {
       reply.status(422).send(error.issues)
    }
@@ -33,6 +37,7 @@ app.setErrorHandler(function (error, _request, reply) {
 })
 
 app.post('/pool', poolHttpController.createPool.bind(poolHttpController))
+
 app.get('/pool/:id', poolHttpController.getPool.bind(poolHttpController))
 
 app.listen({ port }, (error, address) => {

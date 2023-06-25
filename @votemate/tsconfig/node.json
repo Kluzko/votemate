@@ -1,9 +1,9 @@
 {
    "extends": "./base.json",
-   "compilerOptions": { 
+   "compilerOptions": {
       "module": "commonjs",
-      "experimentalDecorators":true,
-      "emitDecoratorMetadata" :true
-},
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true
+   },
    "ts-node": { "swc": true }
 }
