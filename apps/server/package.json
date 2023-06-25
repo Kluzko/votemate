@@ -12,14 +12,16 @@
       "build": "tsc",
       "prisma": "npx prisma generate --schema=src/prisma/schema.prisma",
       "prisma:studio": "npx prisma studio --schema=src/prisma/schema.prisma",
-      "prisma:push": "npx prisma db push"
+      "prisma:push": "npx prisma db push --schema=src/prisma/schema.prisma"
    },
    "dependencies": {
       "@prisma/client": "^4.8.0",
       "cookie-parser": "^1.4.6",
       "fastify": "^4.18.0",
+      "inversify": "^6.0.1",
       "pino": "^8.14.1",
       "pino-pretty": "^10.0.0",
+      "reflect-metadata": "^0.1.13",
       "zod": "^3.19.1"
    },
    "devDependencies": {
@@ -28,8 +30,8 @@
       "@types/cookie-parser": "^1.4.3",
       "@types/module-alias": "^2.0.1",
       "@types/node": "^18.11.9",
-      "@votemate/eslint-config": "*",
-      "@votemate/tsconfig": "*",
+      "@votemate/eslint-config": "workspace:*",
+      "@votemate/tsconfig": "workspace:*",
       "cross-env": "^7.0.3",
       "dotenv": "^16.0.3",
       "module-alias": "^2.2.2",

@@ -14,3 +14,40 @@ model User {
   email String  @unique
   name  String?
 }
+
+model Answer {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  value String
+
+  votes Vote[]
+
+  Pool   Pool? @relation(fields: [poolId], references: [id])
+  poolId Int?
+
+  @@index([poolId])
+}
+
+model Vote {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Answer   Answer? @relation(fields: [answerId], references: [id])
+  answerId Int?
+
+  @@index([answerId])
+}
+
+model Pool {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  question  String
+  expiresAt DateTime
+
+  answers Answer[]
+}
