@@ -4,7 +4,7 @@ import { type CreatePoolCommandHandler } from '../application/commands/createPoo
 import { symbols } from '../symbols'
 import { createPoolSchema, getPoolSchema } from './schemas'
 import { type GetPoolQueryHandler } from '../application/queries/getPoolQueryHandler'
-import { InvalidInputError } from 'common/errors/InvalidValueError'
+import { InvalidInputError } from 'common/errors/InvalidInputError'
 
 @injectable()
 export class PoolHttpController {

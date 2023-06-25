@@ -11,7 +11,7 @@ import { ContainerSingleton } from './container'
 import { type PoolHttpController } from './modules/pool/api/poolHttpController'
 import { symbols } from './modules/pool/symbols'
 import { NotFoundError } from 'common/errors/NotFoundError'
-import { InvalidInputError } from 'common/errors/InvalidValueError'
+import { InvalidInputError } from 'common/errors/InvalidInputError'
 
 const container = ContainerSingleton.getInstance()
 
