@@ -4,6 +4,7 @@ import { type CreatePoolCommandHandler } from '../application/commands/createPoo
 import { symbols } from '../symbols'
 import { createPoolSchema, getPoolSchema } from './schemas'
 import { type GetPoolQueryHandler } from '../application/queries/getPoolQueryHandler'
+import { InvalidInputError } from 'common/errors/InvalidValueError'
 
 @injectable()
 export class PoolHttpController {
@@ -18,7 +19,7 @@ export class PoolHttpController {
       const createPoolValidation = createPoolSchema.safeParse(req.body)
 
       if (!createPoolValidation.success) {
-         return reply.code(400).send('Invalid input values')
+         return new InvalidInputError(createPoolValidation.error.issues)
       }
 
       const { pool } = await this.createPoolCommandHandler.execute(createPoolValidation.data)

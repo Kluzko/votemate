@@ -3,6 +3,7 @@ import { type GetPool, type CreatePool } from 'modules/pool/api/schemas'
 import { symbols } from 'modules/pool/symbols'
 import { prisma } from 'prisma'
 import { type PoolMapper } from '../mappers/poolMapper'
+import { NotFoundError } from 'common/errors/NotFoundError'
 
 @injectable()
 export class PoolRepository {
@@ -30,7 +31,7 @@ export class PoolRepository {
       })
 
       if (!pool) {
-         throw new Error('Pool not found')
+         throw new NotFoundError('Pool')
       }
 
       return { pool: this.poolMapper.map(pool) }

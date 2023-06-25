@@ -10,6 +10,8 @@ import { ContainerSingleton } from './container'
 
 import { type PoolHttpController } from './modules/pool/api/poolHttpController'
 import { symbols } from './modules/pool/symbols'
+import { NotFoundError } from 'common/errors/NotFoundError'
+import { InvalidInputError } from 'common/errors/InvalidValueError'
 
 const container = ContainerSingleton.getInstance()
 
@@ -19,10 +21,16 @@ const port = parseInt(process.env.PORT)
 
 const poolHttpController = container.get<PoolHttpController>(symbols.poolHttpController)
 
-// app.setErrorHandler(function (error, request, reply) {
-//    if(error == instanceof())
-//    reply.status(409).send({ ok: false })
-// })
+app.setErrorHandler(function (error, _request, reply) {
+   if (error instanceof NotFoundError) {
+      reply.status(400).send(error.message)
+   }
+   if (error instanceof InvalidInputError) {
+      reply.status(422).send(error.issues)
+   }
+
+   reply.status(500).send('Internal server error')
+})
 
 app.post('/pool', poolHttpController.createPool.bind(poolHttpController))
 app.get('/pool/:id', poolHttpController.getPool.bind(poolHttpController))
