@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify'
-import { type CreatePool } from 'modules/pool/api/schemas'
+import { type GetPool, type CreatePool } from 'modules/pool/api/schemas'
 import { symbols } from 'modules/pool/symbols'
 import { prisma } from 'prisma'
 import { type PoolMapper } from '../mappers/poolMapper'
@@ -12,7 +12,7 @@ export class PoolRepository {
    ) {}
 
    public async createPool({ question, expiresAt, answers }: CreatePool) {
-      const prismaPool = await prisma.pool.create({
+      const pool = await prisma.pool.create({
          data: {
             question,
             expiresAt,
@@ -20,6 +20,19 @@ export class PoolRepository {
          },
       })
 
-      return { pool: this.poolMapper.map(prismaPool) }
+      return { pool: this.poolMapper.map(pool) }
+   }
+
+   public async getPool({ id }: GetPool) {
+      const pool = await prisma.pool.findFirst({
+         where: { id },
+         include: { answers: true },
+      })
+
+      if (!pool) {
+         throw new Error('Pool not found')
+      }
+
+      return { pool: this.poolMapper.map(pool) }
    }
 }
