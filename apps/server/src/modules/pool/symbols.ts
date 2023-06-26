@@ -7,4 +7,5 @@ export const symbols = {
 
    createPoolCommandHandler: Symbol('createPoolCommandHandler'),
    getPoolQueryHandler: Symbol('getPoolQueryHandler'),
+   deletePoolCommandHandler: Symbol('deletePoolCommandHandler'),
 }

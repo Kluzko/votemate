@@ -1,7 +1,7 @@
 import { type FastifyReply, type FastifyRequest } from 'fastify'
 import { inject, injectable } from 'inversify'
 
-import { type CreatePoolCommandHandler } from '../application/commands'
+import { type CreatePoolCommandHandler, type DeletePoolCommandHandler } from '../application/commands'
 
 import { type GetPoolQueryHandler } from '../application/queries'
 
@@ -16,7 +16,9 @@ export class PoolHttpController {
       @inject(symbols.createPoolCommandHandler)
       private readonly createPoolCommandHandler: CreatePoolCommandHandler,
       @inject(symbols.getPoolQueryHandler)
-      private readonly getPoolQueryHandler: GetPoolQueryHandler
+      private readonly getPoolQueryHandler: GetPoolQueryHandler,
+      @inject(symbols.deletePoolCommandHandler)
+      private readonly deletePoolCommandHandler: DeletePoolCommandHandler
    ) {}
 
    public async createPool(req: FastifyRequest, reply: FastifyReply) {
@@ -35,10 +37,22 @@ export class PoolHttpController {
       const getPoolValidation = poolIdSchema.safeParse(req.params)
 
       if (!getPoolValidation.success) {
-         return reply.code(400).send('Invalid input values')
+         return reply.code(422).send('Invalid input values')
       }
 
       const { pool } = await this.getPoolQueryHandler.execute(getPoolValidation.data)
+
+      reply.send({ pool })
+   }
+
+   public async deletePool(req: FastifyRequest, reply: FastifyReply) {
+      const deletePoolValidation = poolIdSchema.safeParse(req.params)
+
+      if (!deletePoolValidation.success) {
+         return reply.code(422).send('Invalid input values')
+      }
+
+      const { pool } = await this.deletePoolCommandHandler.execute(deletePoolValidation.data)
 
       reply.send({ pool })
    }
