@@ -1,15 +1,14 @@
 import { type FastifyReply, type FastifyRequest } from 'fastify'
 import { inject, injectable } from 'inversify'
 
-import { InvalidInputError } from 'common/errors'
-
 import { type CreatePoolCommandHandler } from '../application/commands'
 
 import { type GetPoolQueryHandler } from '../application/queries'
 
 import { symbols } from '../symbols'
 
-import { createPoolSchema, getPoolSchema } from './schemas'
+import { InvalidInputError } from '../../../common/errors'
+import { createPoolSchema, poolIdSchema } from './schemas'
 
 @injectable()
 export class PoolHttpController {
@@ -33,7 +32,7 @@ export class PoolHttpController {
    }
 
    public async getPool(req: FastifyRequest, reply: FastifyReply) {
-      const getPoolValidation = getPoolSchema.safeParse(req.params)
+      const getPoolValidation = poolIdSchema.safeParse(req.params)
 
       if (!getPoolValidation.success) {
          return reply.code(400).send('Invalid input values')

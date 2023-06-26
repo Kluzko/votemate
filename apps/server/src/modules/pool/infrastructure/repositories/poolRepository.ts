@@ -2,12 +2,11 @@ import { inject, injectable } from 'inversify'
 
 import { prisma } from 'prisma'
 
-import { NotFoundError } from 'common/errors'
+import { type CreatePool, type PoolId } from '../../api/schemas'
 
-import { type CreatePool, type GetPool } from 'modules/pool/api/schemas'
+import { symbols } from '../../symbols'
 
-import { symbols } from 'modules/pool/symbols'
-
+import { NotFoundError } from '../../../../common/errors'
 import { type PoolMapper } from '../mappers/poolMapper'
 
 @injectable()
@@ -24,12 +23,13 @@ export class PoolRepository {
             expiresAt,
             answers: { createMany: { data: answers.map(answer => ({ value: answer })) } },
          },
+         include: { answers: true },
       })
 
       return { pool: this.poolMapper.map(pool) }
    }
 
-   public async getPool({ id }: GetPool) {
+   public async getPool({ id }: PoolId) {
       const pool = await prisma.pool.findFirst({
          where: { id },
          include: { answers: true },

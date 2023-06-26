@@ -1,4 +1,4 @@
-import { type CreatePool } from 'modules/pool/api/schemas'
+import { type CreatePool } from '../../api/schemas'
 
 export class Pool {
    private question: string
@@ -11,15 +11,15 @@ export class Pool {
       this.answers = answers
    }
 
-   public getQuestion(): string {
+   public getQuestion() {
       return this.question
    }
 
-   public getExpiresAt(): Date {
+   public getExpiresAt() {
       return this.expiresAt
    }
 
-   public getAnswers(): string[] {
+   public getAnswers() {
       return this.answers
    }
 }

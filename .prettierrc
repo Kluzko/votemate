@@ -16,7 +16,7 @@
 
       "^dotenv/config$",
 
-      "^./setup$",
+      "(.*)setup(.*)",
       "^./container$",
 
       "^@votemate(.*)",
