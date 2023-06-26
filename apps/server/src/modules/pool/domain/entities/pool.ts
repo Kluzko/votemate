@@ -3,12 +3,10 @@ import { type CreatePool } from '../../api/schemas'
 export class Pool {
    private question: string
    private expiresAt: Date
-   private answers: string[]
 
-   constructor({ question, answers, expiresAt }: CreatePool) {
+   constructor({ question, expiresAt }: CreatePool) {
       this.question = question
       this.expiresAt = expiresAt
-      this.answers = answers
    }
 
    public getQuestion() {
@@ -17,9 +15,5 @@ export class Pool {
 
    public getExpiresAt() {
       return this.expiresAt
-   }
-
-   public getAnswers() {
-      return this.answers
    }
 }

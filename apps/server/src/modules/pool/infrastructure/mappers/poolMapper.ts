@@ -5,10 +5,9 @@ import { Pool } from '../../domain/entities/'
 
 @injectable()
 export class PoolMapper {
-   public map({ question, answers, expiresAt }: PrismaPool) {
+   public map({ question, expiresAt }: PrismaPool) {
       return new Pool({
          question,
-         answers: answers.map(({ value }) => value),
          expiresAt,
       })
    }

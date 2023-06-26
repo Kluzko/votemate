@@ -33,7 +33,9 @@ app.setErrorHandler(function (error, _request, reply) {
       reply.status(422).send(error.issues)
    }
 
-   console.log(error.message)
+   if (process.env.NODE_ENV == 'development') {
+      console.log(error.message)
+   }
 
    reply.status(500).send('Internal server error')
 })

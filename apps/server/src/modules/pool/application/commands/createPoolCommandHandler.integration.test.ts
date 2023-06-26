@@ -27,13 +27,11 @@ describe('CreatePoolCommandHandler', () => {
          const pool = new Pool({
             question: faker.lorem.sentence(),
             expiresAt: faker.date.soon(3),
-            answers: faker.lorem.sentences(4).split('.').filter(Boolean),
          })
 
          payload = {
             question: pool.getQuestion(),
             expiresAt: pool.getExpiresAt(),
-            answers: pool.getAnswers(),
          }
       })
 
@@ -55,10 +53,6 @@ describe('CreatePoolCommandHandler', () => {
          it('should have the correct expiration date', () => {
             expect(result.pool.getExpiresAt()).toEqual(payload.expiresAt)
          })
-
-         it('should have the correct answers', () => {
-            expect(result.pool.getAnswers()).toEqual(payload.answers)
-         })
       })
    })
 
@@ -69,7 +63,6 @@ describe('CreatePoolCommandHandler', () => {
          payload = {
             question: '',
             expiresAt: new Date(),
-            answers: [],
          }
       })
 
