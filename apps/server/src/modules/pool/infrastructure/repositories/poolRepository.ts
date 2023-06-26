@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify'
 
 import { prisma } from 'prisma'
 
-import { type CreatePool, type PoolId } from '../../api/schemas'
+import { type CreatePool, type PoolId, type UpdatePool } from '../../api/schemas'
 
 import { symbols } from '../../symbols'
 
@@ -55,5 +55,24 @@ export class PoolRepository {
       await prisma.pool.delete({ where: { id } })
 
       return { pool: this.poolMapper.map(pool) }
+   }
+
+   public async updatePool({ id, question, expiresAt }: UpdatePool) {
+      const pool = await prisma.pool.findFirst({ where: { id } })
+
+      if (!pool) {
+         throw new NotFoundError('Pool')
+      }
+
+      const updatedPool = await prisma.pool.update({
+         where: { id },
+         data: {
+            question,
+            expiresAt,
+         },
+         include: { answers: true },
+      })
+
+      return { pool: this.poolMapper.map(updatedPool) }
    }
 }
