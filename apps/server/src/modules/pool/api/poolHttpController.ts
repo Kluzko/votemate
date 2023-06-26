@@ -1,14 +1,18 @@
 import { type FastifyReply, type FastifyRequest } from 'fastify'
 import { inject, injectable } from 'inversify'
 
-import { type CreatePoolCommandHandler, type DeletePoolCommandHandler } from '../application/commands'
+import {
+   type CreatePoolCommandHandler,
+   type DeletePoolCommandHandler,
+   type UpdatePoolCommandHandler,
+} from '../application/commands'
 
 import { type GetPoolQueryHandler } from '../application/queries'
 
 import { symbols } from '../symbols'
 
 import { InvalidInputError } from '../../../common/errors'
-import { createPoolSchema, poolIdSchema } from './schemas'
+import { createPoolSchema, poolIdSchema, updatePoolSchema } from './schemas'
 
 @injectable()
 export class PoolHttpController {
@@ -18,7 +22,9 @@ export class PoolHttpController {
       @inject(symbols.getPoolQueryHandler)
       private readonly getPoolQueryHandler: GetPoolQueryHandler,
       @inject(symbols.deletePoolCommandHandler)
-      private readonly deletePoolCommandHandler: DeletePoolCommandHandler
+      private readonly deletePoolCommandHandler: DeletePoolCommandHandler,
+      @inject(symbols.updatePoolCommandHandler)
+      private readonly updatePoolQueryHandler: UpdatePoolCommandHandler
    ) {}
 
    public async createPool(req: FastifyRequest, reply: FastifyReply) {
@@ -53,6 +59,26 @@ export class PoolHttpController {
       }
 
       const { pool } = await this.deletePoolCommandHandler.execute(deletePoolValidation.data)
+
+      reply.send({ pool })
+   }
+
+   public async updatePool(req: FastifyRequest, reply: FastifyReply) {
+      const poolIdValidation = poolIdSchema.safeParse(req.params)
+
+      if (!poolIdValidation.success) {
+         return reply.code(422).send('Invalid input values')
+      }
+      const updatePoolValidation = updatePoolSchema.safeParse(req.body)
+
+      if (!updatePoolValidation.success) {
+         return new InvalidInputError(updatePoolValidation.error.issues)
+      }
+      const payload = {
+         id: poolIdValidation.data.id,
+         ...updatePoolValidation.data,
+      }
+      const { pool } = await this.updatePoolQueryHandler.execute(payload)
 
       reply.send({ pool })
    }
