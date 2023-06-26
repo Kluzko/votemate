@@ -41,4 +41,19 @@ export class PoolRepository {
 
       return { pool: this.poolMapper.map(pool) }
    }
+
+   public async deletePool({ id }: PoolId) {
+      const pool = await prisma.pool.findFirst({
+         where: { id },
+         include: { answers: true },
+      })
+
+      if (!pool) {
+         throw new NotFoundError('Pool')
+      }
+
+      await prisma.pool.delete({ where: { id } })
+
+      return { pool: this.poolMapper.map(pool) }
+   }
 }

@@ -40,6 +40,8 @@ app.post('/pool', poolHttpController.createPool.bind(poolHttpController))
 
 app.get('/pool/:id', poolHttpController.getPool.bind(poolHttpController))
 
+app.delete('/pool/:id', poolHttpController.deletePool.bind(poolHttpController))
+
 app.listen({ port }, (error, address) => {
    if (error) logger.error(error)
 

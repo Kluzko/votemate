@@ -24,7 +24,7 @@ model Answer {
 
   votes Vote[]
 
-  Pool   Pool? @relation(fields: [poolId], references: [id])
+  Pool   Pool? @relation(fields: [poolId], references: [id], onDelete: Cascade)
   poolId Int?
 
   @@index([poolId])
@@ -35,7 +35,7 @@ model Vote {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Answer   Answer? @relation(fields: [answerId], references: [id])
+  Answer   Answer? @relation(fields: [answerId], references: [id], onDelete: Cascade)
   answerId Int?
 
   @@index([answerId])
