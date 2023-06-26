@@ -8,6 +8,6 @@ export const createPoolSchema = z.object({
 
 export type CreatePool = z.infer<typeof createPoolSchema>
 
-export const getPoolSchema = z.object({ id: z.string().transform(id => Number(id)) })
+export const poolIdSchema = z.object({ id: z.string().transform(id => Number(id)) })
 
-export type GetPool = z.infer<typeof getPoolSchema>
+export type PoolId = z.infer<typeof poolIdSchema>
