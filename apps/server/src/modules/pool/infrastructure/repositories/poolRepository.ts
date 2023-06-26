@@ -16,24 +16,19 @@ export class PoolRepository {
       private readonly poolMapper: PoolMapper
    ) {}
 
-   public async createPool({ question, expiresAt, answers }: CreatePool) {
+   public async createPool({ question, expiresAt }: CreatePool) {
       const pool = await prisma.pool.create({
          data: {
             question,
             expiresAt,
-            answers: { createMany: { data: answers.map(answer => ({ value: answer })) } },
          },
-         include: { answers: true },
       })
 
       return { pool: this.poolMapper.map(pool) }
    }
 
    public async getPool({ id }: PoolId) {
-      const pool = await prisma.pool.findFirst({
-         where: { id },
-         include: { answers: true },
-      })
+      const pool = await prisma.pool.findFirst({ where: { id } })
 
       if (!pool) {
          throw new NotFoundError('Pool')
@@ -43,10 +38,7 @@ export class PoolRepository {
    }
 
    public async deletePool({ id }: PoolId) {
-      const pool = await prisma.pool.findFirst({
-         where: { id },
-         include: { answers: true },
-      })
+      const pool = await prisma.pool.findFirst({ where: { id } })
 
       if (!pool) {
          throw new NotFoundError('Pool')
@@ -70,7 +62,6 @@ export class PoolRepository {
             question,
             expiresAt,
          },
-         include: { answers: true },
       })
 
       return { pool: this.poolMapper.map(updatedPool) }
