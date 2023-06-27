@@ -14,6 +14,7 @@ export class Pool {
    public getId() {
       return this.id
    }
+
    public getQuestion() {
       return this.question
    }

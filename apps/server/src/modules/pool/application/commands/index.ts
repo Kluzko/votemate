@@ -1,3 +1,3 @@
-export { CreatePoolCommandHandler } from './createPoolCommandHandler'
-export { DeletePoolCommandHandler } from './deletePoolCommandHandler'
-export { UpdatePoolCommandHandler } from './updatePoolCommandHandler'
+export { CreatePoolCommandHandler } from './createPoolCommandHandler/createPoolCommandHandler'
+export { DeletePoolCommandHandler } from './deletePoolCommandHandler/deletePoolCommandHandler'
+export { UpdatePoolCommandHandler } from './updatePoolCommandHandler/updatePoolCommandHandler'

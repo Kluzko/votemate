@@ -2,9 +2,9 @@ import { inject, injectable } from 'inversify'
 
 import { type PoolId } from 'modules/pool/api/schemas'
 
-import { type PoolRepository } from '../../infrastructure/repositories'
+import { type PoolRepository } from 'modules/pool/infrastructure/repositories'
 
-import { symbols } from '../../symbols'
+import { symbols } from 'modules/pool/symbols'
 
 @injectable()
 export class GetPoolQueryHandler {

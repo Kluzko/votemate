@@ -1,13 +1,14 @@
 import { faker } from '@faker-js/faker'
 import { ContainerSingleton } from 'container'
-import { Pool } from 'modules/pool/domain/entities'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 import { type CreatePool } from 'modules/pool/api/schemas'
 
 import { type PoolRepository } from 'modules/pool/infrastructure/repositories'
 
-import { symbols } from '../../symbols'
+import { Pool } from 'modules/pool/domain/entities'
+
+import { symbols } from 'modules/pool/symbols'
 
 import { type CreatePoolCommandHandler } from './createPoolCommandHandler'
 
@@ -45,13 +46,12 @@ describe('CreatePoolCommandHandler', () => {
             result = await createPoolCommandHandler.execute(payload)
          })
 
-         it('should return a pool object', () => {
-            expect(result.pool).instanceOf(Pool)
-         })
-         // clean up
          afterAll(async () => {
-            const id = result.pool.getId()
-            await poolRepository.deletePool({ id })
+            await poolRepository.deletePool({ id: result.pool.getId() })
+         })
+
+         it('should return a valid Pool', () => {
+            expect(result.pool).toBeInstanceOf(Pool)
          })
       })
    })

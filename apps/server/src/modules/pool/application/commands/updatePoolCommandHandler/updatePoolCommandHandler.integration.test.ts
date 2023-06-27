@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker'
 import { ContainerSingleton } from 'container'
-import { type Pool } from 'modules/pool/domain/entities'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 import { NotFoundError } from 'common/errors'
@@ -9,16 +8,15 @@ import { type CreatePool, type UpdatePool } from 'modules/pool/api/schemas'
 
 import { type PoolRepository } from 'modules/pool/infrastructure/repositories'
 
-import { symbols } from '../../symbols'
+import { type Pool } from 'modules/pool/domain/entities'
+
+import { symbols } from 'modules/pool/symbols'
 
 import { type UpdatePoolCommandHandler } from './updatePoolCommandHandler'
 
 describe('UpdatePoolCommandHandler', () => {
    let updatePoolCommandHandler: UpdatePoolCommandHandler
    let poolRepository: PoolRepository
-   let createdPool: Pool
-   let payload: CreatePool
-   let updatePayload: UpdatePool
 
    beforeAll(() => {
       const container = ContainerSingleton.getInstance()
@@ -27,47 +25,46 @@ describe('UpdatePoolCommandHandler', () => {
    })
 
    describe('.execute', () => {
+      let payload: CreatePool
+      let updatePayload: UpdatePool
+      let result: { pool: Pool }
+
       beforeAll(async () => {
          payload = {
             question: faker.lorem.sentence(),
             expiresAt: faker.date.soon(3),
          }
 
-         const result = await poolRepository.createPool(payload)
-         createdPool = result.pool
+         result = await poolRepository.createPool(payload)
 
          updatePayload = {
-            id: createdPool.getId(),
+            id: result.pool.getId(),
             question: 'Updated question',
-            expiresAt: createdPool.getExpiresAt(),
+            expiresAt: result.pool.getExpiresAt(),
          }
+
+         await updatePoolCommandHandler.execute(updatePayload)
       })
 
-      it('should update the pool', async () => {
-         await updatePoolCommandHandler.execute(updatePayload)
+      afterAll(async () => {
+         await poolRepository.deletePool({ id: result.pool.getId() })
+      })
 
-         const updatedPool = await poolRepository.getPool({ id: createdPool.getId() })
+      it('should update the Pool', async () => {
+         const updatedPool = await poolRepository.getPool({ id: result.pool.getId() })
          expect(updatedPool.pool.getQuestion()).toBe(updatePayload.question)
       })
 
-      it('should throw NotFoundError for non-existing pool', async () => {
-         const nonExistingPoolId = -1
-         const invalidUpdatePayload = {
-            id: nonExistingPoolId,
-            question: 'Some question',
-            expiresAt: new Date(),
-         }
-
+      it('should throw NotFoundError for non-existing Pool', async () => {
          try {
-            await updatePoolCommandHandler.execute(invalidUpdatePayload)
+            await updatePoolCommandHandler.execute({
+               id: -1,
+               ...payload,
+            })
          } catch (error) {
-            expect(error).toBeInstanceOf(NotFoundError)
+            return expect(error).toBeInstanceOf(NotFoundError)
          }
+         expect.fail()
       })
-   })
-
-   // clean up
-   afterAll(async () => {
-      await poolRepository.deletePool({ id: createdPool.getId() })
    })
 })

@@ -1,8 +1,11 @@
 import { z } from 'zod'
 
+const MAX_QUESTION_LENGTH = 200
+const MIN_QUESTION_LENGTH = 4
+
 export const createPoolSchema = z
    .object({
-      question: z.string().min(4).max(40),
+      question: z.string().min(4).max(MAX_QUESTION_LENGTH),
       expiresAt: z.coerce.date(),
    })
    .strict()
@@ -15,7 +18,7 @@ export type PoolId = z.infer<typeof poolIdSchema>
 
 export const updatePoolSchema = z
    .object({
-      question: z.string().min(4).max(40).optional(),
+      question: z.string().min(4).max(MIN_QUESTION_LENGTH).optional(),
       expiresAt: z.coerce.date().optional(),
    })
    .refine(value => Object.keys(value).length > 0, { message: 'At least one property must be present in the object' })

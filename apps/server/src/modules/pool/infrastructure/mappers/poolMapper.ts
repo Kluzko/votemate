@@ -1,5 +1,6 @@
 import { type Pool as PrismaPool } from '@prisma/client'
 import { injectable } from 'inversify'
+
 import { Pool } from 'modules/pool/domain/entities'
 
 @injectable()

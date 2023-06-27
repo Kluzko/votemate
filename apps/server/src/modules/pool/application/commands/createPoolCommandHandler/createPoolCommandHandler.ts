@@ -1,10 +1,10 @@
 import { inject, injectable } from 'inversify'
 
-import { type CreatePool } from '../../api/schemas'
+import { type CreatePool } from 'modules/pool/api/schemas'
 
-import { type PoolRepository } from '../../infrastructure/repositories'
+import { type PoolRepository } from 'modules/pool/infrastructure/repositories'
 
-import { symbols } from '../../symbols'
+import { symbols } from 'modules/pool/symbols'
 
 @injectable()
 export class CreatePoolCommandHandler {
