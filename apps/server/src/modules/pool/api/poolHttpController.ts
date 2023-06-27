@@ -1,17 +1,18 @@
 import { type FastifyReply, type FastifyRequest } from 'fastify'
 import { inject, injectable } from 'inversify'
 
+import { InvalidInputError } from 'common/errors'
+
 import {
    type CreatePoolCommandHandler,
    type DeletePoolCommandHandler,
    type UpdatePoolCommandHandler,
-} from '../application/commands'
+} from 'modules/pool/application/commands'
 
-import { type GetPoolQueryHandler } from '../application/queries'
+import { type GetPoolQueryHandler } from 'modules/pool/application/queries'
 
-import { symbols } from '../symbols'
+import { symbols } from 'modules/pool/symbols'
 
-import { InvalidInputError } from '../../../common/errors'
 import { createPoolSchema, poolIdSchema, updatePoolSchema } from './schemas'
 
 @injectable()

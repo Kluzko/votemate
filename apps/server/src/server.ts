@@ -18,7 +18,7 @@ import { logger } from 'utils'
 
 const container = ContainerSingleton.getInstance()
 
-const app = fastify()
+export const app = fastify()
 
 const port = parseInt(process.env.PORT)
 
