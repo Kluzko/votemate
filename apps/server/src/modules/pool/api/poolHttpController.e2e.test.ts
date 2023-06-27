@@ -143,4 +143,51 @@ describe('PoolHttpController', () => {
          expect.fail()
       })
    })
+
+   describe('updatePool', () => {
+      let response: supertest.Response
+      let result: { pool: Pool }
+      let payload: CreatePool
+      let updatePayload: CreatePool
+
+      beforeAll(async () => {
+         payload = {
+            question: faker.lorem.sentence(),
+            expiresAt: faker.date.future(),
+         }
+
+         result = await poolRepository.createPool(payload)
+
+         updatePayload = {
+            question: faker.lorem.sentence(),
+            expiresAt: faker.date.future(),
+         }
+
+         response = await supertest(app.server).put(`/pool/${result.pool.getId()}`).send(updatePayload)
+      })
+
+      afterAll(async () => {
+         await poolRepository.deletePool({ id: result.pool.getId() })
+      })
+
+      it('should return 200', () => {
+         expect(response.status).toBe(200)
+      })
+
+      it('should return a valid Pool object in the response', () => {
+         expect(response.body.pool).toEqual({
+            id: result.pool.getId(),
+            question: updatePayload.question,
+            expiresAt: updatePayload.expiresAt.toISOString(),
+         })
+      })
+
+      it('should update the pool with the new data', async () => {
+         const { pool } = await poolRepository.getPool({ id: result.pool.getId() })
+
+         expect(pool).toBeDefined()
+         expect(pool.getQuestion()).toBe(updatePayload.question)
+         expect(pool.getExpiresAt().toISOString()).toBe(updatePayload.expiresAt.toISOString())
+      })
+   })
 })
