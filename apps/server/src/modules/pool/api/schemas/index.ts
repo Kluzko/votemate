@@ -20,4 +20,4 @@ export const updatePoolSchema = z
 // values are optional but in object cant be empty
 export type UpdatePool = z.infer<typeof updatePoolSchema> & PoolId
 
-export type PoolData = CreatePool & { id: string }
+export type PoolData = CreatePool & { id: number }

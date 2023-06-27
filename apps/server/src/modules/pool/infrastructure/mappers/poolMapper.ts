@@ -6,7 +6,7 @@ import { Pool } from 'modules/pool/domain/entities'
 export class PoolMapper {
    public map({ id, question, expiresAt }: PrismaPool) {
       return new Pool({
-         id: String(id),
+         id,
          question,
          expiresAt,
       })
