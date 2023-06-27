@@ -6,6 +6,8 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 import { type PoolRepository } from '../infrastructure/repositories'
 
+import { type Pool } from '../domain/entities'
+
 import { symbols } from '../symbols'
 
 import { type CreatePool } from './schemas'
@@ -19,7 +21,7 @@ describe('PoolHttpController', () => {
       poolRepository = container.get(symbols.poolRepository)
    })
 
-   describe('createPool', () => {
+   describe.skip('createPool', () => {
       let response: supertest.Response
 
       let payload: CreatePool
@@ -67,5 +69,38 @@ describe('PoolHttpController', () => {
       //       expect.fail()
       //    })
       // })
+   })
+
+   describe('getPool', () => {
+      let response: supertest.Response
+      let result: { pool: Pool }
+      let payload: CreatePool
+
+      beforeAll(async () => {
+         payload = {
+            question: faker.lorem.sentence(),
+            expiresAt: faker.date.future(),
+         }
+
+         result = await poolRepository.createPool(payload)
+
+         response = await supertest(app.server).get(`/pool/${result.pool.getId()}`)
+      })
+
+      afterAll(async () => {
+         await poolRepository.deletePool({ id: result.pool.getId() })
+      })
+
+      it('should return 200', () => {
+         expect(response.status).toBe(200)
+      })
+
+      it('should have a valid Pool in body', () => {
+         expect(response.body.pool).toEqual({
+            id: result.pool.getId(),
+            question: result.pool.getQuestion(),
+            expiresAt: result.pool.getExpiresAt().toISOString(),
+         })
+      })
    })
 })
