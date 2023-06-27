@@ -1,7 +1,7 @@
 import { type PoolData } from 'modules/pool/api/schemas'
 
 export class Pool {
-   private id: string
+   private id: number
    private question: string
    private expiresAt: Date
 
