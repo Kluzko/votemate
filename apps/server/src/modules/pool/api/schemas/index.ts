@@ -19,3 +19,5 @@ export const updatePoolSchema = z
    .refine(value => Object.keys(value).length > 0, { message: 'At least one property must be present in the object' })
 // values are optional but in object cant be empty
 export type UpdatePool = z.infer<typeof updatePoolSchema> & PoolId
+
+export type PoolData = CreatePool & { id: string }

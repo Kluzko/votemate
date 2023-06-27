@@ -1,14 +1,19 @@
-import { type CreatePool } from '../../api/schemas'
+import { type PoolData } from 'modules/pool/api/schemas'
 
 export class Pool {
+   private id: string
    private question: string
    private expiresAt: Date
 
-   constructor({ question, expiresAt }: CreatePool) {
+   constructor({ id, question, expiresAt }: PoolData) {
+      this.id = id
       this.question = question
       this.expiresAt = expiresAt
    }
 
+   public getId() {
+      return this.id
+   }
    public getQuestion() {
       return this.question
    }
