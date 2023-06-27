@@ -30,6 +30,8 @@
       "(.*)repositories$",
       "(.*)mappers$",
 
+      "(.*)entities$",
+
       "(.*)commands$",
       "(.*)queries$",
 
