@@ -4,6 +4,8 @@ import { app } from 'server'
 import supertest from 'supertest'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
+import { NotFoundError } from 'common/errors'
+
 import { type PoolRepository } from '../infrastructure/repositories'
 
 import { type Pool } from '../domain/entities'
@@ -21,7 +23,7 @@ describe('PoolHttpController', () => {
       poolRepository = container.get(symbols.poolRepository)
    })
 
-   describe.skip('createPool', () => {
+   describe('createPool', () => {
       let response: supertest.Response
 
       let payload: CreatePool
@@ -101,6 +103,44 @@ describe('PoolHttpController', () => {
             question: result.pool.getQuestion(),
             expiresAt: result.pool.getExpiresAt().toISOString(),
          })
+      })
+   })
+
+   describe('deletePool', () => {
+      let response: supertest.Response
+      let result: { pool: Pool }
+      let payload: CreatePool
+
+      beforeAll(async () => {
+         payload = {
+            question: faker.lorem.sentence(),
+            expiresAt: faker.date.future(),
+         }
+
+         result = await poolRepository.createPool(payload)
+
+         response = await supertest(app.server).delete(`/pool/${result.pool.getId()}`)
+      })
+
+      it('should return 200', () => {
+         expect(response.status).toBe(200)
+      })
+
+      it('should return a valid Pool object in the response', () => {
+         expect(response.body.pool).toEqual({
+            id: result.pool.getId(),
+            question: result.pool.getQuestion(),
+            expiresAt: result.pool.getExpiresAt().toISOString(),
+         })
+      })
+
+      it('Pool should be deleted', async () => {
+         try {
+            await poolRepository.getPool({ id: result.pool.getId() })
+         } catch (error) {
+            return expect(error).toBeInstanceOf(NotFoundError)
+         }
+         expect.fail()
       })
    })
 })
