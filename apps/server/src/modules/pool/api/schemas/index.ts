@@ -18,7 +18,7 @@ export type PoolId = z.infer<typeof poolIdSchema>
 
 export const updatePoolSchema = z
    .object({
-      question: z.string().min(4).max(MIN_QUESTION_LENGTH).optional(),
+      question: z.string().min(MIN_QUESTION_LENGTH).max(MAX_QUESTION_LENGTH).optional(),
       expiresAt: z.coerce.date().optional(),
    })
    .refine(value => Object.keys(value).length > 0, { message: 'At least one property must be present in the object' })
