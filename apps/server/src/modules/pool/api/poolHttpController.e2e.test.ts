@@ -14,6 +14,11 @@ import { symbols } from '../symbols'
 
 import { type CreatePool } from './schemas'
 
+const createPayload = (): CreatePool => ({
+   question: faker.lorem.sentence(),
+   expiresAt: faker.date.future(),
+})
+
 describe('PoolHttpController', () => {
    let poolRepository: PoolRepository
 
@@ -29,10 +34,7 @@ describe('PoolHttpController', () => {
       let payload: CreatePool
 
       beforeAll(async () => {
-         payload = {
-            question: faker.lorem.sentence(),
-            expiresAt: faker.date.future(),
-         }
+         payload = createPayload()
 
          response = await supertest(app.server).post('/pool').send(payload)
       })
@@ -53,24 +55,20 @@ describe('PoolHttpController', () => {
          })
       })
 
-      // describe('invalid data', () => {
-      //    it('should throw InvalidInputError for empty object', async () => {
-      //       const payload = {}
-      //       const response = await supertest(app.server).post('/pool').send(payload)
+      describe('invalid data', () => {
+         it('should return 422 for empty object', async () => {
+            const payload = {}
+            const response = await supertest(app.server).post('/pool').send(payload)
 
-      //       await supertest(app.server)
-      //          .post('/pool')
-      //          .send(payload)
-      //          .end(error => {
-      //             console.log(error)
-      //          })
+            expect(response.status).toBe(422)
+         })
+         it('should return 422 for missing required fields', async () => {
+            const payload = { question: 'Sample Question' }
+            const response = await supertest(app.server).post('/pool').send(payload)
 
-      //       it('should return 422', () => {
-      //          expect(response.status).toBe(422)
-      //       })
-      //       expect.fail()
-      //    })
-      // })
+            expect(response.status).toBe(422)
+         })
+      })
    })
 
    describe('getPool', () => {
@@ -79,10 +77,7 @@ describe('PoolHttpController', () => {
       let payload: CreatePool
 
       beforeAll(async () => {
-         payload = {
-            question: faker.lorem.sentence(),
-            expiresAt: faker.date.future(),
-         }
+         payload = createPayload()
 
          result = await poolRepository.createPool(payload)
 
@@ -112,10 +107,7 @@ describe('PoolHttpController', () => {
       let payload: CreatePool
 
       beforeAll(async () => {
-         payload = {
-            question: faker.lorem.sentence(),
-            expiresAt: faker.date.future(),
-         }
+         payload = createPayload()
 
          result = await poolRepository.createPool(payload)
 
@@ -140,6 +132,7 @@ describe('PoolHttpController', () => {
          } catch (error) {
             return expect(error).toBeInstanceOf(NotFoundError)
          }
+
          expect.fail()
       })
    })
@@ -151,17 +144,11 @@ describe('PoolHttpController', () => {
       let updatePayload: CreatePool
 
       beforeAll(async () => {
-         payload = {
-            question: faker.lorem.sentence(),
-            expiresAt: faker.date.future(),
-         }
+         payload = createPayload()
 
          result = await poolRepository.createPool(payload)
 
-         updatePayload = {
-            question: faker.lorem.sentence(),
-            expiresAt: faker.date.future(),
-         }
+         updatePayload = createPayload()
 
          response = await supertest(app.server).put(`/pool/${result.pool.getId()}`).send(updatePayload)
       })

@@ -44,7 +44,7 @@ export class PoolHttpController {
       const getPoolValidation = poolIdSchema.safeParse(req.params)
 
       if (!getPoolValidation.success) {
-         return reply.code(422).send('Invalid input values')
+         return reply.code(400).send('Invalid input values')
       }
 
       const { pool } = await this.getPoolQueryHandler.execute(getPoolValidation.data)
@@ -56,7 +56,7 @@ export class PoolHttpController {
       const deletePoolValidation = poolIdSchema.safeParse(req.params)
 
       if (!deletePoolValidation.success) {
-         return reply.code(422).send('Invalid input values')
+         return reply.code(400).send('Invalid input values')
       }
 
       const { pool } = await this.deletePoolCommandHandler.execute(deletePoolValidation.data)
@@ -68,7 +68,7 @@ export class PoolHttpController {
       const poolIdValidation = poolIdSchema.safeParse(req.params)
 
       if (!poolIdValidation.success) {
-         return reply.code(422).send('Invalid input values')
+         return reply.code(400).send('Invalid input values')
       }
       const updatePoolValidation = updatePoolSchema.safeParse(req.body)
 
