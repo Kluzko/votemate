@@ -1,5 +1,6 @@
 import { Outlet, RootRoute, Route, Router, RouterProvider } from '@tanstack/router'
 import { Home } from 'pages'
+import { Navbar } from './navbar'
 
 const rootRoute = new RootRoute({ component: () => <Outlet /> })
 
@@ -17,6 +18,7 @@ export const App = () => {
    return (
       <div className="flex flex-col h-full">
          <div className="flex-grow">
+            <Navbar />
             <RouterProvider router={router} />
          </div>
       </div>
