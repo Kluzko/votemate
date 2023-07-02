@@ -18,7 +18,7 @@ import { logger } from 'utils'
 
 const container = ContainerSingleton.getInstance()
 
-const app = fastify()
+export const app = fastify()
 
 const port = parseInt(process.env.PORT)
 
@@ -26,7 +26,7 @@ const poolHttpController = container.get<PoolHttpController>(symbols.poolHttpCon
 
 app.setErrorHandler(function (error, _request, reply) {
    if (error instanceof NotFoundError) {
-      reply.status(400).send(error.message)
+      reply.status(404).send(error.message)
    }
 
    if (error instanceof InvalidInputError) {

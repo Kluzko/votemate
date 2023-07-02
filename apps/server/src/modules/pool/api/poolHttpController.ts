@@ -1,17 +1,18 @@
 import { type FastifyReply, type FastifyRequest } from 'fastify'
 import { inject, injectable } from 'inversify'
 
+import { InvalidInputError } from 'common/errors'
+
 import {
    type CreatePoolCommandHandler,
    type DeletePoolCommandHandler,
    type UpdatePoolCommandHandler,
-} from '../application/commands'
+} from 'modules/pool/application/commands'
 
-import { type GetPoolQueryHandler } from '../application/queries'
+import { type GetPoolQueryHandler } from 'modules/pool/application/queries'
 
-import { symbols } from '../symbols'
+import { symbols } from 'modules/pool/symbols'
 
-import { InvalidInputError } from '../../../common/errors'
 import { createPoolSchema, poolIdSchema, updatePoolSchema } from './schemas'
 
 @injectable()
@@ -43,7 +44,7 @@ export class PoolHttpController {
       const getPoolValidation = poolIdSchema.safeParse(req.params)
 
       if (!getPoolValidation.success) {
-         return reply.code(422).send('Invalid input values')
+         return reply.code(400).send('Invalid input values')
       }
 
       const { pool } = await this.getPoolQueryHandler.execute(getPoolValidation.data)
@@ -55,7 +56,7 @@ export class PoolHttpController {
       const deletePoolValidation = poolIdSchema.safeParse(req.params)
 
       if (!deletePoolValidation.success) {
-         return reply.code(422).send('Invalid input values')
+         return reply.code(400).send('Invalid input values')
       }
 
       const { pool } = await this.deletePoolCommandHandler.execute(deletePoolValidation.data)
@@ -67,7 +68,7 @@ export class PoolHttpController {
       const poolIdValidation = poolIdSchema.safeParse(req.params)
 
       if (!poolIdValidation.success) {
-         return reply.code(422).send('Invalid input values')
+         return reply.code(400).send('Invalid input values')
       }
       const updatePoolValidation = updatePoolSchema.safeParse(req.body)
 

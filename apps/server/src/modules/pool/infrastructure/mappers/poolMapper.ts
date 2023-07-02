@@ -1,12 +1,13 @@
 import { type Pool as PrismaPool } from '@prisma/client'
 import { injectable } from 'inversify'
 
-import { Pool } from '../../domain/entities/'
+import { Pool } from 'modules/pool/domain/entities'
 
 @injectable()
 export class PoolMapper {
-   public map({ question, expiresAt }: PrismaPool) {
+   public map({ id, question, expiresAt }: PrismaPool) {
       return new Pool({
+         id,
          question,
          expiresAt,
       })

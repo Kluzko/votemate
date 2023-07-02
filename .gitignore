@@ -19,6 +19,7 @@ tsconfig.tsbuildinfo
 
 # env files
 .env
+.env.test
 
 # turbo
 .turbo

@@ -1,13 +1,10 @@
+import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-   test: { setupFiles: ['src/setup.test.ts'] },
-   resolve: {
-      alias: {
-         prisma: 'src/prisma/index',
-         common: 'src/common',
-         modules: 'src/modules',
-         container: 'src/container',
-      },
+   test: {
+      setupFiles: ['setup.test.ts'],
+      testTimeout: 5000, // 5 seconds
    },
+   plugins: [tsconfigPaths()],
 })

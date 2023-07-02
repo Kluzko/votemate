@@ -1,1 +1,1 @@
-export { GetPoolQueryHandler } from './getPoolQueryHandler'
+export { GetPoolQueryHandler } from './getPoolQueryHandler/getPoolQueryHandler'
