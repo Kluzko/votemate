@@ -4,16 +4,5 @@
    "semi": false,
    "singleQuote": true,
    "arrowParens": "avoid",
-   "trailingComma": "es5",
-   "importOrderParserPlugins": ["typescript","decorators-legacy"],
-   "plugins": ["./node_modules/@trivago/prettier-plugin-sort-imports"],
-   "importOrderSeparation": true,
-   "importOrderSortSpecifiers": true,
-   "importOrder": [
-      "<THIRD_PARTY_MODULES>",
-      "^@votemate(.*)",
-      "^common(.*)",
-      "^@utils$",
-      "^[./]"
-   ]
+   "trailingComma": "es5"
 }
