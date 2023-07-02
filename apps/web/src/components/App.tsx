@@ -1,6 +1,7 @@
 import { Outlet, RootRoute, Route, Router, RouterProvider } from '@tanstack/router'
 import { Home } from 'pages'
 import { Navbar } from './navbar'
+import { Footer } from './footer'
 
 const rootRoute = new RootRoute({ component: () => <Outlet /> })
 
@@ -21,6 +22,7 @@ export const App = () => {
             <Navbar />
             <RouterProvider router={router} />
          </div>
+         <Footer />
       </div>
    )
 }
