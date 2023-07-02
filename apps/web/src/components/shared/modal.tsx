@@ -18,7 +18,7 @@ export const Modal = ({ onClose, children }: ModalPortalProps) => {
       <div className="fixed inset-0 bg-darkGray bg-opacity-50 flex items-center justify-center z-50">
          <div
             ref={modalRef}
-            className="bg-lightGray container mx-auto relative py-16 rounded shadow-electricPurple flex flex-col items-center "
+            className="bg-lightGray container mx-auto relative py-16 rounded shadow-electricPurple flex flex-col items-center"
          >
             <AiOutlineClose className="absolute right-5 top-5 text-2xl cursor-pointer" onClick={onClose} />
             {children}

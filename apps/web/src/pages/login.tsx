@@ -1,5 +1,5 @@
 import { Form, Input } from 'components/shared'
-import { useLoginForm } from 'hooks'
+import { useLoginForm } from 'hooks/forms'
 
 export const Login = () => {
    const { login, register, errors, watch } = useLoginForm()
