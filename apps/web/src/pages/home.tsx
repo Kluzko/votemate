@@ -1,4 +1,4 @@
-import { Button } from 'components/shared/button'
+import { Button } from 'components/shared'
 
 export const Home = () => (
    <div className="container mt-24 mx-auto px-4 flex justify-between ">
@@ -15,7 +15,7 @@ export const Home = () => (
             text="GET STARTED"
             additionalClasses="mt-16 md:mt-4 xl:mt-20"
             type="button"
-            onClick={() => window.navigate({ to: '/' })}
+            onClick={() => window.navigate({ to: '/login' })}
          />
          <Button
             background="bg-electricPurple"

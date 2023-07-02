@@ -10,6 +10,6 @@ export const Links = [
    },
    {
       text: 'Log in',
-      link: '/',
+      link: '/login',
    },
 ] as const

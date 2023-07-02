@@ -1,5 +1,5 @@
 import { Outlet, RootRoute, Route, Router, RouterProvider } from '@tanstack/router'
-import { Home } from 'pages'
+import { Home, Login } from 'pages'
 import { Navbar } from './navbar'
 import { Footer } from './footer'
 
@@ -11,7 +11,13 @@ const homeRoute = new Route({
    component: Home,
 })
 
-const routeTree = rootRoute.addChildren([homeRoute])
+const loginRoute = new Route({
+   getParentRoute: () => rootRoute,
+   path: '/login',
+   component: Login,
+})
+
+const routeTree = rootRoute.addChildren([homeRoute, loginRoute])
 
 const router = new Router({ routeTree })
 
