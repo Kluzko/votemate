@@ -1,3 +1,4 @@
+import { useLogin } from 'hooks/useLogin'
 import { useForm } from './useForm'
 import validator from 'validator'
 import { z } from 'zod'
@@ -13,7 +14,7 @@ export const useLoginForm = () => {
    const { submit, register, errors, watch } = useForm(loginSchema)
 
    return {
-      login: submit(data => console.log(data)),
+      login: submit(data => useLogin(data.email)),
       register,
       errors,
       watch,
