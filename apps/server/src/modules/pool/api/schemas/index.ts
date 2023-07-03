@@ -1,11 +1,11 @@
 import { z } from 'zod'
 
-const MAX_QUESTION_LENGTH = 200
+const MAX_QUESTION_LENGTH = 100
 const MIN_QUESTION_LENGTH = 4
 
 export const createPoolSchema = z
    .object({
-      question: z.string().min(4).max(MAX_QUESTION_LENGTH),
+      question: z.string().min(MIN_QUESTION_LENGTH).max(MAX_QUESTION_LENGTH),
       expiresAt: z.coerce.date(),
    })
    .strict()
