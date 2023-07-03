@@ -5,7 +5,7 @@
    "singleQuote": true,
    "arrowParens": "avoid",
    "trailingComma": "es5",
-   "importOrderParserPlugins": ["typescript","decorators-legacy"],
+   "importOrderParserPlugins": ["typescript", "decorators-legacy"],
    "plugins": ["./node_modules/@trivago/prettier-plugin-sort-imports"],
    "importOrderSeparation": true,
    "importOrderSortSpecifiers": true,
@@ -24,6 +24,7 @@
       "^prisma$",
 
       "^common(.*)",
+      "^services(.*)",
 
       "(.*)api",
 
