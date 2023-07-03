@@ -1,9 +1,9 @@
 import { type PoolData } from 'modules/pool/api/schemas'
 
 export class Pool {
-   private id: number
-   private question: string
-   private expiresAt: Date
+   private readonly id: number
+   private readonly question: string
+   private readonly expiresAt: Date
 
    constructor({ id, question, expiresAt }: PoolData) {
       this.id = id

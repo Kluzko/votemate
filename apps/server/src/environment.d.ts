@@ -4,10 +4,12 @@ declare global {
          DATABASE_URL: string
          NODE_ENV: 'development' | 'production'
          PORT: string
+         JWT_SECRET: string
+         COOKIE_SECRET:string
+         RESEND_SECRET_KEY: string
+         PUBLIC_URL:string
       }
    }
 }
 
-// If this file has no import/export statements (i.e. is a script)
-// convert it into a module by adding an empty export statement.
 export {}

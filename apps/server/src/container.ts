@@ -1,4 +1,5 @@
 import { Container } from 'inversify'
+import { UserModule } from 'modules/user/userModule'
 
 import { PoolModule } from './modules/pool/poolModule'
 
@@ -7,6 +8,7 @@ export class ContainerSingleton extends Container {
 
    private constructor() {
       super()
+      UserModule.registerDependencies(this)
       PoolModule.registerDependencies(this)
    }
 

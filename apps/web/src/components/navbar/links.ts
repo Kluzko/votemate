@@ -8,8 +8,4 @@ export const Links = [
       text: 'Pools',
       link: '/',
    },
-   {
-      text: 'Log in',
-      link: '/login',
-   },
 ] as const

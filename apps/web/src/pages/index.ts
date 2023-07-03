@@ -1,3 +1,5 @@
 export { Home } from './home'
 export { Login } from './login'
 export { Dashboard } from './dashboard'
+export { Verify } from './verify'
+export { EmailVerification } from './emailVerification'

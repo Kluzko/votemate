@@ -2,12 +2,13 @@ import { inject, injectable } from 'inversify'
 
 import { prisma } from 'prisma'
 
-import { type CreatePool, type PoolId, type UpdatePool } from '../../api/schemas'
+import { NotFoundError } from 'common/errors'
+
+import { type CreatePool, type PoolId, type UpdatePool } from 'modules/pool/api/schemas'
+
+import { type PoolMapper } from '../mappers'
 
 import { symbols } from '../../symbols'
-
-import { NotFoundError } from '../../../../common/errors'
-import { type PoolMapper } from '../mappers/poolMapper'
 
 @injectable()
 export class PoolRepository {
