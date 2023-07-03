@@ -1,4 +1,4 @@
-type Entity = 'Pool'
+type Entity = 'Pool' | 'Token' | 'User'
 
 export class NotFoundError extends Error {
    constructor(entity: Entity) {
