@@ -25,4 +25,13 @@ export const updatePoolSchema = z
 // values are optional but in object cant be empty
 export type UpdatePool = z.infer<typeof updatePoolSchema> & PoolId
 
-export type PoolData = CreatePool & { id: number }
+export const PoolSchema = z.object({
+   id: z.string(),
+   question: z.string().min(MIN_QUESTION_LENGTH).max(MAX_QUESTION_LENGTH),
+   expiresAt: z.coerce.date(),
+   answers: z.string().array(),
+   isPublic: z.boolean(),
+   password: z.string().optional(),
+})
+
+export type PoolData = z.infer<typeof PoolSchema>
