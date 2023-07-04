@@ -14,6 +14,8 @@ import { ContainerSingleton } from './container'
 
 import { NotFoundError, SmtpError } from 'common/errors'
 
+import { auth } from 'middlewares'
+
 import { type PoolHttpController } from './modules/pool/api/poolHttpController'
 import { type UserHttpController } from 'modules/user/api/userHttpController'
 
@@ -81,13 +83,17 @@ app.get('/api/auth', userHttpController.authUser.bind(userHttpController))
 app.post('/api/logout', userHttpController.logoutUser.bind(userHttpController))
 
 // Pools
-app.post('/pool', poolHttpController.createPool.bind(poolHttpController))
+app.post('/api/pool', { preHandler: [auth] }, poolHttpController.createPool.bind(poolHttpController))
 
-app.get('/pool/:id', poolHttpController.getPool.bind(poolHttpController))
+app.get('/api/pool/:id', { preHandler: [auth] }, poolHttpController.getPool.bind(poolHttpController))
 
-app.delete('/pool/:id', poolHttpController.deletePool.bind(poolHttpController))
+app.get('/api/user/pools', { preHandler: [auth] }, poolHttpController.getUserPools.bind(poolHttpController))
 
-app.put('/pool/:id', poolHttpController.updatePool.bind(poolHttpController))
+app.get('/api/pools', poolHttpController.getPublicPools.bind(poolHttpController))
+
+app.delete('/api/pool/:id', { preHandler: [auth] }, poolHttpController.deletePool.bind(poolHttpController))
+
+app.put('/api/pool/:id', { preHandler: [auth] }, poolHttpController.updatePool.bind(poolHttpController))
 
 const port = parseInt(process.env.PORT)
 

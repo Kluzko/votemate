@@ -7,7 +7,11 @@ import {
    type UpdatePoolCommandHandler,
 } from 'modules/pool/application/commands'
 
-import { type GetPoolQueryHandler } from 'modules/pool/application/queries'
+import {
+   type GetPoolQueryHandler,
+   type GetPublicPoolsQueryHandler,
+   type GetUserPoolsQueryHandler,
+} from 'modules/pool/application/queries'
 
 import { symbols } from 'modules/pool/symbols'
 
@@ -22,6 +26,12 @@ export class PoolHttpController {
       @inject(symbols.getPoolQueryHandler)
       private readonly getPoolQueryHandler: GetPoolQueryHandler,
 
+      @inject(symbols.getUserPoolsQueryHandler)
+      private readonly getUserPoolsQueryHandler: GetUserPoolsQueryHandler,
+
+      @inject(symbols.getPublicPoolsQueryHandler)
+      private readonly getPublicPoolsQueryHandler: GetPublicPoolsQueryHandler,
+
       @inject(symbols.deletePoolCommandHandler)
       private readonly deletePoolCommandHandler: DeletePoolCommandHandler,
 
@@ -30,11 +40,14 @@ export class PoolHttpController {
    ) {}
 
    public async createPool(req: FastifyRequest, reply: FastifyReply) {
-      const { expiresAt, question } = createPoolSchema.parse(req.body)
-
+      const { expiresAt, question, answers, isPublic, password } = createPoolSchema.parse(req.body)
       const { pool } = await this.createPoolCommandHandler.execute({
+         userId: req.user.id,
          expiresAt,
          question,
+         answers,
+         isPublic,
+         password,
       })
 
       reply.send({ pool })
@@ -42,29 +55,49 @@ export class PoolHttpController {
 
    public async getPool(req: FastifyRequest, reply: FastifyReply) {
       const { id } = poolIdSchema.parse(req.params)
-
-      const { pool } = await this.getPoolQueryHandler.execute({ id })
+      const { pool } = await this.getPoolQueryHandler.execute({
+         id,
+         userId: req.user.id,
+      })
 
       reply.send({ pool })
+   }
+
+   public async getUserPools(req: FastifyRequest, reply: FastifyReply) {
+      const { pools } = await this.getUserPoolsQueryHandler.execute({ userId: req.user.id })
+
+      reply.send({ pools })
+   }
+
+   public async getPublicPools(_req: FastifyRequest, reply: FastifyReply) {
+      const { pools } = await this.getPublicPoolsQueryHandler.execute()
+
+      reply.send({ pools })
    }
 
    public async deletePool(req: FastifyRequest, reply: FastifyReply) {
       const { id } = poolIdSchema.parse(req.params)
 
-      const { pool } = await this.deletePoolCommandHandler.execute({ id })
+      const { pool } = await this.deletePoolCommandHandler.execute({
+         id,
+         userId: req.user.id,
+      })
 
       reply.send({ pool })
    }
 
    public async updatePool(req: FastifyRequest, reply: FastifyReply) {
       const { id } = poolIdSchema.parse(req.params)
-
-      const { expiresAt, question } = updatePoolSchema.parse(req.body)
+      const { expiresAt, question, answers, isPublic, password } = updatePoolSchema.parse(req.body)
 
       const { pool } = await this.updatePoolQueryHandler.execute({
          id,
+         userId: req.user.id,
          expiresAt,
          question,
+         answers,
+         isPublic,
+         password,
       })
 
       reply.send({ pool })

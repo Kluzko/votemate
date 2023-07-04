@@ -33,6 +33,8 @@ describe('DeletePoolCommandHandler', () => {
          payload = {
             question: faker.lorem.sentence(),
             expiresAt: faker.date.soon(3),
+            answers: [...Array(5)].map(() => faker.lorem.sentence()),
+            isPublic: true,
          }
 
          result = await poolRepository.createPool(payload)

@@ -33,6 +33,8 @@ describe('UpdatePoolCommandHandler', () => {
          payload = {
             question: faker.lorem.sentence(),
             expiresAt: faker.date.soon(3),
+            answers: [...Array(5)].map(() => faker.lorem.sentence()),
+            isPublic: true,
          }
 
          result = await poolRepository.createPool(payload)
@@ -41,6 +43,8 @@ describe('UpdatePoolCommandHandler', () => {
             id: result.pool.getId(),
             question: 'Updated question',
             expiresAt: result.pool.getExpiresAt(),
+            answers: [...Array(3)].map(() => faker.lorem.sentence()),
+            isPublic: true,
          }
 
          await updatePoolCommandHandler.execute(updatePayload)
@@ -53,12 +57,14 @@ describe('UpdatePoolCommandHandler', () => {
       it('should update the Pool', async () => {
          const updatedPool = await poolRepository.getPool({ id: result.pool.getId() })
          expect(updatedPool.pool.getQuestion()).toBe(updatePayload.question)
+         expect(updatedPool.pool.getAnswers()).toEqual(updatePayload.answers)
+         expect(updatedPool.pool.getIsPublic()).toEqual(updatePayload.isPublic)
       })
 
       it('should throw NotFoundError for non-existing Pool', async () => {
          try {
             await updatePoolCommandHandler.execute({
-               id: -1,
+               id: 'xd',
                ...payload,
             })
          } catch (error) {

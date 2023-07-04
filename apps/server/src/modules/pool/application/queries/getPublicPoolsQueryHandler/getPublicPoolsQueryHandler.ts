@@ -1,21 +1,19 @@
 import { inject, injectable } from 'inversify'
 
-import { type PoolQuery } from 'modules/pool/api/schemas'
-
 import { type PoolRepository } from 'modules/pool/infrastructure/repositories'
 
 import { symbols } from 'modules/pool/symbols'
 
 @injectable()
-export class DeletePoolCommandHandler {
+export class GetPublicPoolsQueryHandler {
    public constructor(
       @inject(symbols.poolRepository)
       private readonly poolRepository: PoolRepository
    ) {}
 
-   public async execute(payload: PoolQuery) {
-      const { pool } = await this.poolRepository.deletePool(payload)
+   public async execute() {
+      const { pools } = await this.poolRepository.getPublicPools()
 
-      return { pool }
+      return { pools }
    }
 }

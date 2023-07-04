@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker'
 import { ContainerSingleton } from 'container'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
@@ -29,8 +30,10 @@ describe('GetPoolQueryHandler', () => {
 
       beforeAll(async () => {
          payload = {
-            question: 'Test question',
-            expiresAt: new Date(),
+            question: faker.lorem.sentence(),
+            expiresAt: faker.date.soon(3),
+            answers: [...Array(5)].map(() => faker.lorem.sentence()),
+            isPublic: true,
          }
 
          result = await poolRepository.createPool(payload)
@@ -47,11 +50,13 @@ describe('GetPoolQueryHandler', () => {
          expect(pool.getId()).toBe(result.pool.getId())
          expect(pool.getQuestion()).toBe(result.pool.getQuestion())
          expect(pool.getExpiresAt()).toStrictEqual(result.pool.getExpiresAt()) // different objects in memory needs to be toStrictEqual TODO:check if it should be like this
+         expect(pool.getAnswers()).toEqual(expect.arrayContaining(result.pool.getAnswers()))
+         expect(pool.getIsPublic()).toEqual(result.pool.getIsPublic())
       })
 
       it('should throw NotFoundError for non-existing Pool', async () => {
          try {
-            await getPoolQueryHandler.execute({ id: -1 })
+            await getPoolQueryHandler.execute({ id: 'non-existing-id' })
          } catch (error) {
             return expect(error).toBeInstanceOf(NotFoundError)
          }

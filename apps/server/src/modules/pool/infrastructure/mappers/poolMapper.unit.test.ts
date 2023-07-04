@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { type Pool as PrismaPool } from '@prisma/client'
+import { type Answer as AnswerPool, type Pool as PrismaPool } from '@prisma/client'
 import { ContainerSingleton } from 'container'
 import { beforeAll, describe, expect, it } from 'vitest'
 
@@ -9,10 +9,12 @@ import { symbols } from 'modules/pool/symbols'
 
 import { type PoolMapper } from './poolMapper'
 
+type PoolMapperInput = PrismaPool & { answers: AnswerPool[] }
+
 describe('PoolMapper', () => {
    let poolMapper: PoolMapper
    let pool: Pool
-   let prismaPool: PrismaPool
+   let prismaPool: PoolMapperInput
 
    beforeAll(() => {
       const container = ContainerSingleton.getInstance()
@@ -20,11 +22,21 @@ describe('PoolMapper', () => {
       poolMapper = container.get(symbols.poolMapper)
 
       prismaPool = {
-         id: 1,
-         createdAt: faker.date.recent(),
-         updatedAt: faker.date.recent(),
+         id: faker.datatype.uuid(),
+         createdAt: new Date(),
+         updatedAt: new Date(),
          expiresAt: faker.date.future(),
          question: 'Test',
+         answers: [...Array(5)].map(() => ({
+            id: faker.datatype.uuid(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            value: faker.lorem.sentence(),
+            poolId: faker.datatype.uuid(),
+         })),
+         isPublic: true,
+         password: null,
+         userId: null,
       }
       pool = poolMapper.map(prismaPool)
    })
@@ -38,6 +50,8 @@ describe('PoolMapper', () => {
          id: prismaPool.id,
          question: prismaPool.question,
          expiresAt: prismaPool.expiresAt,
+         answers: prismaPool.answers.map(({ value }) => value),
+         isPublic: prismaPool.isPublic,
       })
    })
 })

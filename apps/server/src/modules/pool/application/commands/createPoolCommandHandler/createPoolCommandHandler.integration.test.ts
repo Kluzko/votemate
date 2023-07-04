@@ -24,18 +24,22 @@ describe('CreatePoolCommandHandler', () => {
    })
 
    describe('Given valid Pool', () => {
-      let payload: CreatePool
+      let publicPoolPayload: CreatePool
 
       beforeAll(() => {
-         const pool = new Pool({
-            id: faker.datatype.number(),
+         const publicPool = new Pool({
+            id: faker.datatype.uuid(),
             question: faker.lorem.sentence(),
             expiresAt: faker.date.soon(3),
+            answers: [...Array(5)].map(() => faker.lorem.sentence()),
+            isPublic: true,
          })
 
-         payload = {
-            question: pool.getQuestion(),
-            expiresAt: pool.getExpiresAt(),
+         publicPoolPayload = {
+            question: publicPool.getQuestion(),
+            expiresAt: publicPool.getExpiresAt(),
+            answers: publicPool.getAnswers(),
+            isPublic: publicPool.getIsPublic(),
          }
       })
 
@@ -43,14 +47,14 @@ describe('CreatePoolCommandHandler', () => {
          let result: { pool: Pool }
 
          beforeAll(async () => {
-            result = await createPoolCommandHandler.execute(payload)
+            result = await createPoolCommandHandler.execute(publicPoolPayload)
          })
 
          afterAll(async () => {
             await poolRepository.deletePool({ id: result.pool.getId() })
          })
 
-         it('should return a valid Pool', () => {
+         it('should return a valid Public Pool', () => {
             expect(result.pool).toBeInstanceOf(Pool)
          })
       })
