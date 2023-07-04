@@ -30,11 +30,14 @@ export class PoolHttpController {
    ) {}
 
    public async createPool(req: FastifyRequest, reply: FastifyReply) {
-      const { expiresAt, question } = createPoolSchema.parse(req.body)
+      const { expiresAt, question, answers, isPublic, password } = createPoolSchema.parse(req.body)
 
       const { pool } = await this.createPoolCommandHandler.execute({
          expiresAt,
          question,
+         answers,
+         isPublic,
+         password,
       })
 
       reply.send({ pool })
@@ -59,12 +62,15 @@ export class PoolHttpController {
    public async updatePool(req: FastifyRequest, reply: FastifyReply) {
       const { id } = poolIdSchema.parse(req.params)
 
-      const { expiresAt, question } = updatePoolSchema.parse(req.body)
+      const { expiresAt, question, answers, isPublic, password } = updatePoolSchema.parse(req.body)
 
       const { pool } = await this.updatePoolQueryHandler.execute({
          id,
          expiresAt,
          question,
+         answers,
+         isPublic,
+         password,
       })
 
       reply.send({ pool })
