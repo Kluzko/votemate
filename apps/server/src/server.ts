@@ -87,6 +87,10 @@ app.post('/api/pool', { preHandler: [auth] }, poolHttpController.createPool.bind
 
 app.get('/api/pool/:id', { preHandler: [auth] }, poolHttpController.getPool.bind(poolHttpController))
 
+app.get('/api/user/pools', { preHandler: [auth] }, poolHttpController.getUserPools.bind(poolHttpController))
+
+app.get('/api/pools', poolHttpController.getPublicPools.bind(poolHttpController))
+
 app.delete('/api/pool/:id', { preHandler: [auth] }, poolHttpController.deletePool.bind(poolHttpController))
 
 app.put('/api/pool/:id', { preHandler: [auth] }, poolHttpController.updatePool.bind(poolHttpController))

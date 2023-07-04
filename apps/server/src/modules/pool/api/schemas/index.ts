@@ -25,6 +25,10 @@ export type PoolQuery = {
    id: string
 }
 
+export type UserId = {
+   userId: string
+}
+
 export const updatePoolSchema = z
    .object({
       question: z.string().min(MIN_QUESTION_LENGTH).max(MAX_QUESTION_LENGTH).optional(),

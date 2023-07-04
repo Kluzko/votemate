@@ -8,7 +8,7 @@ import { PoolMapper } from './infrastructure/mappers'
 
 import { CreatePoolCommandHandler, DeletePoolCommandHandler, UpdatePoolCommandHandler } from './application/commands'
 
-import { GetPoolQueryHandler } from './application/queries'
+import { GetPoolQueryHandler, GetPublicPoolsQueryHandler, GetUserPoolsQueryHandler } from './application/queries'
 
 import { symbols } from './symbols'
 
@@ -22,6 +22,8 @@ export class PoolModule {
 
       container.bind(symbols.createPoolCommandHandler).to(CreatePoolCommandHandler)
       container.bind(symbols.getPoolQueryHandler).to(GetPoolQueryHandler)
+      container.bind(symbols.getUserPoolsQueryHandler).to(GetUserPoolsQueryHandler)
+      container.bind(symbols.getPublicPoolsQueryHandler).to(GetPublicPoolsQueryHandler)
       container.bind(symbols.deletePoolCommandHandler).to(DeletePoolCommandHandler)
       container.bind(symbols.updatePoolCommandHandler).to(UpdatePoolCommandHandler)
    }

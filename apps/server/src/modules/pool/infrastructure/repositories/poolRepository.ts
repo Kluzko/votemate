@@ -4,7 +4,7 @@ import { prisma } from 'prisma'
 
 import { NotFoundError } from 'common/errors'
 
-import { type CreatePool, type PoolQuery, type UpdatePool } from 'modules/pool/api/schemas'
+import { type CreatePool, type PoolQuery, type UpdatePool, type UserId } from 'modules/pool/api/schemas'
 
 import { type PoolMapper } from '../mappers'
 
@@ -47,6 +47,32 @@ export class PoolRepository {
       }
 
       return { pool: this.poolMapper.map(pool) }
+   }
+
+   public async getUserPools({ userId }: UserId) {
+      const pools = await prisma.pool.findMany({
+         where: { userId },
+         include: { answers: true },
+      })
+
+      if (!pools) {
+         throw new NotFoundError('Pool')
+      }
+
+      return { pools: pools.map(pool => this.poolMapper.map(pool)) }
+   }
+
+   public async getPublicPools() {
+      const pools = await prisma.pool.findMany({
+         where: { isPublic: true },
+         include: { answers: true },
+      })
+
+      if (!pools) {
+         throw new NotFoundError('Pool')
+      }
+
+      return { pools: pools.map(pool => this.poolMapper.map(pool)) }
    }
 
    public async deletePool({ id, userId }: PoolQuery) {
