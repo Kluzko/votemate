@@ -17,19 +17,26 @@ export class PoolRepository {
       private readonly poolMapper: PoolMapper
    ) {}
 
-   public async createPool({ question, expiresAt }: CreatePool) {
+   public async createPool({ question, expiresAt, answers, isPublic, password }: CreatePool) {
       const pool = await prisma.pool.create({
          data: {
             question,
             expiresAt,
+            answers: { createMany: { data: answers.map(answer => ({ value: answer })) } },
+            isPublic,
+            password,
          },
+         include: { answers: true },
       })
 
       return { pool: this.poolMapper.map(pool) }
    }
 
    public async getPool({ id }: PoolId) {
-      const pool = await prisma.pool.findFirst({ where: { id } })
+      const pool = await prisma.pool.findFirst({
+         where: { id },
+         include: { answers: true },
+      })
 
       if (!pool) {
          throw new NotFoundError('Pool')
@@ -45,24 +52,67 @@ export class PoolRepository {
          throw new NotFoundError('Pool')
       }
 
-      await prisma.pool.delete({ where: { id } })
+      const deletedPool = await prisma.pool.delete({
+         where: { id },
+         include: { answers: true },
+      })
 
-      return { pool: this.poolMapper.map(pool) }
+      return { pool: this.poolMapper.map(deletedPool) }
    }
 
-   public async updatePool({ id, question, expiresAt }: UpdatePool) {
-      const pool = await prisma.pool.findFirst({ where: { id } })
+   // TODO: Optimize and test edge cases where missing values from previous answers should be deleted in the payload.
+   public async updatePool({ id, question, expiresAt, answers, isPublic, password }: UpdatePool) {
+      const pool = await prisma.pool.findFirst({
+         where: { id },
+         include: { answers: true },
+      })
 
       if (!pool) {
          throw new NotFoundError('Pool')
       }
+
+      const operations = []
+
+      // Find changed answers and create/update/delete them accordingly
+      for (let i = 0; i < Math.max(answers.length, pool.answers.length); i++) {
+         const existingAnswer = pool.answers[i]
+         const newAnswer = answers[i]
+
+         if (existingAnswer && newAnswer && newAnswer !== existingAnswer.value) {
+            // Update existing answer
+            operations.push(
+               prisma.answer.update({
+                  where: { id: existingAnswer.id },
+                  data: { value: newAnswer },
+               })
+            )
+         } else if (existingAnswer && !newAnswer) {
+            // Delete existing answer if corresponding new answer is not provided
+            operations.push(prisma.answer.delete({ where: { id: existingAnswer.id } }))
+         } else if (!existingAnswer && newAnswer) {
+            // Create new answer if corresponding existing answer is not found
+            operations.push(
+               prisma.answer.create({
+                  data: {
+                     value: newAnswer,
+                     Pool: { connect: { id: pool.id } },
+                  },
+               })
+            )
+         }
+      }
+
+      await prisma.$transaction(operations)
 
       const updatedPool = await prisma.pool.update({
          where: { id },
          data: {
             question,
             expiresAt,
+            isPublic,
+            password,
          },
+         include: { answers: true },
       })
 
       return { pool: this.poolMapper.map(updatedPool) }
