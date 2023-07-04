@@ -12,11 +12,18 @@ export const createPoolSchema = z.object({
    password: z.string().optional(),
 })
 
-export type CreatePool = z.infer<typeof createPoolSchema>
+export type CreatePool = z.infer<typeof createPoolSchema> & {
+   userId: string
+}
 
 export const poolIdSchema = z.object({ id: z.string() })
 
 export type PoolId = z.infer<typeof poolIdSchema>
+
+export type PoolQuery = {
+   userId: string
+   id: string
+}
 
 export const updatePoolSchema = z
    .object({
@@ -28,7 +35,7 @@ export const updatePoolSchema = z
    })
    .refine(value => Object.keys(value).length > 0, { message: 'At least one property must be present in the object' })
 // values are optional but in object cant be empty
-export type UpdatePool = z.infer<typeof updatePoolSchema> & PoolId
+export type UpdatePool = z.infer<typeof updatePoolSchema> & PoolQuery
 
 export const PoolSchema = z.object({
    id: z.string(),

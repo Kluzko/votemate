@@ -31,8 +31,8 @@ export class PoolHttpController {
 
    public async createPool(req: FastifyRequest, reply: FastifyReply) {
       const { expiresAt, question, answers, isPublic, password } = createPoolSchema.parse(req.body)
-
       const { pool } = await this.createPoolCommandHandler.execute({
+         userId: req.user.id,
          expiresAt,
          question,
          answers,
@@ -45,8 +45,10 @@ export class PoolHttpController {
 
    public async getPool(req: FastifyRequest, reply: FastifyReply) {
       const { id } = poolIdSchema.parse(req.params)
-
-      const { pool } = await this.getPoolQueryHandler.execute({ id })
+      const { pool } = await this.getPoolQueryHandler.execute({
+         id,
+         userId: req.user.id,
+      })
 
       reply.send({ pool })
    }
@@ -54,18 +56,21 @@ export class PoolHttpController {
    public async deletePool(req: FastifyRequest, reply: FastifyReply) {
       const { id } = poolIdSchema.parse(req.params)
 
-      const { pool } = await this.deletePoolCommandHandler.execute({ id })
+      const { pool } = await this.deletePoolCommandHandler.execute({
+         id,
+         userId: req.user.id,
+      })
 
       reply.send({ pool })
    }
 
    public async updatePool(req: FastifyRequest, reply: FastifyReply) {
       const { id } = poolIdSchema.parse(req.params)
-
       const { expiresAt, question, answers, isPublic, password } = updatePoolSchema.parse(req.body)
 
       const { pool } = await this.updatePoolQueryHandler.execute({
          id,
+         userId: req.user.id,
          expiresAt,
          question,
          answers,

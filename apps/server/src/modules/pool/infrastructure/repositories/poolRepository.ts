@@ -4,7 +4,7 @@ import { prisma } from 'prisma'
 
 import { NotFoundError } from 'common/errors'
 
-import { type CreatePool, type PoolId, type UpdatePool } from 'modules/pool/api/schemas'
+import { type CreatePool, type PoolQuery, type UpdatePool } from 'modules/pool/api/schemas'
 
 import { type PoolMapper } from '../mappers'
 
@@ -17,7 +17,7 @@ export class PoolRepository {
       private readonly poolMapper: PoolMapper
    ) {}
 
-   public async createPool({ question, expiresAt, answers, isPublic, password }: CreatePool) {
+   public async createPool({ userId, question, expiresAt, answers, isPublic, password }: CreatePool) {
       const pool = await prisma.pool.create({
          data: {
             question,
@@ -25,6 +25,7 @@ export class PoolRepository {
             answers: { createMany: { data: answers.map(answer => ({ value: answer })) } },
             isPublic,
             password,
+            userId,
          },
          include: { answers: true },
       })
@@ -32,9 +33,12 @@ export class PoolRepository {
       return { pool: this.poolMapper.map(pool) }
    }
 
-   public async getPool({ id }: PoolId) {
+   public async getPool({ id, userId }: PoolQuery) {
       const pool = await prisma.pool.findFirst({
-         where: { id },
+         where: {
+            id,
+            userId,
+         },
          include: { answers: true },
       })
 
@@ -45,8 +49,13 @@ export class PoolRepository {
       return { pool: this.poolMapper.map(pool) }
    }
 
-   public async deletePool({ id }: PoolId) {
-      const pool = await prisma.pool.findFirst({ where: { id } })
+   public async deletePool({ id, userId }: PoolQuery) {
+      const pool = await prisma.pool.findFirst({
+         where: {
+            id,
+            userId,
+         },
+      })
 
       if (!pool) {
          throw new NotFoundError('Pool')
@@ -61,9 +70,12 @@ export class PoolRepository {
    }
 
    // TODO: Optimize and test edge cases where missing values from previous answers should be deleted in the payload.
-   public async updatePool({ id, question, expiresAt, answers, isPublic, password }: UpdatePool) {
+   public async updatePool({ id, userId, question, expiresAt, answers, isPublic, password }: UpdatePool) {
       const pool = await prisma.pool.findFirst({
-         where: { id },
+         where: {
+            id,
+            userId,
+         },
          include: { answers: true },
       })
 
