@@ -15,6 +15,7 @@ export class AuthUserQueryHandler {
       @inject(symbols.userRepository)
       private readonly userRepository: UserRepository
    ) {}
+
    public async execute({ authToken }: AuthData) {
       if (!authToken) {
          throw new NotFoundError('Token')
