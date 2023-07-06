@@ -1,19 +1,40 @@
 import { useState } from 'react'
 import { Card } from 'components/card'
-import { CreatPoolModal } from 'components/modals/createPoolModal'
-import { DeletePoolModal } from 'components/modals/deletePoolModal'
 import { Button, Select } from 'components/shared'
-import { poolOptions, examplePools } from 'static'
+import { poolOptions } from 'static'
+import { type Pool } from 'types'
+import { useGetUserPools } from 'hooks/pool'
+import { isDate5MinsBeforeExpiration } from 'utils'
+import { toast } from 'react-hot-toast'
+import { DeletePoolModal, CreatePoolModal, UpdatePoolModal } from 'components/modals'
+import { Loading } from 'components/loading'
+import { useModal } from '@redux/hooks'
 
 export const Dashboard = () => {
-   const [isCreatPoolModalOpen, setCreatPoolModalOpen] = useState(false)
-   const [isDeletePoolModalOpen, setDeletePoolModalOpen] = useState(false)
-   const [selectedPool, setSelectedPool] = useState(null)
-   // and pool schema type here someday xd
-   const handleDelete = pool => {
+   const [selectedPool, setSelectedPool] = useState<Pool | null>(null)
+
+   const { openModal } = useModal()
+
+   const handleDelete = (pool: Pool) => {
       setSelectedPool(pool)
-      setDeletePoolModalOpen(true)
+      openModal('deletePoolModal')
    }
+
+   const handleUpdate = (pool: Pool) => {
+      setSelectedPool(pool)
+      if (isDate5MinsBeforeExpiration(pool.expiresAt)) {
+         toast.error('Unable to update pool.Pool expires in less than 5 minutes.')
+      } else {
+         openModal('updatePoolModal')
+      }
+   }
+
+   const { isLoading, pools } = useGetUserPools()
+
+   if (isLoading) {
+      return <Loading text="Loading pools" />
+   }
+
    return (
       <div className="container mx-auto mt-20 px-4 h-full flex flex-col items-center">
          <div className="w-full flex justify-between">
@@ -24,28 +45,32 @@ export const Dashboard = () => {
                text="ADD POOL"
                width="w-40"
                additionalClasses="text-base"
-               onClick={() => setCreatPoolModalOpen(true)}
+               onClick={() => openModal('createPoolModal')}
             />
          </div>
          <div className="mt-20">
-            {examplePools.map(pool => (
-               <div key={pool.title}>
-                  <Card
-                     expiresAt={pool.expiresAt}
-                     title={pool.title}
-                     votesNumber={pool.votesNumber}
-                     additionalClasses="mt-5"
-                     isDashboard
-                     type={pool.type}
-                     onDelete={() => handleDelete(pool)}
-                  />
-               </div>
-            ))}
+            {pools && pools.length > 0 ? (
+               pools.map(pool => (
+                  <div key={pool.question}>
+                     <Card
+                        expiresAt={pool.expiresAt}
+                        title={pool.question}
+                        votesNumber={23}
+                        additionalClasses="mt-5"
+                        isDashboard
+                        type={pool.isPublic}
+                        onDelete={() => handleDelete(pool)}
+                        onUpdate={() => handleUpdate(pool)}
+                     />
+                  </div>
+               ))
+            ) : (
+               <p className="font-lalezar mt-20 text-4xl">Missing Pools? Click Add Pool to add one!</p>
+            )}
          </div>
-         {isDeletePoolModalOpen && selectedPool ? (
-            <DeletePoolModal title={selectedPool.title} onClose={() => setDeletePoolModalOpen(false)} />
-         ) : null}
-         {isCreatPoolModalOpen ? <CreatPoolModal onClose={() => setCreatPoolModalOpen(false)} /> : null}
+         {selectedPool && <DeletePoolModal question={selectedPool.question} id={selectedPool.id} />}
+         {selectedPool && <UpdatePoolModal {...selectedPool} />}
+         <CreatePoolModal />
       </div>
    )
 }

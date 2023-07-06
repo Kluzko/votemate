@@ -5,7 +5,7 @@ type SelectDropdownProps = {
    id: string
    className?: string
    options: {
-      value: string | number
+      value: string
       label: string
    }[]
    onChange?: (event: ChangeEvent<HTMLSelectElement>) => void

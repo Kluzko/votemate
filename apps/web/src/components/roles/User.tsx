@@ -1,4 +1,4 @@
-import { useAuth } from 'hooks'
+import { useAuth } from '@redux/hooks'
 import { useEffect, type ReactNode } from 'react'
 
 type UserProps = {
