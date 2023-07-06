@@ -53,6 +53,7 @@ export class PoolRepository {
       const pools = await prisma.pool.findMany({
          where: { userId },
          include: { answers: true },
+         orderBy: { createdAt: 'desc' },
       })
 
       if (!pools) {
@@ -66,6 +67,7 @@ export class PoolRepository {
       const pools = await prisma.pool.findMany({
          where: { isPublic: true },
          include: { answers: true },
+         orderBy: { createdAt: 'desc' },
       })
 
       if (!pools) {
