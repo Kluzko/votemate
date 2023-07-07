@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { type ChangeEvent, useState } from 'react'
 import { Card } from 'components/card'
 import { Button, Select } from 'components/shared'
-import { poolOptions } from 'static'
+import { filterPoolsOptions } from 'static'
 import { type Pool } from 'types'
 import { useGetUserPools } from 'hooks/pool'
-import { isDate5MinsBeforeExpiration } from 'utils'
+import { filterSelectedPool, isDate5MinsBeforeExpiration } from 'utils'
 import { toast } from 'react-hot-toast'
 import { DeletePoolModal, CreatePoolModal, UpdatePoolModal } from 'components/modals'
 import { Loading } from 'components/loading'
@@ -12,6 +12,7 @@ import { useModal } from '@redux/hooks'
 
 export const Dashboard = () => {
    const [selectedPool, setSelectedPool] = useState<Pool | null>(null)
+   const [selectedOption, setSelectedOption] = useState('')
 
    const { openModal } = useModal()
 
@@ -31,14 +32,21 @@ export const Dashboard = () => {
 
    const { isLoading, pools } = useGetUserPools()
 
+   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+      const selectedValue = event.target.value
+      setSelectedOption(selectedValue)
+   }
+
    if (isLoading) {
       return <Loading text="Loading pools" />
    }
 
+   const filderedPools = filterSelectedPool(selectedOption, pools)
+
    return (
       <div className="container mx-auto mt-20 px-4 h-full flex flex-col items-center">
          <div className="w-full flex justify-between">
-            <Select id="pools" options={poolOptions} />
+            <Select id="pools" options={filterPoolsOptions} onChange={handleSelectChange} />
             <Button
                background="bg-limeGreen"
                color="text-darkGray"
@@ -49,8 +57,8 @@ export const Dashboard = () => {
             />
          </div>
          <div className="mt-20">
-            {pools && pools.length > 0 ? (
-               pools.map(pool => (
+            {filderedPools.length > 0 ? (
+               filderedPools.map(pool => (
                   <div key={pool.question}>
                      <Card
                         expiresAt={pool.expiresAt}
