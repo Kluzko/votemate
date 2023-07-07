@@ -55,7 +55,7 @@ export const poolOptions = [
 export const filterPoolsOptions = [
    {
       value: '',
-      label: 'All pools',
+      label: 'All POOLS',
    },
    {
       value: 'PRIVATE',
