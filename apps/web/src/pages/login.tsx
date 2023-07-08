@@ -2,7 +2,8 @@ import { Form, Input } from 'components/shared'
 import { useLoginForm } from 'hooks/forms'
 
 export const Login = () => {
-   const { login, register, errors, watch } = useLoginForm()
+   const { login, isLoading, register, errors, watch } = useLoginForm()
+
    const inputValue = watch('email')
 
    return (
@@ -11,7 +12,7 @@ export const Login = () => {
          <p className="text-center text-graphite text-sm md:text-base">
             Access your account by entering your email address below, and we&apos;ll send you a magic link.
          </p>
-         <Form submitText="LOG IN" addtionalClasses="mt-20" onSubmit={login}>
+         <Form submitText="LOG IN" addtionalClasses="mt-20" onSubmit={login} isLoading={isLoading}>
             <Input
                id="email"
                type="email"

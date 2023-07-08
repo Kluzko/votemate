@@ -14,10 +14,8 @@ export class UserHttpController {
    public constructor(
       @inject(symbols.verifyUserQueryHandler)
       private readonly verifyUserQueryHandler: VerifyUserQueryHandler,
-
       @inject(symbols.authUserQueryHandler)
       private readonly authUserQueryHandler: AuthUserQueryHandler,
-
       @inject(symbols.loginUserCommandHandler)
       private readonly loginUserCommandHandler: LoginUserCommandHandler
    ) {}
@@ -25,7 +23,7 @@ export class UserHttpController {
    public async loginUser(req: FastifyRequest, reply: FastifyReply) {
       const { email } = loginUserSchema.parse(req.body)
 
-      this.loginUserCommandHandler.execute({ email })
+      await this.loginUserCommandHandler.execute({ email })
 
       reply.send({
          success: true,

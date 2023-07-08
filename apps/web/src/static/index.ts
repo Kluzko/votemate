@@ -51,3 +51,26 @@ export const poolOptions = [
       label: 'PUBLIC POOL',
    },
 ]
+
+export const filterPoolsOptions = [
+   {
+      value: '',
+      label: 'All POOLS',
+   },
+   {
+      value: 'PRIVATE',
+      label: 'PRIVATE POOLS',
+   },
+   {
+      value: 'PUBLIC',
+      label: 'PUBLIC POOLS',
+   },
+   {
+      value: 'EXPIRED',
+      label: 'EXPIRED POOLS',
+   },
+   {
+      value: 'ACTIVE',
+      label: 'ACTIVE POOLS',
+   },
+]

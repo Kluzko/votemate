@@ -1,13 +1,16 @@
+import { useAuth } from '@redux/hooks'
 import { useSearch } from '@tanstack/router'
 import axios, { type AxiosError } from 'axios'
+import { Loading } from 'components/loading'
 import { Button } from 'components/shared'
 import { useEffect, useState } from 'react'
 
+//TODO: add change to react-query
 export const Verify = () => {
    const { emailToken } = useSearch({ from: '/verify' })
 
    const [tokenError, setTokenError] = useState<number | undefined>()
-
+   const { setIsAuthenticated } = useAuth()
    const checkToken = async () => {
       try {
          await axios.get(`/api/verify?emailToken=${emailToken}`)
@@ -15,6 +18,7 @@ export const Verify = () => {
          setTimeout(() => {
             window.navigate({ to: '/dashboard' })
          }, 2000)
+         setIsAuthenticated(true)
       } catch (error) {
          const tokenError = (error as AxiosError)?.response?.status
 
@@ -72,14 +76,7 @@ export const Verify = () => {
 
    return (
       <div className="container mx-auto  px-4 h-full  flex flex-col items-center justify-center ">
-         <div className="text-center flex space-x-2  items-center">
-            <h1 className="text-5xl font-lalezar">Verification successfull </h1>
-            <div className="flex space-x-2 animate-pulse">
-               <div className="w-3 h-3 bg-darkGray rounded-full"></div>
-               <div className="w-3 h-3 bg-darkGray rounded-full"></div>
-               <div className="w-3 h-3 bg-darkGray rounded-full"></div>
-            </div>
-         </div>
+         <Loading text="Verification successfull" />
          <p className="text-lg text-graphite">Please wait while you are being redirected to the dashboard</p>
       </div>
    )

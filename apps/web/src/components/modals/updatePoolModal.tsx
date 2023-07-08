@@ -1,17 +1,32 @@
 import { DateInput, Form, Input, Modal, SelectValidation } from 'components/shared'
 import { poolOptions } from 'static'
-import { useCreatePoolForm } from 'hooks/forms'
+import { useUpdatePoolForm } from 'hooks/forms'
+import { type Pool } from 'types'
+import { useEffect } from 'react'
 
-export const CreatePoolModal = () => {
-   const { createPool, isLoading, errors, register, watch } = useCreatePoolForm()
+type UpdatePoolModalProps = Pool
+
+export const UpdatePoolModal = ({ question, isPublic, expiresAt, answers, id }: UpdatePoolModalProps) => {
+   const { updatePool, isLoading, errors, register, watch, setValue } = useUpdatePoolForm({ id })
+
+   const formattedDate = expiresAt.substring(0, 16).replace('T', 'T')
+   const joinedAnsers = answers.join(',')
+   const isPublicToEnum = isPublic ? 'PUBLIC' : 'PRIVATE'
+
+   useEffect(() => {
+      setValue('question', question)
+      setValue('expiresAt', formattedDate)
+      setValue('answers', joinedAnsers)
+      setValue('isPublic', isPublicToEnum)
+   }, [id])
 
    const inputQuestionValue = watch('question')
    const inputAnswersValue = watch('answers')
 
    return (
-      <Modal modal="createPoolModal">
-         <h1 className="text-4xl font-lalezar pt-10">Create Pool</h1>
-         <Form submitText="CREATE POOL" addtionalClasses="mt-10" onSubmit={createPool} isLoading={isLoading}>
+      <Modal modal="updatePoolModal">
+         <h1 className="text-4xl font-lalezar pt-10">Update Pool</h1>
+         <Form submitText="UPDATE POOL" addtionalClasses="mt-10" onSubmit={updatePool} isLoading={isLoading}>
             <Input
                containerWidth="w-full"
                text="Question"

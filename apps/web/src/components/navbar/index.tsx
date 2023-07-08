@@ -1,11 +1,14 @@
-import { useAuth } from 'hooks/useAuth'
+import { useLogout } from 'hooks/user'
 import { Links } from './links'
-import { useLogout } from 'hooks'
+import { useAuth } from '@redux/hooks'
 
 export const Navbar = () => {
    const { isAuthenticated } = useAuth()
+
    const { logout } = useLogout()
+
    const LinkClass = 'font-lalezar text-xl md:text-2xl cursor-pointer hover:opacity-80 transition-all '
+
    return (
       <nav className="container mx-auto mt-4 px-4 flex items-end justify-between">
          <h1

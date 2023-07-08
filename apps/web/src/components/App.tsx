@@ -1,5 +1,4 @@
 import { Outlet, RootRoute, Route, Router, RouterProvider } from '@tanstack/router'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 
 import { Dashboard, EmailVerification, Home, Login, Verify } from 'pages'
@@ -7,6 +6,10 @@ import { Navbar } from './navbar'
 import { Footer } from './footer'
 import { z } from 'zod'
 import { Guest, User } from './roles'
+import { useEffect } from 'react'
+import { useAuth } from '@redux/hooks'
+import axios from 'axios'
+
 const rootRoute = new RootRoute({ component: () => <Outlet /> })
 
 const homeRoute = new Route({
@@ -56,10 +59,18 @@ const routeTree = rootRoute.addChildren([homeRoute, loginRoute, dashboardRoute, 
 
 const router = new Router({ routeTree })
 
-const queryClient = new QueryClient()
+export const App = () => {
+   const { setIsAuthenticated } = useAuth()
 
-export const App = () => (
-   <QueryClientProvider client={queryClient}>
+   useEffect(() => {
+      const fetchAuthStatus = async () => {
+         const response = await axios.get<{ isAuthenticated: boolean }>('/api/auth')
+         setIsAuthenticated(response.data.isAuthenticated)
+      }
+      fetchAuthStatus()
+   }, [])
+
+   return (
       <div className="flex flex-col h-full">
          <Toaster position="bottom-right" reverseOrder={false} />
          <div className="flex-grow">
@@ -68,8 +79,8 @@ export const App = () => (
          </div>
          <Footer />
       </div>
-   </QueryClientProvider>
-)
+   )
+}
 
 window.navigate = router.navigate
 

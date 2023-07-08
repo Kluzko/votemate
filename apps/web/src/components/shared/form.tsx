@@ -6,9 +6,10 @@ type FormProps = {
    submitText: string
    onSubmit?: (event: React.FormEvent) => void
    addtionalClasses?: string
+   isLoading: boolean
 }
 
-export const Form = ({ children, submitText, onSubmit, addtionalClasses }: FormProps) => (
+export const Form = ({ children, submitText, onSubmit, addtionalClasses, isLoading }: FormProps) => (
    <form onSubmit={onSubmit} className={addtionalClasses} noValidate>
       {children}
       <Button
@@ -17,6 +18,7 @@ export const Form = ({ children, submitText, onSubmit, addtionalClasses }: FormP
          text={submitText}
          additionalClasses="mt-4"
          type="submit"
+         isLoading={isLoading}
       />
    </form>
 )

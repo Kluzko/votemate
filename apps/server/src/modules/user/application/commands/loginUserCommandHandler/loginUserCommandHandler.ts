@@ -13,6 +13,7 @@ export class LoginUserCommandHandler {
       @inject(symbols.emailService)
       private readonly emailService: EmailService
    ) {}
+
    public async execute({ email }: UserEmail) {
       const emailToken = sign({ email }, process.env.JWT_SECRET, { expiresIn: '10m' })
 

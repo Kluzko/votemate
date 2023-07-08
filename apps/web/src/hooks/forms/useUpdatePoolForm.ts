@@ -3,7 +3,7 @@ import { useForm } from './useForm'
 import { z } from 'zod'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
-import { type PoolWithoutId } from 'types'
+import { type PoolUpdate } from 'types'
 import { useModal } from '@redux/hooks'
 
 function isDateAtLeast10MinutesAhead(date: Date) {
@@ -18,12 +18,22 @@ const createPoolSchema = z.object({
       .min(4, 'Question must contain at leat 4 characters')
       .max(100, 'Question can`t contain more than 100 characters'),
 
-   expiresAt: z.coerce
-      .date()
-      .refine(value => isDateAtLeast10MinutesAhead(value), { message: 'Set date at least 10 minutes ahead' })
-      .refine(value => value.getFullYear() <= new Date().getFullYear(), {
-         message: 'Set date not later than the current year',
-      }),
+   expiresAt: z
+      .string()
+      .refine(
+         value => {
+            const date = new Date(value)
+            return isDateAtLeast10MinutesAhead(date)
+         },
+         { message: 'Invalid date. Set a date at least 10 minutes ahead' }
+      )
+      .refine(
+         value => {
+            const date = new Date(value)
+            return date.getFullYear() <= new Date().getFullYear()
+         },
+         { message: 'Invalid date. Set a date not later than the current year' }
+      ),
 
    answers: z.string().refine(
       value => {
@@ -35,44 +45,54 @@ const createPoolSchema = z.object({
       { message: 'Answer requires 3 words and 2-5 answers' }
    ),
 
-   isPublic: z
-      .enum(['PRIVATE', 'PUBLIC'], {
-         errorMap: (_issue, _ctx) => ({ message: 'Choose private or public for pool type' }),
-      })
-      .transform(data => data === 'PUBLIC'),
+   isPublic: z.enum(['PRIVATE', 'PUBLIC'], {
+      errorMap: (_issue, _ctx) => ({ message: 'Choose private or public for pool type' }),
+   }),
 })
 
-export const useCreatePoolForm = () => {
-   const { submit, register, errors, watch } = useForm(createPoolSchema)
+type UseUpdatePoolFormProps = {
+   id: string
+}
+
+export const useUpdatePoolForm = ({ id }: UseUpdatePoolFormProps) => {
+   const { submit, setValue, register, errors, watch } = useForm(createPoolSchema)
+
    const { closeModal } = useModal()
 
    const client = useQueryClient()
 
    const { mutate, isLoading } = useMutation({
-      mutationFn: (data: PoolWithoutId) => axios.post('/api/pool', data),
+      mutationFn: (data: PoolUpdate) => axios.put(`/api/pool/${data.id}`, data),
       onSuccess: () => {
          client.invalidateQueries(['userPools'])
-         toast.success('Pool created')
-         closeModal('createPoolModal')
+         toast.success('Pool updated')
+         closeModal('updatePoolModal')
       },
-      onError: () => {
+      onError: error => {
+         console.log(error)
          toast.error('Someting went wrong,try again')
       },
    })
 
-   const createPool = submit(pool => {
+   const updatePool = submit(pool => {
       const answersToArray = pool.answers.split(',').map(answer => answer.trim())
+      const expiresAtToDate = new Date(pool.expiresAt)
+      const isPublicToBool = pool.isPublic === 'PUBLIC'
 
       mutate({
          ...pool,
+         id,
          answers: answersToArray,
+         expiresAt: expiresAtToDate,
+         isPublic: isPublicToBool,
       })
    })
 
    return {
-      createPool,
+      updatePool,
       isLoading,
       register,
+      setValue,
       errors,
       watch,
    }

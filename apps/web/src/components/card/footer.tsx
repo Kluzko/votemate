@@ -4,16 +4,20 @@ type FooterProps = {
    isDashboard: boolean
    votesNumber: number
    onDelete?: () => void
-   onEdit?: () => void
+   onUpdate?: () => void
 }
 
-export const Footer = ({ isDashboard, votesNumber, onDelete, onEdit }: FooterProps) => (
+export const Footer = ({ isDashboard, votesNumber, onDelete, onUpdate }: FooterProps) => (
    <div className={isDashboard ? 'flex justify-between' : ''}>
       <p className="text-sm text-electricPurple mt-2">Number of votes: {votesNumber}</p>
       {isDashboard && (
          <div className="flex items-center">
             <BsTrash className="text-tomatoRed text-lg mr-2 hover:opacity-80" title="Delete Pool" onClick={onDelete} />
-            <BsPencil className="text-electricPurple text-lg hover:text-graphite" title="Edit Pool" onClick={onEdit} />
+            <BsPencil
+               className="text-electricPurple text-lg hover:text-graphite"
+               title="Edit Pool"
+               onClick={onUpdate}
+            />
          </div>
       )}
    </div>
