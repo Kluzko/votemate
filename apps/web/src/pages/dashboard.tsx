@@ -43,6 +43,9 @@ export const Dashboard = () => {
 
    const filderedPools = filterSelectedPool(selectedOption, pools)
 
+   // Add types like filteredPools === "expired" then message for empty array
+   // No expired pools found
+
    return (
       <div className="container mx-auto mt-20 px-4 h-full flex flex-col items-center">
          <div className="w-full flex justify-between">
@@ -72,8 +75,13 @@ export const Dashboard = () => {
                      />
                   </div>
                ))
-            ) : (
+            ) : selectedOption === '' ? (
                <p className="font-lalezar mt-20 text-4xl">Missing Pools? Click Add Pool to add one!</p>
+            ) : (
+               <p className="font-lalezar mt-20 text-4xl">
+                  {' '}
+                  No <span className="lowercase">{selectedOption}</span> pools found
+               </p>
             )}
          </div>
          {selectedPool && <DeletePoolModal question={selectedPool.question} id={selectedPool.id} />}
