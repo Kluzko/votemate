@@ -6,6 +6,6 @@ export const Links = [
    },
    {
       text: 'Pools',
-      link: '/',
+      link: '/pools',
    },
 ] as const

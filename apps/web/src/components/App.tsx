@@ -1,7 +1,7 @@
 import { Outlet, RootRoute, Route, Router, RouterProvider } from '@tanstack/router'
 import { Toaster } from 'react-hot-toast'
 
-import { Dashboard, EmailVerification, Home, Login, Verify } from 'pages'
+import { Dashboard, EmailVerification, Home, Login, Pools, Verify } from 'pages'
 import { Navbar } from './navbar'
 import { Footer } from './footer'
 import { z } from 'zod'
@@ -55,7 +55,20 @@ const emailVerificationRoute = new Route({
    ),
 })
 
-const routeTree = rootRoute.addChildren([homeRoute, loginRoute, dashboardRoute, verifyRoute, emailVerificationRoute])
+const poolsRoute = new Route({
+   getParentRoute: () => rootRoute,
+   path: '/pools',
+   component: Pools,
+})
+
+const routeTree = rootRoute.addChildren([
+   homeRoute,
+   loginRoute,
+   dashboardRoute,
+   verifyRoute,
+   emailVerificationRoute,
+   poolsRoute,
+])
 
 const router = new Router({ routeTree })
 
@@ -64,8 +77,14 @@ export const App = () => {
 
    useEffect(() => {
       const fetchAuthStatus = async () => {
-         const response = await axios.get<{ isAuthenticated: boolean }>('/api/auth')
-         setIsAuthenticated(response.data.isAuthenticated)
+         try {
+            const response = await axios.get<{ isAuthenticated: boolean }>('/api/auth')
+            setIsAuthenticated(response.data.isAuthenticated)
+         } catch (error: any) {
+            if (error.response.status === 404) {
+               return false
+            }
+         }
       }
       fetchAuthStatus()
    }, [])
