@@ -12,7 +12,10 @@ export class PoolMapper {
          id,
          question,
          expiresAt,
-         answers: answers.map(({ value }) => value),
+         answers: answers.map(({ id, value }) => ({
+            id,
+            value,
+         })),
          isPublic,
          password: password ?? undefined,
       })

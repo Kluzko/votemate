@@ -11,6 +11,7 @@ import { type PoolMapper } from './poolMapper'
 
 type PoolMapperInput = PrismaPool & { answers: AnswerPool[] }
 
+// TODO : finsh tests
 describe('PoolMapper', () => {
    let poolMapper: PoolMapper
    let pool: Pool

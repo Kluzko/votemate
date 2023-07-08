@@ -4,7 +4,10 @@ export class Pool {
    private readonly id: string
    private readonly question: string
    private readonly expiresAt: Date
-   private readonly answers: string[]
+   private readonly answers: {
+      value: string
+      id: string
+   }[]
    private readonly isPublic: boolean
    private readonly password?: string
 

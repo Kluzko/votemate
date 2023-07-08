@@ -45,7 +45,12 @@ export const PoolSchema = z.object({
    id: z.string(),
    question: z.string().min(MIN_QUESTION_LENGTH).max(MAX_QUESTION_LENGTH),
    expiresAt: z.coerce.date(),
-   answers: z.string().array(),
+   answers: z.array(
+      z.object({
+         id: z.string(),
+         value: z.string(),
+      })
+   ),
    isPublic: z.boolean(),
    password: z.string().optional(),
 })
