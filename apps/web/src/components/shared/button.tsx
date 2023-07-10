@@ -1,6 +1,5 @@
+import { useEffect, useState } from 'react'
 import { type TailwindBackgroundClass, type TailwindColorClass } from 'types'
-import debounce from 'lodash.debounce'
-import { useMemo } from 'react'
 
 type ButtonProps = {
    color: TailwindColorClass
@@ -23,7 +22,17 @@ export const Button = ({
    width,
    isLoading,
 }: ButtonProps) => {
-   const debouncedIsLoading = useMemo(() => debounce(() => isLoading, 300), [isLoading])
+   const [showLoading, setShowLoading] = useState(false)
+
+   useEffect(() => {
+      let timer: NodeJS.Timeout
+      if (isLoading) {
+         timer = setTimeout(() => setShowLoading(true), 300)
+      } else {
+         setShowLoading(false)
+      }
+      return () => clearTimeout(timer)
+   }, [isLoading])
 
    const buttonClasses = `border-solid border-4 border-darkGray py-3 ${
       width ? width : 'w-96'
@@ -31,7 +40,7 @@ export const Button = ({
 
    return (
       <button className={`${buttonClasses} ${additionalClasses}`} type={type} onClick={onClick}>
-         {debouncedIsLoading() ? 'Loading ...' : text}
+         {showLoading ? 'Loading ...' : text}
       </button>
    )
 }
