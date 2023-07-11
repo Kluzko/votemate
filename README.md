@@ -26,6 +26,62 @@ A real-time voting application
 ![Trello](https://img.shields.io/badge/-Trello-%23026AA7?style=for-the-badge&logo=Trello&logoColor=white)
 ![PlanetScale](https://img.shields.io/badge/-PlanetScale-131415?style=for-the-badge)
 
+## 📊 Flow
+
+```mermaid
+graph TB;
+
+subgraph Application Layer
+    apps((Apps)) 
+    turborepo((Turborepo)) --> apps;
+end
+
+subgraph DevOps
+    devops((DevOps)) --> server[Server];
+    Docker --> devops;
+    circleci[CircleCI] --> devops;
+    apps --> devops;
+end
+
+subgraph Database
+    db((Database)) --> server;
+    mysql[MySQL] --> db;
+    prisma[Prisma] --> db;
+    planetscale[Planetscale] --> db;
+end
+
+subgraph Backend
+    node[Node.js] --> fastify[Fastify];
+    architecture((Architecture)) --> fastify;
+    fastify --> socket[Socket.io];
+    cqrs[CQRS] --> architecture;
+    ddd[DDD / Clean Architecture] --> architecture;
+    dependency[Dependency Injection] --> inversify[Inversify];
+    inversify --> architecture;
+    jwt[JWT] --> authorization((Authorization));
+    authorization --> server;
+    apps --> node;
+    socket --> web[Web];
+end
+
+subgraph Frontend
+    apps --> web;
+    vite[Vite] --> react[React];
+    react --> web;
+    web --> redux[Redux];
+    web --> reactquery[React Query];
+    web --> tailwind[TailwindCSS];
+end
+
+subgraph Testing
+    Vitest[Vitest]
+    unit[Unit Tests] --> Vitest;
+    integration[Integration Tests] --> Vitest;
+    e2e[E2E Tests] --> Vitest;
+    apps --> Vitest;
+end
+```
+
 
 ## 📦 Custom local packages
 
