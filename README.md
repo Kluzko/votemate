@@ -2,10 +2,10 @@
 
 A real-time voting application 
 
-| [Technologies used](#technologies-used) |  [Flow](#flow)  | [App Demonstration](#app-demonstration)  | [Design](#design) | [Packages](#custom-local-packages) | 
+| [Technologies used](#-technologies-used) |  [Flow](#-flow)  | [App Demonstration](#-app-demonstration)  | [Design](#-design) | [Packages](#-custom-local-packages) | 
 | ---------------------------------------- |  --------------- | ----------------------------------------- | ------------------ | ----------------------------------- | 
 
-## Technologies used
+## 🔧 Technologies used
 
 ![TypeScript](https://img.shields.io/badge/-TypeScript-%23007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/-React-%2320232a?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -29,7 +29,7 @@ A real-time voting application
 ![Trello](https://img.shields.io/badge/-Trello-%23026AA7?style=for-the-badge&logo=Trello&logoColor=white)
 ![PlanetScale](https://img.shields.io/badge/-PlanetScale-131415?style=for-the-badge)
 
-## Flow
+## 📊 Flow
 
 ```mermaid
 graph TB;
@@ -85,11 +85,11 @@ subgraph Testing
 end
 
 ```
-##  App demonstration
+## 📺 App demonstration
 
 ![Votemate GIF](https://github.com/Kluzko/votemate/blob/main/votemate.gif)
 
-##  Design
+## 🎨 Design
 
 The user interface and visual design of Votemate have been created using Figma. You can view the design by clicking the link below:
 
@@ -98,7 +98,7 @@ The user interface and visual design of Votemate have been created using Figma. 
 Feel free to explore the design to get an overview of the app's layout, color scheme, and other visual elements.
 
 
-## Custom local packages
+## 📦 Custom local packages
 
 | @votemate/tsconfig     | @votemate/eslint-config|
 | ---------------------- | -------------------- |
