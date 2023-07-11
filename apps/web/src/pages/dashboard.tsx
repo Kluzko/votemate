@@ -2,26 +2,26 @@ import { type ChangeEvent, useState } from 'react'
 import { Card } from 'components/card'
 import { Button, Select } from 'components/shared'
 import { filterPoolsOptions } from 'static'
-import { type Pool } from 'types'
 import { useGetUserPools } from 'hooks/pool'
 import { filterSelectedPool, isDate5MinsBeforeExpiration } from 'utils'
 import { toast } from 'react-hot-toast'
 import { DeletePoolModal, CreatePoolModal, UpdatePoolModal } from 'components/modals'
 import { Loading } from 'components/loading'
 import { useModal } from '@redux/hooks'
+import { type PoolWithTotalVotes } from 'types'
 
 export const Dashboard = () => {
-   const [selectedPool, setSelectedPool] = useState<Pool | null>(null)
+   const [selectedPool, setSelectedPool] = useState<PoolWithTotalVotes | null>(null)
    const [selectedOption, setSelectedOption] = useState('')
 
    const { openModal } = useModal()
 
-   const handleDelete = (pool: Pool) => {
+   const handleDelete = (pool: PoolWithTotalVotes) => {
       setSelectedPool(pool)
       openModal('deletePoolModal')
    }
 
-   const handleUpdate = (pool: Pool) => {
+   const handleUpdate = (pool: PoolWithTotalVotes) => {
       setSelectedPool(pool)
       if (isDate5MinsBeforeExpiration(pool.expiresAt)) {
          toast.error('Unable to update pool.Pool expires in less than 5 minutes.')
@@ -66,7 +66,7 @@ export const Dashboard = () => {
                      <Card
                         expiresAt={pool.expiresAt}
                         title={pool.question}
-                        votesNumber={23}
+                        votesNumber={pool.totalVotes}
                         additionalClasses="mt-5"
                         isDashboard
                         type={pool.isPublic}

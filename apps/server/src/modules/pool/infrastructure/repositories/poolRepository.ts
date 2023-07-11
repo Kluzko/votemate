@@ -66,7 +66,7 @@ export class PoolRepository {
    public async getUserPools({ userId }: UserId) {
       const pools = await prisma.pool.findMany({
          where: { userId },
-         include: { answers: true },
+         include: { answers: { include: { votes: true } } },
          orderBy: { expiresAt: 'asc' },
       })
 
@@ -74,13 +74,25 @@ export class PoolRepository {
          throw new NotFoundError('Pool')
       }
 
-      return { pools: pools.map(pool => this.poolMapper.map(pool)) }
+      const mappedPools = pools.map(pool => {
+         let totalVotes = 0
+         pool.answers.forEach(answer => {
+            totalVotes += answer.votes.length
+         })
+
+         return {
+            ...this.poolMapper.map(pool),
+            totalVotes,
+         }
+      })
+
+      return { pools: mappedPools }
    }
 
    public async getPublicPools() {
       const pools = await prisma.pool.findMany({
          where: { isPublic: true },
-         include: { answers: true },
+         include: { answers: { include: { votes: true } } },
          orderBy: { expiresAt: 'asc' },
       })
 
@@ -88,7 +100,19 @@ export class PoolRepository {
          throw new NotFoundError('Pool')
       }
 
-      return { pools: pools.map(pool => this.poolMapper.map(pool)) }
+      const mappedPools = pools.map(pool => {
+         let totalVotes = 0
+         pool.answers.forEach(answer => {
+            totalVotes += answer.votes.length
+         })
+
+         return {
+            ...this.poolMapper.map(pool),
+            totalVotes,
+         }
+      })
+
+      return { pools: mappedPools }
    }
 
    public async deletePool({ id, userId }: PoolQuery) {

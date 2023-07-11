@@ -1,6 +1,6 @@
-import { type Pool } from 'types'
+import { type PoolWithTotalVotes } from 'types'
 
-export const filterSelectedPool = (selectedValue: string, pools: Pool[] | undefined) => {
+export const filterSelectedPool = (selectedValue: string, pools: PoolWithTotalVotes[] | undefined) => {
    const filteredPools = pools ?? []
    const currentDate = new Date()
 

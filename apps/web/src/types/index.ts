@@ -14,6 +14,8 @@ export type Pool = {
    isPublic: boolean
 }
 
+export type PoolWithTotalVotes = Pool & { totalVotes: number }
+
 export type VoteCounts = { voteCounts: Record<string, number> }
 
 export type PoolUpdate = {
@@ -32,7 +34,7 @@ export type PoolWithoutId = {
 }
 
 export type Pools = {
-   pools: Pool[]
+   pools: PoolWithTotalVotes[]
 }
 
 export type Modals = 'createPoolModal' | 'updatePoolModal' | 'deletePoolModal'
