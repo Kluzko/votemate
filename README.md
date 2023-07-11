@@ -2,7 +2,10 @@
 
 A real-time voting application 
 
-## 🔧 Technologies used
+| [Technologies used](#technologies-used) |  [Flow](#flow)  | [App Demonstration](#app-demonstration)  | [Design](#design) | [Packages](#custom-local-packages) | 
+| ---------------------------------------- |  --------------- | ----------------------------------------- | ------------------ | ----------------------------------- | 
+
+## Technologies used
 
 ![TypeScript](https://img.shields.io/badge/-TypeScript-%23007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/-React-%2320232a?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -26,7 +29,7 @@ A real-time voting application
 ![Trello](https://img.shields.io/badge/-Trello-%23026AA7?style=for-the-badge&logo=Trello&logoColor=white)
 ![PlanetScale](https://img.shields.io/badge/-PlanetScale-131415?style=for-the-badge)
 
-## 📊 Flow
+## Flow
 
 ```mermaid
 graph TB;
@@ -61,16 +64,16 @@ subgraph Backend
     jwt[JWT] --> authorization((Authorization));
     authorization --> server;
     apps --> node;
-    socket --> web[Web];
 end
 
 subgraph Frontend
-    apps --> web;
+    apps --> web[Web];
     vite[Vite] --> react[React];
     react --> web;
     web --> redux[Redux];
     web --> reactquery[React Query];
     web --> tailwind[TailwindCSS];
+    socket[Socket.io] --> web;
 end
 
 subgraph Testing
@@ -80,20 +83,23 @@ subgraph Testing
     e2e[E2E Tests] --> Vitest;
     apps --> Vitest;
 end
+
 ```
+##  App demonstration
 
+![Votemate GIF](https://github.com/Kluzko/votemate/blob/main/votemate.gif)
 
-## 📦 Custom local packages
-
-| @votemate/tsconfig     | @votemate/eslint-config|
-| ---------------------- | -------------------- |
-| shared tsconfig config | shared eslint config |
-
-
-## 🎨 Design
+##  Design
 
 The user interface and visual design of Votemate have been created using Figma. You can view the design by clicking the link below:
 
 [Figma Design](https://www.figma.com/file/UhMvmdRwR6pnhJy9YkCC8E/Votemate?type=design&node-id=39%3A166&mode=design&t=E6auyLTlJxHyEJA8-1)
 
 Feel free to explore the design to get an overview of the app's layout, color scheme, and other visual elements.
+
+
+## Custom local packages
+
+| @votemate/tsconfig     | @votemate/eslint-config|
+| ---------------------- | -------------------- |
+| shared tsconfig config | shared eslint config |
