@@ -7,9 +7,14 @@ export type Pool = {
    id: string
    question: string
    expiresAt: string
-   answers: string[]
+   answers: {
+      value: string
+      id: string
+   }[]
    isPublic: boolean
 }
+
+export type VoteCounts = { voteCounts: Record<string, number> }
 
 export type PoolUpdate = {
    id: string

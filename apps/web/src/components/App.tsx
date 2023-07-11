@@ -1,7 +1,7 @@
 import { Outlet, RootRoute, Route, Router, RouterProvider } from '@tanstack/router'
 import { Toaster } from 'react-hot-toast'
 
-import { Dashboard, EmailVerification, Home, Login, Pools, Verify } from 'pages'
+import { Dashboard, EmailVerification, Home, Login, Pool, Pools, Verify } from 'pages'
 import { Navbar } from './navbar'
 import { Footer } from './footer'
 import { z } from 'zod'
@@ -9,6 +9,7 @@ import { Guest, User } from './roles'
 import { useEffect } from 'react'
 import { useAuth } from '@redux/hooks'
 import axios from 'axios'
+import { useSocketIO } from 'hooks/useSocketIO'
 
 const rootRoute = new RootRoute({ component: () => <Outlet /> })
 
@@ -55,6 +56,12 @@ const emailVerificationRoute = new Route({
    ),
 })
 
+const poolRoute = new Route({
+   getParentRoute: () => rootRoute,
+   path: '/pool/$id',
+   component: Pool,
+})
+
 const poolsRoute = new Route({
    getParentRoute: () => rootRoute,
    path: '/pools',
@@ -68,12 +75,15 @@ const routeTree = rootRoute.addChildren([
    verifyRoute,
    emailVerificationRoute,
    poolsRoute,
+   poolRoute,
 ])
 
 const router = new Router({ routeTree })
 
 export const App = () => {
    const { setIsAuthenticated } = useAuth()
+
+   useSocketIO()
 
    useEffect(() => {
       const fetchAuthStatus = async () => {
