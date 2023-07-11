@@ -1,4 +1,4 @@
-import { getRemainingTime } from 'utils'
+import { Countdown } from 'components/countdown'
 
 type HeaderProps = {
    isDashboard: boolean
@@ -9,7 +9,7 @@ type HeaderProps = {
 
 export const Header = ({ isDashboard, expiresAt, type, typeClasses }: HeaderProps) => (
    <div className={isDashboard ? 'flex justify-between' : ''}>
-      <p className="text-sm text-electricPurple mb-2">Expires in: {getRemainingTime(expiresAt)}</p>
+      <Countdown endDate={expiresAt} additionalClasses="text-sm mb-2" />
       {isDashboard && <div className={typeClasses}>{type ? 'PUBLIC' : 'PRIVATE'}</div>}
    </div>
 )

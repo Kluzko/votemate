@@ -11,6 +11,7 @@ type CardProps = {
    type?: boolean
    onDelete?: () => void
    onUpdate?: () => void
+   onClick: () => void
 }
 
 const MAX_TEXT_LENGTH = 65
@@ -24,6 +25,7 @@ export const Card = ({
    type,
    onDelete,
    onUpdate,
+   onClick,
 }: CardProps) => {
    const shouldShowTooltip = title?.length > MAX_TEXT_LENGTH
 
@@ -34,7 +36,7 @@ export const Card = ({
    } absolute right-0 top-0`
 
    return (
-      <div className={cardClasses}>
+      <div className={cardClasses} onClick={onClick}>
          <Header isDashboard={isDashboard} expiresAt={expiresAt} type={type} typeClasses={typeClasses} />
          <Title title={title} shouldShowTooltip={shouldShowTooltip} additionalClasses={additionalClasses} />
          <Footer isDashboard={isDashboard} votesNumber={votesNumber} onDelete={onDelete} onUpdate={onUpdate} />
