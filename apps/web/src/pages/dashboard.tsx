@@ -72,6 +72,12 @@ export const Dashboard = () => {
                         type={pool.isPublic}
                         onDelete={() => handleDelete(pool)}
                         onUpdate={() => handleUpdate(pool)}
+                        onClick={() =>
+                           window.navigate({
+                              to: '/pool/$id',
+                              params: { id: pool.id },
+                           })
+                        }
                      />
                   </div>
                ))

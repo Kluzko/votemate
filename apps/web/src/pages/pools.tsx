@@ -15,8 +15,20 @@ export const Pools = () => {
             Here, you&apos;ll find a collection of public polls curated by the vibrant Votemate community.
          </p>
          {pools && pools.length > 0 ? (
-            pools.map(({ expiresAt, question }) => (
-               <Card expiresAt={expiresAt} title={question} votesNumber={32} key={question} additionalClasses="mt-5" />
+            pools.map(({ expiresAt, question, id }) => (
+               <Card
+                  expiresAt={expiresAt}
+                  title={question}
+                  votesNumber={32}
+                  key={question}
+                  additionalClasses="mt-5"
+                  onClick={() =>
+                     window.navigate({
+                        to: '/pool/$id',
+                        params: { id },
+                     })
+                  }
+               />
             ))
          ) : (
             <p className="font-lalezar mt-20 text-4xl">No public pools for now</p>
