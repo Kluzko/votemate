@@ -91,6 +91,12 @@ importers:
       resend:
         specifier: ^0.16.0
         version: 0.16.0
+      socket.io:
+        specifier: ^4.7.1
+        version: 4.7.1
+      uuid:
+        specifier: ^9.0.0
+        version: 9.0.0
       zod:
         specifier: ^3.19.1
         version: 3.20.2
@@ -119,6 +125,9 @@ importers:
       '@types/supertest':
         specifier: ^2.0.12
         version: 2.0.12
+      '@types/uuid':
+        specifier: ^9.0.2
+        version: 9.0.2
       '@votemate/eslint-config':
         specifier: workspace:*
         version: link:../../@votemate/eslint-config
@@ -182,12 +191,18 @@ importers:
       axios:
         specifier: ^1.1.2
         version: 1.2.2
+      chart.js:
+        specifier: ^4.3.0
+        version: 4.3.0
       lodash.debounce:
         specifier: ^4.0.8
         version: 4.0.8
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      react-chartjs-2:
+        specifier: ^5.2.0
+        version: 5.2.0(chart.js@4.3.0)(react@18.2.0)
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
@@ -206,6 +221,9 @@ importers:
       redux-persist:
         specifier: ^6.0.0
         version: 6.0.0(react@18.2.0)(redux@4.2.1)
+      socket.io-client:
+        specifier: ^4.7.1
+        version: 4.7.1
       validator:
         specifier: ^13.9.0
         version: 13.9.0
@@ -2099,6 +2117,10 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
+  /@kurkle/color@0.3.2:
+    resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
+    dev: false
+
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -2256,6 +2278,10 @@ packages:
     dependencies:
       domhandler: 5.0.3
       selderee: 0.10.0
+    dev: false
+
+  /@socket.io/component-emitter@3.1.0:
+    resolution: {integrity: sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==}
     dev: false
 
   /@surma/rollup-plugin-off-main-thread@2.2.3:
@@ -2494,9 +2520,19 @@ packages:
       '@types/express': 4.17.15
     dev: true
 
+  /@types/cookie@0.4.1:
+    resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
+    dev: false
+
   /@types/cookiejar@2.1.2:
     resolution: {integrity: sha512-t73xJJrvdTjXrn4jLS9VSGRbz0nUY3cl2DMGDU48lKl+HR9dbbjW2A9r3g40VA++mQpy6uuHg33gy7du2BKpog==}
     dev: true
+
+  /@types/cors@2.8.13:
+    resolution: {integrity: sha512-RG8AStHlUiV5ysZQKq97copd2UmVYw3/pRMLefISZ3S1hK104Cwm7iLQ3fTKx+lsUH2CE8FlLaYeEA2LSeqYUA==}
+    dependencies:
+      '@types/node': 18.11.18
+    dev: false
 
   /@types/estree@0.0.39:
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
@@ -2560,7 +2596,6 @@ packages:
 
   /@types/node@18.11.18:
     resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
-    dev: true
 
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
@@ -2625,6 +2660,10 @@ packages:
   /@types/use-sync-external-store@0.0.3:
     resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
     dev: false
+
+  /@types/uuid@9.0.2:
+    resolution: {integrity: sha512-kNnC1GFBLuhImSnV7w4njQkUiJi0ZXUycu1rUaouPqiKlXkh77JKgdRnTAp1x5eBwcIwbtI+3otwzuIDEuDoxQ==}
+    dev: true
 
   /@types/validator@13.7.17:
     resolution: {integrity: sha512-aqayTNmeWrZcvnG2MG9eGYI6b7S5fl+yKgPs6bAjOTwPS316R5SxBGKvtSExfyoJU7pIeHJfsHI0Ji41RVMkvQ==}
@@ -2826,6 +2865,14 @@ packages:
 
   /abstract-logging@2.0.1:
     resolution: {integrity: sha512-2BjRTZxTPvheOvGbBslFSYOUkr+SjPtOnrLP33f+VIWLzezQpZcqVg7ja3L4dBXmzzgwT+a029jRx5PCi3JuiA==}
+    dev: false
+
+  /accepts@1.3.8:
+    resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
+    engines: {node: '>= 0.6'}
+    dependencies:
+      mime-types: 2.1.35
+      negotiator: 0.6.3
     dev: false
 
   /acorn-jsx@5.3.2(acorn@8.8.2):
@@ -3087,6 +3134,11 @@ packages:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
     dev: false
 
+  /base64id@2.0.0:
+    resolution: {integrity: sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==}
+    engines: {node: ^4.5.0 || >= 5.9}
+    dev: false
+
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
@@ -3207,6 +3259,13 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
+
+  /chart.js@4.3.0:
+    resolution: {integrity: sha512-ynG0E79xGfMaV2xAHdbhwiPLczxnNNnasrmPEXriXsPJGjmhOBYzFVEsB65w2qMDz+CaBJJuJD0inE/ab/h36g==}
+    engines: {pnpm: '>=7'}
+    dependencies:
+      '@kurkle/color': 0.3.2
+    dev: false
 
   /check-error@1.0.2:
     resolution: {integrity: sha512-BrgHpW9NURQgzoNyjfq0Wu6VFO6D7IZEmJNdtgNqpzGG8RuNFHt2jQxWlAs4HMe119chBnv+34syEZtc6IhLtA==}
@@ -3341,6 +3400,14 @@ packages:
     dependencies:
       browserslist: 4.21.5
     dev: true
+
+  /cors@2.8.5:
+    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
+    engines: {node: '>= 0.10'}
+    dependencies:
+      object-assign: 4.1.1
+      vary: 1.1.2
+    dev: false
 
   /create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
@@ -3548,6 +3615,45 @@ packages:
     resolution: {integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==}
     dependencies:
       once: 1.4.0
+    dev: false
+
+  /engine.io-client@6.5.1:
+    resolution: {integrity: sha512-hE5wKXH8Ru4L19MbM1GgYV/2Qo54JSMh1rlJbfpa40bEWkCKNo3ol2eOtGmowcr+ysgbI7+SGL+by42Q3pt/Ng==}
+    dependencies:
+      '@socket.io/component-emitter': 3.1.0
+      debug: 4.3.4
+      engine.io-parser: 5.1.0
+      ws: 8.11.0
+      xmlhttprequest-ssl: 2.0.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /engine.io-parser@5.1.0:
+    resolution: {integrity: sha512-enySgNiK5tyZFynt3z7iqBR+Bto9EVVVvDFuTT0ioHCGbzirZVGDGiQjZzEp8hWl6hd5FSVytJGuScX1C1C35w==}
+    engines: {node: '>=10.0.0'}
+    dev: false
+
+  /engine.io@6.5.1:
+    resolution: {integrity: sha512-mGqhI+D7YxS9KJMppR6Iuo37Ed3abhU8NdfgSvJSDUafQutrN+sPTncJYTyM9+tkhSmWodKtVYGPPHyXJEwEQA==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      '@types/cookie': 0.4.1
+      '@types/cors': 2.8.13
+      '@types/node': 18.11.18
+      accepts: 1.3.8
+      base64id: 2.0.0
+      cookie: 0.4.1
+      cors: 2.8.5
+      debug: 4.3.4
+      engine.io-parser: 5.1.0
+      ws: 8.11.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
     dev: false
 
   /entities@4.5.0:
@@ -4853,6 +4959,11 @@ packages:
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
+  /negotiator@0.6.3:
+    resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
+    engines: {node: '>= 0.6'}
+    dev: false
+
   /node-releases@2.0.12:
     resolution: {integrity: sha512-QzsYKWhXTWx8h1kIvqfnC++o0pEmpRQA/aenALsL2F4pqNVr7YzcdMlDij5WBnwftRbJCNJL/O7zdKaxKPHqgQ==}
     dev: true
@@ -5315,6 +5426,16 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
+  /react-chartjs-2@5.2.0(chart.js@4.3.0)(react@18.2.0):
+    resolution: {integrity: sha512-98iN5aguJyVSxp5U3CblRLH67J8gkfyGNbiK3c+l1QI/G4irHMPQw44aEPmjVag+YKTyQ260NcF82GTQ3bdscA==}
+    peerDependencies:
+      chart.js: ^4.1.1
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      chart.js: 4.3.0
+      react: 18.2.0
+    dev: false
+
   /react-dom@18.2.0(react@18.2.0):
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -5743,6 +5864,56 @@ packages:
   /slash@3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
+    dev: false
+
+  /socket.io-adapter@2.5.2:
+    resolution: {integrity: sha512-87C3LO/NOMc+eMcpcxUBebGjkpMDkNBS9tf7KJqcDsmL936EChtVva71Dw2q4tQcuVC+hAUy4an2NO/sYXmwRA==}
+    dependencies:
+      ws: 8.11.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
+
+  /socket.io-client@4.7.1:
+    resolution: {integrity: sha512-Qk3Xj8ekbnzKu3faejo4wk2MzXA029XppiXtTF/PkbTg+fcwaTw1PlDrTrrrU4mKoYC4dvlApOnSeyLCKwek2w==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      '@socket.io/component-emitter': 3.1.0
+      debug: 4.3.4
+      engine.io-client: 6.5.1
+      socket.io-parser: 4.2.4
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /socket.io-parser@4.2.4:
+    resolution: {integrity: sha512-/GbIKmo8ioc+NIWIhwdecY0ge+qVBSMdgxGygevmdHj24bsfgtCmcUUcQ5ZzcylGFHsN3k4HB4Cgkl96KVnuew==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      '@socket.io/component-emitter': 3.1.0
+      debug: 4.3.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /socket.io@4.7.1:
+    resolution: {integrity: sha512-W+utHys2w//dhFjy7iQQu9sGd3eokCjGbl2r59tyLqNiJJBdIebn3GAKEXBr3osqHTObJi2die/25bCx2zsaaw==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      accepts: 1.3.8
+      base64id: 2.0.0
+      cors: 2.8.5
+      debug: 4.3.4
+      engine.io: 6.5.1
+      socket.io-adapter: 2.5.2
+      socket.io-parser: 4.2.4
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
     dev: false
 
   /sonic-boom@3.3.0:
@@ -6305,6 +6476,11 @@ packages:
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  /uuid@9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: false
+
   /v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
     dev: true
@@ -6312,6 +6488,11 @@ packages:
   /validator@13.9.0:
     resolution: {integrity: sha512-B+dGG8U3fdtM0/aNK4/X8CXq/EcxU2WPrPEkJGslb47qyHsxmbggTWK0yEA4qnYVNF+nxNlN88o14hIcPmSIEA==}
     engines: {node: '>= 0.10'}
+    dev: false
+
+  /vary@1.1.2:
+    resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
+    engines: {node: '>= 0.8'}
     dev: false
 
   /vite-node@0.32.2(@types/node@18.11.18):
@@ -6675,6 +6856,24 @@ packages:
 
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
+
+  /ws@8.11.0:
+    resolution: {integrity: sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false
+
+  /xmlhttprequest-ssl@2.0.0:
+    resolution: {integrity: sha512-QKxVRxiRACQcVuQEYFsI1hhkrMlrXHPegbbd1yn9UHOmRxY+si12nQYzri3vbzt8VdTTRviqcKxcyllFas5z2A==}
+    engines: {node: '>=0.4.0'}
+    dev: false
 
   /yallist@2.1.2:
     resolution: {integrity: sha512-ncTzHV7NvsQZkYe1DW7cbDLm0YpzHmZF5r/iyP3ZnQtMiJ+pjzisCiMNI+Sj+xQF5pXhSHxSB3uDbsBTzY/c2A==}
