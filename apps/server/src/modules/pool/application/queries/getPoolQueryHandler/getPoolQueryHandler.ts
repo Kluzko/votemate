@@ -1,7 +1,5 @@
 import { inject, injectable } from 'inversify'
 
-import { type PoolQuery } from 'modules/pool/api/schemas'
-
 import { type PoolRepository } from 'modules/pool/infrastructure/repositories'
 
 import { symbols } from 'modules/pool/symbols'
@@ -13,7 +11,7 @@ export class GetPoolQueryHandler {
       private readonly poolRepository: PoolRepository
    ) {}
 
-   public async execute(payload: PoolQuery) {
+   public async execute(payload: { id: string; voterId: string }) {
       const { pool } = await this.poolRepository.getPool(payload)
 
       return { pool }
