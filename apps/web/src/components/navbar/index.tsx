@@ -12,7 +12,9 @@ export const Navbar = () => {
    return (
       <nav className="container mx-auto mt-4 px-4 flex items-end justify-between">
          <h1
-            className="font-lalezar tracking-wider  text-4xl md:text-5xl cursor-pointer"
+            className={`font-lalezar tracking-wider  ${
+               isAuthenticated ? 'text-2xl sm:text-3xl' : 'text-4xl'
+            } md:text-5xl cursor-pointer`}
             onClick={() => window.navigate({ to: '/' })}
          >
             VOTEMATE
