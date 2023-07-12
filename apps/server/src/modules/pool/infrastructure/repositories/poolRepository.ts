@@ -33,48 +33,86 @@ export class PoolRepository {
       return { pool: this.poolMapper.map(pool) }
    }
 
-   public async getPool({ id, userId }: PoolQuery) {
+   public async getPool({ id, voterId }: { id: string; voterId: string }) {
       const pool = await prisma.pool.findFirst({
-         where: {
-            id,
-            userId,
-         },
-         include: { answers: true },
+         where: { id },
+         include: { answers: { include: { votes: true } } },
       })
 
       if (!pool) {
          throw new NotFoundError('Pool')
       }
 
-      return { pool: this.poolMapper.map(pool) }
+      const voteCounts: { [key: string]: number } = {}
+      let votedAnswerId: string | null = null
+
+      pool.answers.forEach(answer => {
+         voteCounts[answer.value] = answer.votes.length
+         const vote = answer.votes.find(vote => vote.voterId === voterId)
+         if (vote) {
+            votedAnswerId = vote.answerId
+         }
+      })
+
+      return {
+         pool: {
+            ...this.poolMapper.map(pool),
+            voteCounts,
+            votedAnswerId,
+         },
+      }
    }
 
    public async getUserPools({ userId }: UserId) {
       const pools = await prisma.pool.findMany({
          where: { userId },
-         include: { answers: true },
-         orderBy: { createdAt: 'desc' },
+         include: { answers: { include: { votes: true } } },
+         orderBy: { expiresAt: 'asc' },
       })
 
       if (!pools) {
          throw new NotFoundError('Pool')
       }
 
-      return { pools: pools.map(pool => this.poolMapper.map(pool)) }
+      const mappedPools = pools.map(pool => {
+         let totalVotes = 0
+         pool.answers.forEach(answer => {
+            totalVotes += answer.votes.length
+         })
+
+         return {
+            ...this.poolMapper.map(pool),
+            totalVotes,
+         }
+      })
+
+      return { pools: mappedPools }
    }
 
    public async getPublicPools() {
       const pools = await prisma.pool.findMany({
          where: { isPublic: true },
-         include: { answers: true },
-         orderBy: { createdAt: 'desc' },
+         include: { answers: { include: { votes: true } } },
+         orderBy: { expiresAt: 'asc' },
       })
 
       if (!pools) {
          throw new NotFoundError('Pool')
       }
 
-      return { pools: pools.map(pool => this.poolMapper.map(pool)) }
+      const mappedPools = pools.map(pool => {
+         let totalVotes = 0
+         pool.answers.forEach(answer => {
+            totalVotes += answer.votes.length
+         })
+
+         return {
+            ...this.poolMapper.map(pool),
+            totalVotes,
+         }
+      })
+
+      return { pools: mappedPools }
    }
 
    public async deletePool({ id, userId }: PoolQuery) {

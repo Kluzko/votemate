@@ -57,7 +57,7 @@ export class PoolHttpController {
       const { id } = poolIdSchema.parse(req.params)
       const { pool } = await this.getPoolQueryHandler.execute({
          id,
-         userId: req.user.id,
+         voterId: req.voterId,
       })
 
       reply.send({ pool })

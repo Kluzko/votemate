@@ -11,6 +11,8 @@ export const EmailSchema = z.object({ email: z.string().email() })
 
 export const tokenSchema = z.object({ email: z.string().email() })
 
+export const voterIdSchema = z.object({ voterId: z.string() })
+
 export type UserEmail = z.infer<typeof EmailSchema>
 
 export const VerifySchema = z.object({ emailToken: z.string() })
