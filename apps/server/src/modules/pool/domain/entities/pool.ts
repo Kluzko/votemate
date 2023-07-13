@@ -43,4 +43,15 @@ export class Pool {
    public getPassword() {
       return this.password
    }
+
+   public toPlainObject() {
+      return {
+         id: this.getId(),
+         question: this.getQuestion(),
+         expiresAt: this.getExpiresAt(),
+         answers: this.getAnswers(),
+         isPublic: this.getIsPublic(),
+         password: this.getPassword(),
+      }
+   }
 }

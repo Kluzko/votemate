@@ -11,13 +11,13 @@ import { useOnVoteUpdate } from 'hooks/vote'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title)
 
-//DODAC typ do POOLA
 export const Pool = () => {
    const { id } = useParams()
    const { isLoading, pool } = useGetPoolById({ id })
    const { register, votePool, errors, isLoading: isVotingCastLoading } = useVotePoolForm({ poolId: id })
+
    useOnVoteUpdate({ poolId: id })
-   console.log(pool)
+
    if (isLoading) {
       return <Loading text="Loading pool" />
    }

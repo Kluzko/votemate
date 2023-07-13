@@ -11,7 +11,6 @@ import { type PoolMapper } from './poolMapper'
 
 type PoolMapperInput = PrismaPool & { answers: AnswerPool[] }
 
-// TODO : finsh tests
 describe('PoolMapper', () => {
    let poolMapper: PoolMapper
    let pool: Pool
@@ -37,7 +36,7 @@ describe('PoolMapper', () => {
          })),
          isPublic: true,
          password: null,
-         userId: null,
+         userId: faker.datatype.uuid(),
       }
       pool = poolMapper.map(prismaPool)
    })
@@ -47,12 +46,19 @@ describe('PoolMapper', () => {
    })
 
    it('should return same values', () => {
-      expect(pool).toEqual({
-         id: prismaPool.id,
-         question: prismaPool.question,
-         expiresAt: prismaPool.expiresAt,
-         answers: prismaPool.answers.map(({ value }) => value),
-         isPublic: prismaPool.isPublic,
+      expect(pool.getId()).toEqual(prismaPool.id)
+      expect(pool.getQuestion()).toEqual(prismaPool.question)
+      expect(pool.getExpiresAt()).toEqual(prismaPool.expiresAt)
+      expect(pool.getIsPublic()).toEqual(prismaPool.isPublic)
+      expect(pool.getPassword()).toEqual(prismaPool.password ? prismaPool.password : undefined)
+
+      const answers = pool.getAnswers()
+      expect(answers.length).toEqual(prismaPool.answers.length)
+      prismaPool.answers.forEach((answer, index) => {
+         expect(answers[index]).toEqual({
+            id: answer.id,
+            value: answer.value,
+         })
       })
    })
 })

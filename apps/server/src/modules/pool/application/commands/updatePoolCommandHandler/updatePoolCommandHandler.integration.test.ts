@@ -1,5 +1,5 @@
-import { faker } from '@faker-js/faker'
 import { ContainerSingleton } from 'container'
+import { mockPoolData } from 'modules/pool/infrastructure/test-utils'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 import { NotFoundError } from 'common/errors'
@@ -30,35 +30,48 @@ describe('UpdatePoolCommandHandler', () => {
       let result: { pool: Pool }
 
       beforeAll(async () => {
-         payload = {
-            question: faker.lorem.sentence(),
-            expiresAt: faker.date.soon(3),
-            answers: [...Array(5)].map(() => faker.lorem.sentence()),
-            isPublic: true,
-         }
+         payload = mockPoolData.createBasePoolData()
 
          result = await poolRepository.createPool(payload)
 
          updatePayload = {
+            ...mockPoolData.createBasePoolData(),
+            userId: payload.userId,
             id: result.pool.getId(),
-            question: 'Updated question',
-            expiresAt: result.pool.getExpiresAt(),
-            answers: [...Array(3)].map(() => faker.lorem.sentence()),
-            isPublic: true,
          }
 
          await updatePoolCommandHandler.execute(updatePayload)
       })
 
       afterAll(async () => {
-         await poolRepository.deletePool({ id: result.pool.getId() })
+         await poolRepository.deletePool({
+            id: result.pool.getId(),
+            userId: updatePayload.userId,
+         })
       })
 
       it('should update the Pool', async () => {
-         const updatedPool = await poolRepository.getPool({ id: result.pool.getId() })
-         expect(updatedPool.pool.getQuestion()).toBe(updatePayload.question)
-         expect(updatedPool.pool.getAnswers()).toEqual(updatePayload.answers)
-         expect(updatedPool.pool.getIsPublic()).toEqual(updatePayload.isPublic)
+         const updatedPool = await poolRepository.getPool({
+            id: result.pool.getId(),
+            voterId: 'some-fake-voter',
+         })
+
+         // TODO: make omit method for mock data
+         // eslint-disable-next-line @typescript-eslint/no-unused-vars
+         const { userId, ...payloadNoUserId } = updatePayload
+
+         expect(updatedPool.pool).toEqual({
+            ...payloadNoUserId,
+            answers: expect.arrayContaining(
+               payloadNoUserId.answers.map(value => ({
+                  id: expect.any(String),
+                  value,
+               }))
+            ),
+            voteCounts: expect.objectContaining(Object.fromEntries(payloadNoUserId.answers.map(value => [value, 0]))),
+            votedAnswerId: null,
+            id: result.pool.getId(),
+         })
       })
 
       it('should throw NotFoundError for non-existing Pool', async () => {
