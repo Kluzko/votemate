@@ -347,7 +347,6 @@ describe('PoolRepository', () => {
 
       afterEach(async () => {
          await prisma.pool.deleteMany({ where: { id: { in: mockPools.map(pool => pool.id) } } })
-         console.log('deleted')
          mockPools = []
       })
 
