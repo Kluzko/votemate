@@ -50,7 +50,7 @@ describe('GetPoolQueryHandler', () => {
          }
          const { pool } = await getPoolQueryHandler.execute(payload)
 
-         // get rid of userId
+         // TODO: make omit method for mock data
          // eslint-disable-next-line @typescript-eslint/no-unused-vars
          const { userId, ...mockWithOutUserId } = mockPool
 
