@@ -1,5 +1,5 @@
-import { faker } from '@faker-js/faker'
 import { ContainerSingleton } from 'container'
+import { mockPoolData } from 'modules/pool/infrastructure/test-utils'
 import { beforeAll, describe, expect, it } from 'vitest'
 
 import { NotFoundError } from 'common/errors'
@@ -30,21 +30,22 @@ describe('DeletePoolCommandHandler', () => {
       let payload: CreatePool
 
       beforeAll(async () => {
-         payload = {
-            question: faker.lorem.sentence(),
-            expiresAt: faker.date.soon(3),
-            answers: [...Array(5)].map(() => faker.lorem.sentence()),
-            isPublic: true,
-         }
+         payload = mockPoolData.createBasePoolData()
 
          result = await poolRepository.createPool(payload)
 
-         await deletePoolCommandHandler.execute({ id: result.pool.getId() })
+         await deletePoolCommandHandler.execute({
+            id: result.pool.getId(),
+            userId: payload.userId,
+         })
       })
 
       it('Pool should be deleted', async () => {
          try {
-            await poolRepository.getPool({ id: result.pool.getId() })
+            await poolRepository.getPool({
+               id: result.pool.getId(),
+               voterId: 'some-id',
+            })
          } catch (error) {
             return expect(error).toBeInstanceOf(NotFoundError)
          }
