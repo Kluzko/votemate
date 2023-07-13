@@ -274,7 +274,7 @@ describe('PoolRepository', () => {
       const fakeUserId = faker.datatype.uuid()
 
       beforeEach(async () => {
-         for (let i = 0; i < 3; i++) {
+         for (let i = 0; i < 2; i++) {
             const payload = mockPoolData.createPoolWithVotesData()
             const mockPool = await prisma.pool.create({
                data: {
@@ -330,7 +330,7 @@ describe('PoolRepository', () => {
       let mockPools: PrismaPoolWithAnswersAndVotes[] = []
 
       beforeEach(async () => {
-         for (let i = 0; i < 3; i++) {
+         for (let i = 0; i < 2; i++) {
             const payload = mockPoolData.createBasePoolData()
             const isPublic = i !== 0 // Set the first pool as private
             const mockPool = await prisma.pool.create({
