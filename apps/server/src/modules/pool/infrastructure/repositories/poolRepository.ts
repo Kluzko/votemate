@@ -4,11 +4,17 @@ import { prisma } from 'prisma'
 
 import { NotFoundError } from 'common/errors'
 
-import { type CreatePool, type PoolQuery, type UpdatePool, type UserId } from 'modules/pool/api/schemas'
+import {
+   type CreatePool,
+   type PoolQuery,
+   type UpdatePool,
+   type UserId,
+   type VoteCounts,
+} from 'modules/pool/api/schemas'
 
 import { type PoolMapper } from '../mappers'
 
-import { symbols } from '../../symbols'
+import { symbols } from 'modules/pool/symbols'
 
 @injectable()
 export class PoolRepository {
@@ -43,7 +49,7 @@ export class PoolRepository {
          throw new NotFoundError('Pool')
       }
 
-      const voteCounts: { [key: string]: number } = {}
+      const voteCounts: VoteCounts = {}
       let votedAnswerId: string | null = null
 
       pool.answers.forEach(answer => {
@@ -56,9 +62,9 @@ export class PoolRepository {
 
       return {
          pool: {
-            ...this.poolMapper.map(pool),
+            ...this.poolMapper.map(pool).toPlainObject(),
             voteCounts,
-            votedAnswerId,
+            votedAnswerId: votedAnswerId as string | null,
          },
       }
    }
@@ -70,7 +76,7 @@ export class PoolRepository {
          orderBy: { expiresAt: 'asc' },
       })
 
-      if (!pools) {
+      if (!pools.length) {
          throw new NotFoundError('Pool')
       }
 
@@ -81,7 +87,7 @@ export class PoolRepository {
          })
 
          return {
-            ...this.poolMapper.map(pool),
+            ...this.poolMapper.map(pool).toPlainObject(),
             totalVotes,
          }
       })
@@ -96,7 +102,7 @@ export class PoolRepository {
          orderBy: { expiresAt: 'asc' },
       })
 
-      if (!pools) {
+      if (!pools.length) {
          throw new NotFoundError('Pool')
       }
 
@@ -107,7 +113,7 @@ export class PoolRepository {
          })
 
          return {
-            ...this.poolMapper.map(pool),
+            ...this.poolMapper.map(pool).toPlainObject(),
             totalVotes,
          }
       })

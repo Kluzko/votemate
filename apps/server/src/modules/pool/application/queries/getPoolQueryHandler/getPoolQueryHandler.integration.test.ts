@@ -27,6 +27,7 @@ describe('GetPoolQueryHandler', () => {
    describe('.execute', () => {
       let result: { pool: Pool }
       let payload: CreatePool
+      const voterId = faker.datatype.uuid()
 
       beforeAll(async () => {
          payload = {
@@ -34,17 +35,24 @@ describe('GetPoolQueryHandler', () => {
             expiresAt: faker.date.soon(3),
             answers: [...Array(5)].map(() => faker.lorem.sentence()),
             isPublic: true,
+            userId: faker.datatype.uuid(),
          }
 
          result = await poolRepository.createPool(payload)
       })
 
       afterAll(async () => {
-         await poolRepository.deletePool({ id: result.pool.getId() })
+         await poolRepository.deletePool({
+            id: result.pool.getId(),
+            userId: payload.userId,
+         })
       })
 
       it('should return the pool', async () => {
-         const { pool } = await getPoolQueryHandler.execute({ id: result.pool.getId() })
+         const { pool } = await getPoolQueryHandler.execute({
+            id: result.pool.getId(),
+            voterId,
+         })
 
          expect(pool).toBeInstanceOf(Pool)
          expect(pool.getId()).toBe(result.pool.getId())
@@ -56,7 +64,10 @@ describe('GetPoolQueryHandler', () => {
 
       it('should throw NotFoundError for non-existing Pool', async () => {
          try {
-            await getPoolQueryHandler.execute({ id: 'non-existing-id' })
+            await getPoolQueryHandler.execute({
+               id: 'non-existing-id',
+               voterId,
+            })
          } catch (error) {
             return expect(error).toBeInstanceOf(NotFoundError)
          }

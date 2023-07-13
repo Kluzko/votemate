@@ -1,3 +1,4 @@
+import { type Answer as AnswerPool, type Pool as PrismaPool, type Vote as PrismaVote } from '@prisma/client'
 import { z } from 'zod'
 
 const MAX_QUESTION_LENGTH = 100
@@ -56,3 +57,8 @@ export const PoolSchema = z.object({
 })
 
 export type PoolData = z.infer<typeof PoolSchema>
+
+export type VoteCounts = Record<string, number>
+
+export type PrismaPoolWithAnswers = PrismaPool & { answers: AnswerPool[] }
+export type PrismaPoolWithAnswersAndVotes = PrismaPool & { answers: (AnswerPool & { votes: PrismaVote[] })[] }

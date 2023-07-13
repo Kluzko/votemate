@@ -1,13 +1,12 @@
-import { type Answer as AnswerPool, type Pool as PrismaPool } from '@prisma/client'
 import { injectable } from 'inversify'
+
+import { type PrismaPoolWithAnswers } from 'modules/pool/api/schemas'
 
 import { Pool } from 'modules/pool/domain/entities'
 
-type PoolMapperInput = PrismaPool & { answers: AnswerPool[] }
-
 @injectable()
 export class PoolMapper {
-   public map({ id, question, expiresAt, answers, isPublic, password }: PoolMapperInput) {
+   public map({ id, question, expiresAt, answers, isPublic, password }: PrismaPoolWithAnswers) {
       return new Pool({
          id,
          question,
