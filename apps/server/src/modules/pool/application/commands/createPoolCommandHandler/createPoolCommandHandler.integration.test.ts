@@ -1,5 +1,5 @@
-import { faker } from '@faker-js/faker'
 import { ContainerSingleton } from 'container'
+import { mockPoolData } from 'modules/pool/infrastructure/test-utils'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 import { type CreatePool } from 'modules/pool/api/schemas'
@@ -27,20 +27,7 @@ describe('CreatePoolCommandHandler', () => {
       let publicPoolPayload: CreatePool
 
       beforeAll(() => {
-         const publicPool = new Pool({
-            id: faker.datatype.uuid(),
-            question: faker.lorem.sentence(),
-            expiresAt: faker.date.soon(3),
-            answers: [...Array(5)].map(() => faker.lorem.sentence()),
-            isPublic: true,
-         })
-
-         publicPoolPayload = {
-            question: publicPool.getQuestion(),
-            expiresAt: publicPool.getExpiresAt(),
-            answers: publicPool.getAnswers(),
-            isPublic: publicPool.getIsPublic(),
-         }
+         publicPoolPayload = mockPoolData.createBasePoolData()
       })
 
       describe('.execute', () => {
@@ -51,7 +38,10 @@ describe('CreatePoolCommandHandler', () => {
          })
 
          afterAll(async () => {
-            await poolRepository.deletePool({ id: result.pool.getId() })
+            await poolRepository.deletePool({
+               id: result.pool.getId(),
+               userId: publicPoolPayload.userId,
+            })
          })
 
          it('should return a valid Public Pool', () => {
