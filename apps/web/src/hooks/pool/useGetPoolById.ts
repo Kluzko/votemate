@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { type VoteCounts, type Pool } from 'types'
+import { type GetPool } from 'types'
 
 type PoolId = {
    id: string | undefined
@@ -8,7 +8,7 @@ type PoolId = {
 
 const fetchPoolById = async ({ id }: PoolId) => {
    try {
-      const response = await axios.get<{ pool: Pool & VoteCounts & { votedAnswerId: string } }>(`/api/pool/${id}`)
+      const response = await axios.get<{ pool: GetPool }>(`/api/pool/${id}`)
       return response.data
    } catch (error: any) {
       return {

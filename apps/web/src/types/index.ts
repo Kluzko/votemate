@@ -38,3 +38,5 @@ export type Pools = {
 }
 
 export type Modals = 'createPoolModal' | 'updatePoolModal' | 'deletePoolModal'
+
+export type GetPool = Pool & VoteCounts & { votedAnswerId: string | null }
