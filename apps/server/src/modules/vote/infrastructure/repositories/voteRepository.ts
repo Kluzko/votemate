@@ -39,7 +39,7 @@ export class VoteRepository {
          include: { Pool: true },
       })
 
-      return answer && answer.Pool.id === poolId
+      return answer ? answer.Pool.id === poolId : false
    }
 
    async findVoteInPoolByVoter({ voterId, poolId }: VoteInPoolData) {
