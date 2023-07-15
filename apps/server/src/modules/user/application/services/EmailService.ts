@@ -40,6 +40,13 @@ export class EmailService {
    }
 
    async sendMagicLink(email: string, emailToken: string) {
+      // To avoid sending email on test and losing free mails
+      // If in a test environment, just log the operation and return
+      if (process.env.NODE_ENV === 'test') {
+         console.log(`Email to ${email} with token ${emailToken} would be sent in a non-test environment.`)
+         return
+      }
+
       try {
          const htmlContent = this.generateHtmlContent(email, emailToken)
 
@@ -52,6 +59,7 @@ export class EmailService {
 
          await this.resend.emails.send(emailContent)
       } catch (error) {
+         console.log(error)
          throw new SmtpError()
       }
    }
