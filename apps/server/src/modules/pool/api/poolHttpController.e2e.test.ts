@@ -28,9 +28,9 @@ describe('PoolHttpController', () => {
 
       poolRepository = container.get(symbols.poolRepository)
 
-      user = await prisma.user.create({ data: { email: 'tester@example.com' } })
+      user = await prisma.user.create({ data: { email: 'testerx@example.com' } })
 
-      authToken = jwt.sign({ email: 'tester@example.com' }, process.env.JWT_SECRET)
+      authToken = jwt.sign({ email: 'testerx@example.com' }, process.env.JWT_SECRET)
    })
 
    afterAll(async () => {
