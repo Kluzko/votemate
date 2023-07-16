@@ -68,8 +68,7 @@ export const useUpdatePoolForm = ({ id }: UseUpdatePoolFormProps) => {
          toast.success('Pool updated')
          closeModal('updatePoolModal')
       },
-      onError: error => {
-         console.log(error)
+      onError: () => {
          toast.error('Someting went wrong,try again')
       },
    })
