@@ -101,7 +101,7 @@ export const Pool = () => {
                         {errors.answerId && <p className="text-tomatoRed pb-2">{errors.answerId.message}</p>}
                         {answers.map(({ value, id }) => (
                            <RadioButton
-                              key={value}
+                              key={id}
                               id="answerId"
                               value={id}
                               text={value}

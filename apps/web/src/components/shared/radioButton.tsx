@@ -17,7 +17,6 @@ export const RadioButton = ({ id, value, text, register, votedAnswerId }: RadioB
          className="w-6 h-6  appearance-none  border-4
         border-darkGray checked:bg-electricPurple cursor-pointer"
          defaultChecked={votedAnswerId === value}
-         defaultValue={votedAnswerId}
       />
       <label htmlFor={id} className="pl-4 font-extrabold text-2xl">
          {text}
