@@ -16,7 +16,11 @@
     "prisma": "pnpm -F @votemate/server prisma",
     "prisma:studio": "pnpm -F @votemate/server prisma:studio",
     "prisma:push": "pnpm -F @votemate/server prisma:push",
-    "postinstall": "pnpm prisma"
+    "postinstall": "pnpm prisma",
+    "prisma:gp": "pnpm -F  @votemate/server prisma:gp",
+    "prisma:gp:test": "pnpm -F  @votemate/server prisma:gp:test",
+    "db:up": "pnpm -F  @votemate/server db:up",
+    "db:down": "pnpm -F  @votemate/server db:down"
   },
   "devDependencies": {
     "@votemate/tsconfig": "workspace:*",

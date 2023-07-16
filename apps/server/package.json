@@ -4,19 +4,23 @@
    "version": "1.0.0",
    "scripts": {
       "start": "cross-env NODE_ENV=production node dist/src/server.js",
-      "dev": "cross-env NODE_ENV=development nodemon --inspect src/server.ts",
+      "dev": "pnpm db:up && cross-env NODE_ENV=development nodemon --inspect src/server.ts",
       "lint": "eslint .",
       "lint:fix": "eslint . --fix",
       "ts:check": "tsc",
       "check": "pnpm lint && pnpm ts:check",
       "test:unit": "vitest .unit.test.ts",
-      "test:integration": "vitest integration.test.ts",
-      "test:e2e": "vitest .e2e.test.ts --single-thread",
-      "test:all": "pnpm test:unit && pnpm test:integration && pnpm test:e2e",
+      "test:integration": "pnpm db:up && vitest integration.test.ts",
+      "test:e2e": "pnpm db:up && vitest .e2e.test.ts --single-thread",
+      "test:all": "pnpm db:up && vitest .test.ts --passWithNoTests",
       "build": "tsc",
       "prisma": "npx prisma generate --schema=src/prisma/schema.prisma",
+      "prisma:push": "npx prisma db push --schema=src/prisma/schema.prisma",
       "prisma:studio": "npx prisma studio --schema=src/prisma/schema.prisma",
-      "prisma:push": "npx prisma db push --schema=src/prisma/schema.prisma"
+      "prisma:gp": "ts-node prisma-gp.ts",
+      "prisma:gp:test": "ts-node prisma-gp.ts test",
+      "db:up": "docker-compose -f ./docker-compose.yaml up -d",
+      "db:down": "docker-compose -f ./docker-compose.yaml down"
    },
    "dependencies": {
       "@fastify/cookie": "^8.3.0",
