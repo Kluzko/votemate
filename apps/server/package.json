@@ -11,7 +11,7 @@
       "check": "pnpm lint && pnpm ts:check",
       "test:unit": "vitest .unit.test.ts",
       "test:integration": "vitest integration.test.ts",
-      "test:e2e": "vitest .e2e.test.ts",
+      "test:e2e": "vitest .e2e.test.ts --single-thread",
       "test:all": "pnpm test:unit && pnpm test:integration && pnpm test:e2e",
       "build": "tsc",
       "prisma": "npx prisma generate --schema=src/prisma/schema.prisma",

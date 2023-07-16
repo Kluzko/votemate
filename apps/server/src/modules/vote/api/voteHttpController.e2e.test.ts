@@ -25,6 +25,7 @@ describe('voteHttpController', () => {
 
    afterAll(async () => {
       await prisma.pool.delete({ where: { id: prismaPool.id } })
+      app.server.close()
    })
 
    it('should return 200', async () => {

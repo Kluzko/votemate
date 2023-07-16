@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify'
 import { sign } from 'jsonwebtoken'
 
-import { type UserEmail } from 'modules/user/api/schemas'
+import { EmailSchema, type UserEmail } from 'modules/user/api/schemas'
 
 import { symbols } from 'modules/user/symbols'
 
@@ -15,8 +15,9 @@ export class LoginUserCommandHandler {
    ) {}
 
    public async execute({ email }: UserEmail) {
-      const emailToken = sign({ email }, process.env.JWT_SECRET, { expiresIn: '10m' })
+      const { email: validEmail } = EmailSchema.parse({ email })
+      const emailToken = sign({ email: validEmail }, process.env.JWT_SECRET, { expiresIn: '10m' })
 
-      await this.emailService.sendMagicLink(email, emailToken)
+      await this.emailService.sendMagicLink(validEmail, emailToken)
    }
 }
