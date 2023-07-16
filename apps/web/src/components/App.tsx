@@ -1,7 +1,7 @@
 import { Outlet, RootRoute, Route, Router, RouterProvider } from '@tanstack/router'
 import { Toaster } from 'react-hot-toast'
 
-import { Dashboard, EmailVerification, Home, Login, Pool, Pools, Verify } from 'pages'
+import { Dashboard, EmailVerification, Home, Login, PageNotFound, Pool, Pools, Verify } from 'pages'
 import { Navbar } from './navbar'
 import { Footer } from './footer'
 import { z } from 'zod'
@@ -68,6 +68,12 @@ const poolsRoute = new Route({
    component: Pools,
 })
 
+const pageNotFound = new Route({
+   getParentRoute: () => rootRoute,
+   path: '*',
+   component: PageNotFound,
+})
+
 const routeTree = rootRoute.addChildren([
    homeRoute,
    loginRoute,
@@ -76,6 +82,7 @@ const routeTree = rootRoute.addChildren([
    emailVerificationRoute,
    poolsRoute,
    poolRoute,
+   pageNotFound,
 ])
 
 const router = new Router({ routeTree })
