@@ -23,7 +23,7 @@ export const Home = () => (
             text="JOIN POOL"
             additionalClasses="mt-4"
             type="button"
-            onClick={() => window.navigate({ to: '/' })}
+            onClick={() => window.navigate({ to: '/join-pool' })}
          />
       </div>
       <div className="hidden md:flex justify-end ">

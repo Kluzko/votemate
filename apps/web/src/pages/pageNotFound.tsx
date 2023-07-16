@@ -11,14 +11,13 @@ export const PageNotFound = () => (
       <p className="font-lalezar text-2xl md:text-4xl text-electricPurple">
          Oops! It seems you&apos;ve taken a wrong turn.
       </p>
-      {/* TODO:route here to join-pool when implmented */}
       <Button
          background="bg-electricPurple"
          color="text-lightGray"
          text="JOIN POOL"
          additionalClasses="mt-4"
          type="button"
-         onClick={() => window.navigate({ to: '/' })}
+         onClick={() => window.navigate({ to: '/join-pool' })}
       />
    </div>
 )
