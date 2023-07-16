@@ -35,6 +35,7 @@ describe('PoolHttpController', () => {
 
    afterAll(async () => {
       await prisma.user.delete({ where: { id: user.id } })
+      app.server.close()
    })
 
    describe('createPool', () => {
