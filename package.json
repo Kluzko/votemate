@@ -1,29 +1,33 @@
 {
-   "name": "votemate",
-   "private": true,
-   "packageManager": "pnpm@7.18.1",
-   "engines": {
-      "node": "18.x"
-   },
-   "scripts": {
-      "start": "pnpm -F @votemate/server start",
-      "dev": "turbo run dev",
-      "lint": "turbo run lint",
-      "lint:fix": "turbo run lint:fix",
-      "ts:check": "turbo run ts:check",
-      "check": "turbo run check",
-      "build": "turbo run build",
-      "prisma": "pnpm -F @votemate/server prisma",
-      "prisma:studio": "pnpm -F @votemate/server prisma:studio",
-      "prisma:push": "pnpm -F @votemate/server prisma:push",
-      "postinstall": "pnpm prisma"
-   },
-   "devDependencies": {
-      "eslint": "^8.14.0",
-      "prettier": "^2.6.2",
-      "ts-node": "^10.9.1",
-      "@votemate/tsconfig": "*",
-      "turbo": "^1.9.9",
-      "typescript": "^4.9.3"
-   }
+  "name": "votemate",
+  "private": true,
+  "packageManager": "pnpm@7.18.1",
+  "engines": {
+    "node": "18.x"
+  },
+  "scripts": {
+    "start": "pnpm -F @votemate/server start",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "ts:check": "turbo run ts:check",
+    "check": "turbo run check",
+    "build": "turbo run build",
+    "prisma": "pnpm -F @votemate/server prisma",
+    "prisma:studio": "pnpm -F @votemate/server prisma:studio",
+    "prisma:push": "pnpm -F @votemate/server prisma:push",
+    "postinstall": "pnpm prisma",
+    "prisma:gp": "pnpm -F  @votemate/server prisma:gp",
+    "prisma:gp:test": "pnpm -F  @votemate/server prisma:gp:test",
+    "db:up": "pnpm -F  @votemate/server db:up",
+    "db:down": "pnpm -F  @votemate/server db:down"
+  },
+  "devDependencies": {
+    "@votemate/tsconfig": "workspace:*",
+    "eslint": "^8.14.0",
+    "prettier": "^2.6.2",
+    "ts-node": "^10.9.1",
+    "turbo": "^1.9.9",
+    "typescript": "^4.9.3"
+  }
 }

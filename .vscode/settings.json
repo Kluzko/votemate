@@ -3,19 +3,18 @@
       "titleBar.inactiveBackground": "#111827"
    },
    "editor.tokenColorCustomizations": {
-      "comments": "#32BF91",
+      "comments": "#33BF92",
       "textMateRules": [
          {
             "scope": "comment.block.documentation",
-            "settings": { "foreground": "#32BF91" }
+            "settings": { "foreground": "#33BF92" }
          }
       ]
    },
    "editor.codeActionsOnSave": {
-      "source.organizeImports": true,
       "source.fixAll.eslint": true,
       "source.addMissingImports": true
    },
-   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+   "typescript.tsserver.experimental.enableProjectDiagnostics": false,
    "search.exclude": { "**/node_modules": false }
 }

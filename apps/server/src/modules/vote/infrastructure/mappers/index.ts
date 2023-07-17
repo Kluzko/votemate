@@ -1,0 +1,1 @@
+export { VoteMapper } from './voteMapper'
