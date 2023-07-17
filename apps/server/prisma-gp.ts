@@ -2,6 +2,8 @@ import { execSync } from 'child_process'
 import dotenv from 'dotenv'
 import path from 'path'
 
+import './src/setup'
+
 import { logger } from 'utils'
 
 const envPath = process.argv[2] === 'test' ? '.env.test' : '.env'
