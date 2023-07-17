@@ -4,9 +4,9 @@ import { prisma } from 'prisma'
 
 import { type UserEmail } from 'modules/user/api/schemas'
 
-import { symbols } from 'modules/user/symbols'
+import { type UserMapper } from '../mappers'
 
-import { type UserMapper } from '../mappers/userMapper'
+import { symbols } from 'modules/user/symbols'
 
 @injectable()
 export class UserRepository {

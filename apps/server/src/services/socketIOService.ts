@@ -13,10 +13,7 @@ export class SocketIOService {
          throw new Error('SocketIOService has already been initialized.')
       }
 
-      this.io = new IOServer(server, {
-         cors: { origin: 'http://localhost:3000' },
-         perMessageDeflate: true,
-      })
+      this.io = new IOServer(server, { perMessageDeflate: true })
 
       this.io.on('connection', (socket: Socket) => {
          logger.info(`New user joined: ${socket.id}`)
