@@ -1,9 +1,11 @@
 import 'reflect-metadata'
 
 import fastifyCookie from '@fastify/cookie'
+import fastifyStatic from '@fastify/static'
 import { type User } from '@prisma/client'
 import fastify from 'fastify'
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
+import path from 'path'
 import { ZodError } from 'zod'
 
 import 'dotenv/config'
@@ -16,8 +18,7 @@ import { NotFoundError, SmtpError, VoteProcessingError } from 'common/errors'
 
 import { SocketIOService } from 'services'
 
-import { auth } from 'middlewares'
-import { registerVoterId } from 'middlewares/registerVoterId'
+import { auth, registerVoterId } from 'middlewares'
 
 import { type PoolHttpController } from './modules/pool/api/poolHttpController'
 import { type UserHttpController } from 'modules/user/api/userHttpController'
@@ -111,6 +112,18 @@ app.put('/api/pool/:id', { preHandler: [auth] }, poolHttpController.updatePool.b
 app.post('/api/vote', { preHandler: [registerVoterId] }, voteHttpController.vote.bind(voteHttpController))
 
 const port = parseInt(process.env.PORT)
+if (process.env.NODE_ENV === 'production') {
+   const buildPath = path.resolve(__dirname, '../../../../web/dist')
+
+   app.register(fastifyStatic, {
+      root: buildPath,
+      prefix: '/',
+   })
+
+   app.setNotFoundHandler((_, reply) => {
+      reply.sendFile(`${buildPath}/index.html`)
+   })
+}
 
 SocketIOService.initialize(app.server)
 

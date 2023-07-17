@@ -4,6 +4,8 @@ import { UserHttpController } from './api/userHttpController'
 
 import { UserRepository } from './infrastructure/repositories'
 
+import { UserMapper } from './infrastructure/mappers'
+
 import { LoginUserCommandHandler } from './application/commands'
 
 import { AuthUserQueryHandler, VerifyUserQueryHandler } from './application/queries'
@@ -11,7 +13,6 @@ import { AuthUserQueryHandler, VerifyUserQueryHandler } from './application/quer
 import { symbols } from './symbols'
 
 import { EmailService } from './application/services/EmailService'
-import { UserMapper } from './infrastructure/mappers/userMapper'
 
 export class UserModule {
    public static registerDependencies(container: Container) {
