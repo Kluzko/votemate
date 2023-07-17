@@ -8,6 +8,7 @@ declare global {
          COOKIE_SECRET: string
          RESEND_SECRET_KEY: string
          PUBLIC_URL: string
+         EMAIL_FROM: string
       }
    }
 }

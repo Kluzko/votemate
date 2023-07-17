@@ -51,7 +51,7 @@ export class EmailService {
          const htmlContent = this.generateHtmlContent(email, emailToken)
 
          const emailContent: EmailContent = {
-            from: 'Votamate <onboarding@resend.dev>',
+            from: `Votamate <${process.env.EMAIL_FROM}>`,
             to: email,
             subject: 'Your Magic Link for Votamate',
             html: htmlContent,
