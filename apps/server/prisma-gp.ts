@@ -1,17 +1,8 @@
 import { execSync } from 'child_process'
 import dotenv from 'dotenv'
 import path from 'path'
-import { pino } from 'pino'
 
-const logger = pino({
-   transport: {
-      target: 'pino-pretty',
-      options: {
-         translateTime: 'SYS:dd-mm-yyyy HH:MM:ss',
-         ignore: 'pid,hostname',
-      },
-   },
-})
+import { logger } from 'utils'
 
 const envPath = process.argv[2] === 'test' ? '.env.test' : '.env'
 dotenv.config({ path: path.resolve(process.cwd(), envPath) })
