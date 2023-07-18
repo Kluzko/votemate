@@ -10,13 +10,13 @@ export const UpdatePoolModal = ({ question, isPublic, expiresAt, answers, id }: 
    const { updatePool, isLoading, errors, register, watch, setValue } = useUpdatePoolForm({ id })
 
    const formattedDate = expiresAt.substring(0, 16).replace('T', 'T')
-   const joinedAnsers = answers.join(',')
+   const joinedAnswers = answers.map(({ value }) => value).join(',')
    const isPublicToEnum = isPublic ? 'PUBLIC' : 'PRIVATE'
 
    useEffect(() => {
       setValue('question', question)
       setValue('expiresAt', formattedDate)
-      setValue('answers', joinedAnsers)
+      setValue('answers', joinedAnswers)
       setValue('isPublic', isPublicToEnum)
    }, [id])
 
