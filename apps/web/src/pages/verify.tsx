@@ -27,9 +27,11 @@ export const Verify = () => {
    }
 
    useEffect(() => {
-      if (emailToken) {
-         checkToken()
+      if (!emailToken) {
+         window.navigate({ to: '/' })
+         return
       }
+      checkToken()
    }, [emailToken])
 
    if (tokenError === 403) {

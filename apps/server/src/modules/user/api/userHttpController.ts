@@ -33,7 +33,6 @@ export class UserHttpController {
 
    public async verifyUser(req: FastifyRequest, reply: FastifyReply) {
       const { emailToken } = VerifySchema.parse(req.query)
-
       const { authToken } = await this.verifyUserQueryHandler.execute({ emailToken })
 
       reply
@@ -41,6 +40,7 @@ export class UserHttpController {
             path: '/',
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
+            sameSite: true,
          })
          .send({ success: true })
    }

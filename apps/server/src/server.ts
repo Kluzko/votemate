@@ -111,24 +111,29 @@ app.put('/api/pool/:id', { preHandler: [auth] }, poolHttpController.updatePool.b
 // Vote
 app.post('/api/vote', { preHandler: [registerVoterId] }, voteHttpController.vote.bind(voteHttpController))
 
-const port = parseInt(process.env.PORT)
 if (process.env.NODE_ENV === 'production') {
-   const buildPath = path.resolve(__dirname, '../../../../web/dist')
-
+   const buildPath = path.resolve(__dirname, '../../../web/dist')
    app.register(fastifyStatic, {
       root: buildPath,
-      prefix: '/',
+      wildcard: false,
    })
-
    app.setNotFoundHandler((_, reply) => {
-      reply.sendFile(`${buildPath}/index.html`)
+      reply.sendFile('index.html')
    })
 }
 
 SocketIOService.initialize(app.server)
 
-app.listen({ port }, (error, address) => {
-   if (error) logger.error(error)
+const port = parseInt(process.env.PORT)
 
-   logger.info(`Server listening on on ${address}`)
-})
+app.listen(
+   {
+      port,
+      ...(process.env.NODE_ENV === 'production' && { host: '0.0.0.0' }),
+   },
+   (error, address) => {
+      if (error) logger.error(error)
+
+      logger.info(`Server listening on on ${address}`)
+   }
+)

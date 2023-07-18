@@ -10,7 +10,7 @@
       "ts:check": "tsc",
       "check": "pnpm lint && pnpm ts:check",
       "prebuild": "pnpm ts:check",
-      "build": "vite build"
+      "build": "vite build --force"
    },
    "dependencies": {
       "@fontsource/lalezar": "^5.0.3",
