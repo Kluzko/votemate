@@ -26,7 +26,7 @@ A real-time voting application
 ![Render](https://img.shields.io/badge/-Render-%46E3B7?style=for-the-badge&logo=render&logoColor=white)
 ![CircleCI](https://img.shields.io/badge/-CircleCI-%23161616?style=for-the-badge&logo=circleci&logoColor=white)
 ![Figma](https://img.shields.io/badge/-Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
-![Trello](https://img.shields.io/badge/-Trello-%23026AA7?style=for-the-badge&logo=Trello&logoColor=white)
+![Docker](https://img.shields.io/badge/-Docker-%232496ED?style=for-the-badge&logo=Docker&logoColor=white)
 ![PlanetScale](https://img.shields.io/badge/-PlanetScale-131415?style=for-the-badge)
 
 ## 📊 Flow
