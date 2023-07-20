@@ -2,8 +2,11 @@
 
 A real-time voting application 
 
-| [Technologies used](#-technologies-used) |  [Flow](#-flow)  | [App Demonstration](#-app-demonstration)  | [Design](#-design) | [Packages](#-custom-local-packages) | [Scripts](#-scripts) | 
-| ---------------------------------------- |  --------------- | ----------------------------------------- | ------------------ | ----------------------------------- | -------------------- | 
+| [Technologies used](#-technologies-used) | [Getting started](#-getting-started) |[Flow](#-flow)  | [App Demonstration](#-app-demonstration)  | [Design](#-design) | [Packages](#-custom-local-packages) | [Scripts](#-scripts) | 
+| ---------------------------------------- | ------------------------------------ |--------------- | ----------------------------------------- | ------------------ | ----------------------------------- | -------------------- | 
+
+
+
 
 ## 🔧 Technologies used
 
@@ -28,6 +31,48 @@ A real-time voting application
 ![Figma](https://img.shields.io/badge/-Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
 ![Docker](https://img.shields.io/badge/-Docker-%232496ED?style=for-the-badge&logo=Docker&logoColor=white)
 ![PlanetScale](https://img.shields.io/badge/-PlanetScale-131415?style=for-the-badge)
+
+## 🚀 Getting Started 
+
+### ⚠️ Prerequisites 
+
+Ensure you have Docker 🐳 installed on your machine, as it is necessary for creating a MySQL server instance. 
+
+Additionally, you need to provide valid values for environment variables. Two environment files, [`.env`](https://github.com/Kluzko/votemate/blob/main/apps/server/.env-example) and [`.env.test`](https://github.com/Kluzko/votemate/blob/main/apps/server/.env.test-example), are required and these are located inside the `apps/server` directory.
+
+### ⚙️ Setup 
+
+1. **Install dependencies**: Run the following command to install the necessary dependencies:
+
+    ```
+    pnpm install
+    ```
+
+2. **Launch Docker container**: The following command creates a MySQL server instance:
+
+    ```
+    pnpm run db:up
+    ```
+
+3. **Generate and push Prisma schema**: The following command is necessary for setting up the database:
+
+    ```
+    pnpm run prisma:gp
+    ```
+
+4. **Generate and push test Prisma schema**: Execute the following command to setup the testing database:
+
+    ```
+    pnpm run prisma:gp:test
+    ```
+
+5. **Start the server**: Finally, run the following command to start the server:
+
+    ```
+    pnpm start
+    ```
+You should now have the Votemate server up and running locally on your machine.
+
 
 ## 📊 Flow
 
