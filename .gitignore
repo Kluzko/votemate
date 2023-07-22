@@ -24,3 +24,6 @@ tsconfig.tsbuildinfo
 # turbo
 .turbo
 
+
+# test coverage
+coverage

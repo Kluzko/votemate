@@ -319,12 +319,6 @@ describe('PoolRepository', () => {
             expect(pool.totalVotes).toEqual(expectedTotalVotes)
          })
       })
-
-      it('should throw NotFoundError when no pool exists for the user', async () => {
-         const nonExistingUserId = faker.datatype.uuid()
-
-         await expect(poolRepository.getUserPools({ userId: nonExistingUserId })).rejects.toThrow(NotFoundError)
-      })
    })
    describe('getPublicPools', () => {
       let mockPools: PrismaPoolWithAnswersAndVotes[] = []
@@ -357,16 +351,6 @@ describe('PoolRepository', () => {
          result.pools.forEach(pool => {
             expect(pool.isPublic).toBe(true)
          })
-      })
-
-      it('should throw NotFoundError when no public pools exist', async () => {
-         // Set all pools as private
-         await prisma.pool.updateMany({
-            where: { id: { in: mockPools.map(pool => pool.id) } },
-            data: { isPublic: false },
-         })
-
-         await expect(poolRepository.getPublicPools()).rejects.toThrow(NotFoundError)
       })
    })
 })

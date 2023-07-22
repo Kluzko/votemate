@@ -12,10 +12,7 @@ const fetchPools = async () => {
 }
 
 export const useGetUserPools = () => {
-   const { data, isLoading } = useQuery<Pools>({
-      queryKey: ['userPools'],
-      queryFn: fetchPools,
-   })
+   const { data, isLoading } = useQuery<Pools>(['userPools'], fetchPools)
 
    return {
       pools: data?.pools,

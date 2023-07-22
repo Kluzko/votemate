@@ -76,10 +76,6 @@ export class PoolRepository {
          orderBy: { expiresAt: 'asc' },
       })
 
-      if (!pools.length) {
-         throw new NotFoundError('Pool')
-      }
-
       const mappedPools = pools.map(pool => {
          let totalVotes = 0
          pool.answers.forEach(answer => {
@@ -101,10 +97,6 @@ export class PoolRepository {
          include: { answers: { include: { votes: true } } },
          orderBy: { expiresAt: 'asc' },
       })
-
-      if (!pools.length) {
-         throw new NotFoundError('Pool')
-      }
 
       const mappedPools = pools.map(pool => {
          let totalVotes = 0

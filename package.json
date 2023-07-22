@@ -20,6 +20,7 @@
     "prisma:gp": "pnpm -F  @votemate/server prisma:gp",
     "prisma:gp:test": "pnpm -F  @votemate/server prisma:gp:test",
     "db:up": "pnpm -F  @votemate/server db:up",
+    "test:coverage": "pnpm -F  @votemate/server test:coverage",
     "db:down": "pnpm -F  @votemate/server db:down"
   },
   "devDependencies": {

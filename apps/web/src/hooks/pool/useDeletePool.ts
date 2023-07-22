@@ -11,7 +11,7 @@ export const useDeletePool = () => {
    const { mutate, isLoading } = useMutation({
       mutationFn: (id: string) => axios.delete(`/api/pool/${id}`),
       onSuccess: () => {
-         client.refetchQueries(['userPools'])
+         client.invalidateQueries(['userPools'])
          toast.success('Pool deleted')
          closeModal('deletePoolModal')
       },

@@ -2,8 +2,6 @@ import { ContainerSingleton } from 'container'
 import { mockPoolData } from 'modules/pool/infrastructure/test-utils'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
-import { NotFoundError } from 'common/errors'
-
 import { type CreatePool, type PoolData } from 'modules/pool/api/schemas'
 
 import { type PoolRepository } from 'modules/pool/infrastructure/repositories'
@@ -63,16 +61,6 @@ describe('GetUserPoolsQueryHandler', () => {
                },
             ])
          )
-      })
-
-      it('should throw NotFoundError when there are no user pools', async () => {
-         try {
-            await getUserPoolsQueryHandler.execute({ userId: 'bad-user-id' })
-         } catch (error) {
-            return expect(error).toBeInstanceOf(NotFoundError)
-         }
-
-         expect.fail()
       })
    })
 })
