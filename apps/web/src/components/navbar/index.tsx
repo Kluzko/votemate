@@ -7,13 +7,13 @@ export const Navbar = () => {
 
    const { logout } = useLogout()
 
-   const LinkClass = 'font-lalezar text-xl md:text-2xl cursor-pointer hover:opacity-80 transition-all '
+   const LinkClass = 'font-lalezar text-base sm:text-xl md:text-2xl cursor-pointer hover:opacity-80 transition-all '
 
    return (
       <nav className="container mx-auto mt-4 px-4 flex items-end justify-between">
          <h1
             className={`font-lalezar tracking-wider  ${
-               isAuthenticated ? 'text-2xl sm:text-3xl' : 'text-4xl'
+               isAuthenticated ? 'text-xl sm:text-3xl' : 'text-4xl'
             } md:text-5xl cursor-pointer`}
             onClick={() => window.navigate({ to: '/' })}
          >
@@ -21,13 +21,20 @@ export const Navbar = () => {
          </h1>
          <div className="flex ">
             {Links.map(({ text, link }) => (
-               <p key={text} className={`${LinkClass} pr-3 md:pr-5`} onClick={() => window.navigate({ to: link })}>
+               <p
+                  key={text}
+                  className={`${LinkClass} pr-1 sm:pr-3 md:pr-5`}
+                  onClick={() => window.navigate({ to: link })}
+               >
                   {text}
                </p>
             ))}
             {isAuthenticated ? (
                <>
-                  <p className={`${LinkClass} pr-3 md:pr-5`} onClick={() => window.navigate({ to: '/dashboard' })}>
+                  <p
+                     className={`${LinkClass} pr-1 sm:pr-3 md:pr-5`}
+                     onClick={() => window.navigate({ to: '/dashboard' })}
+                  >
                      Dashboard
                   </p>
                   <p className={LinkClass} onClick={() => logout()}>
