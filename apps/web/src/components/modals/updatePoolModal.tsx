@@ -25,10 +25,10 @@ export const UpdatePoolModal = ({ question, isPublic, expiresAt, answers, id }: 
 
    return (
       <Modal modal="updatePoolModal">
-         <h1 className="text-4xl font-lalezar pt-10">Update Pool</h1>
+         <h1 className="text-3xl text-center sm:text-4xl font-lalezar pt-10">Update Pool</h1>
          <Form submitText="UPDATE POOL" addtionalClasses="mt-10" onSubmit={updatePool} isLoading={isLoading}>
             <Input
-               containerWidth="w-full"
+               containerWidth="w-80 sm:w-full"
                text="Question"
                register={register}
                id="question"
@@ -37,7 +37,7 @@ export const UpdatePoolModal = ({ question, isPublic, expiresAt, answers, id }: 
                error={errors.question}
             />
             <Input
-               containerWidth="w-full mt-6 "
+               containerWidth="w-80 sm:w-full mt-6 "
                text="Answers (each answer separte with comma)"
                register={register}
                id="answers"
@@ -48,14 +48,14 @@ export const UpdatePoolModal = ({ question, isPublic, expiresAt, answers, id }: 
             <DateInput
                id="expiresAt"
                text="Expires At :"
-               containerClasses="w-full mt-6 "
+               containerClasses="w-80 sm:w-full mt-6 "
                register={register}
                error={errors.expiresAt}
             />
             <SelectValidation
                id="isPublic"
                options={poolOptions}
-               className="mt-4 w-full mb-5"
+               className="mt-4 w-80 sm:w-full mb-5"
                error={errors.isPublic}
                register={register}
             />

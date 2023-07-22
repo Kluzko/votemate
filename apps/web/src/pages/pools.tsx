@@ -11,8 +11,8 @@ export const Pools = () => {
    console.log(pools)
    return (
       <div className="container mx-auto mt-20 px-4 h-full flex flex-col items-center">
-         <h1 className="font-lalezar text-4xl lg:text-5xl text-center">Community Choice Corner</h1>
-         <p className="text-lg lg:text-xl text-graphite text-center">
+         <h1 className="font-lalezar text-3xl sm:text-4xl lg:text-5xl text-center">Community Choice Corner</h1>
+         <p className="text-base sm:text-lg lg:text-xl text-graphite text-center">
             Here, you&apos;ll find a collection of public polls curated by the vibrant Votemate community.
          </p>
          {pools && pools.length > 0 ? (
@@ -32,7 +32,7 @@ export const Pools = () => {
                />
             ))
          ) : (
-            <p className="font-lalezar mt-20 text-4xl">No public pools for now</p>
+            <p className="font-lalezar mt-20 text-3xl sm:text-4xl">No public pools for now</p>
          )}
       </div>
    )

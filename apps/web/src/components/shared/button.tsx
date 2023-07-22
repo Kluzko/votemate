@@ -9,6 +9,7 @@ type ButtonProps = {
    type?: 'button' | 'submit'
    onClick?: () => void
    width?: string
+   size?: string
    isLoading?: boolean
 }
 
@@ -21,6 +22,7 @@ export const Button = ({
    additionalClasses,
    width,
    isLoading,
+   size,
 }: ButtonProps) => {
    const [showLoading, setShowLoading] = useState(false)
 
@@ -35,8 +37,10 @@ export const Button = ({
    }, [isLoading])
 
    const buttonClasses = `border-solid border-4 border-darkGray py-3 ${
-      width ? width : 'w-96'
-   } ${color} ${background} font-lalezar text-center shadow-basic text-2xl cursor-pointer duration-200 active:shadow-none active:translate-x-1 active:translate-y-1`
+      width ? width : 'w-full sm:w-96'
+   } ${color} ${background} ${
+      size ? size : 'text-xl sm:text-2xl'
+   }  font-lalezar text-center shadow-basic  cursor-pointer duration-200 active:shadow-none active:translate-x-1 active:translate-y-1`
 
    return (
       <button className={`${buttonClasses} ${additionalClasses}`} type={type} onClick={onClick}>

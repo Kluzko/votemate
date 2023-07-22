@@ -29,7 +29,7 @@ export const Card = ({
 }: CardProps) => {
    const shouldShowTooltip = title?.length > MAX_TEXT_LENGTH
 
-   const cardClasses = `group border-solid border-4 border-darkGray py-1 w-96 shadow-basic cursor-pointer px-2 flex flex-col mt-5 hover:border-electricPurple hover:shadow-green relative`
+   const cardClasses = `group border-solid border-4 border-darkGray py-1 w-full sm:w-96 shadow-basic cursor-pointer px-2 flex flex-col mt-5 hover:border-electricPurple hover:shadow-green relative`
 
    const typeClasses = `border-solid border-b-4 border-l-4 font-lalezar px-3 py-1 border-darkGray group-hover:border-electricPurple ${
       type ? 'bg-limeGreen' : 'bg-tomatoRed'

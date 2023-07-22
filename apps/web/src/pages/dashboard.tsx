@@ -54,12 +54,12 @@ export const Dashboard = () => {
                background="bg-limeGreen"
                color="text-darkGray"
                text="ADD POOL"
-               width="w-40"
-               additionalClasses="text-base"
+               width="w-32 sm:w-40"
                onClick={() => openModal('createPoolModal')}
+               size="text-base"
             />
          </div>
-         <div className="mt-20">
+         <div className="mt-20 container flex flex-col sm:items-center">
             {filderedPools.length > 0 ? (
                filderedPools.map(pool => (
                   <div key={pool.question}>
@@ -82,9 +82,9 @@ export const Dashboard = () => {
                   </div>
                ))
             ) : selectedOption === '' ? (
-               <p className="font-lalezar mt-20 text-4xl">Missing Pools? Click Add Pool to add one!</p>
+               <p className="font-lalezar mt-20 text-2xl sm:text-4xl">Missing Pools? Click Add Pool to add one!</p>
             ) : (
-               <p className="font-lalezar mt-20 text-4xl">
+               <p className="font-lalezar mt-20 text-2xl sm:text-4xl">
                   {' '}
                   No <span className="lowercase">{selectedOption}</span> pools found
                </p>

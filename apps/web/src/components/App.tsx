@@ -114,7 +114,7 @@ export const App = () => {
    }, [])
 
    return (
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full w-full overflow-x-hidden">
          <Toaster position="bottom-right" reverseOrder={false} />
          <div className="flex-grow">
             <Navbar />

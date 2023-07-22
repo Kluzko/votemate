@@ -15,9 +15,9 @@ export const Input = ({ text, id, type, error, register, inputValue, containerWi
    const [isFocused, setIsFocused] = useState(false)
    const getLabelClass = () => {
       if (error) {
-         return '-top-5 left-0 text-tomatoRed'
+         return '-top-5 sm:left-0 text-tomatoRed'
       } else if (isFocused || inputValue?.length > 1) {
-         return '-top-5 left-0'
+         return '-top-5 sm:left-0'
       } else {
          return 'left-3 top-2'
       }
@@ -25,7 +25,7 @@ export const Input = ({ text, id, type, error, register, inputValue, containerWi
 
    return (
       <div className={`flex flex-col relative ${containerWidth ? containerWidth : 'w-96'}`}>
-         <label htmlFor={id} className={`font-lalezar text-base absolute duration-200 ${getLabelClass()}`}>
+         <label htmlFor={id} className={`font-lalezar text-sm sm:text-base absolute duration-200 ${getLabelClass()}`}>
             {error ? error.message : text}
          </label>
          <input

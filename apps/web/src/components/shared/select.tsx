@@ -15,7 +15,7 @@ type SelectDropdownProps = {
 
 export const Select = ({ id, className, options, onChange }: SelectDropdownProps) => {
    return (
-      <div className={className ? className : 'w-44'}>
+      <div className={className ? className : 'w-32 sm:w-40'}>
          <select
             id={id}
             name={id}

@@ -21,11 +21,14 @@ export const DateInput = ({ text, id, register, error, containerClasses }: DateI
       return date.toISOString().substring(0, 16)
    })()
 
-   const getLabelClass = () => (error ? '-top-5 left-0 text-tomatoRed' : 'left-3 top-4')
+   const getLabelClass = () => (error ? '-top-5 left-0 text-tomatoRed' : 'left-3 top-4 ')
 
    return (
       <div className={`flex flex-col relative ${containerClasses ?? 'w-96'}`}>
-         <label htmlFor={id} className={`font-lalezar text-lightGray absolute duration-200 ${getLabelClass()}`}>
+         <label
+            htmlFor={id}
+            className={`font-lalezar text-sm sm:text-base text-lightGray absolute duration-200 ${getLabelClass()}`}
+         >
             {error ? error?.message : text}
          </label>
          <input
@@ -35,7 +38,7 @@ export const DateInput = ({ text, id, register, error, containerClasses }: DateI
             type="datetime-local"
             min={today}
             max={max}
-            className="border-solid border-4 border-darkGray py-3 px-2 bg-tomatoRed font-lalezar text-center text-lightGray shadow-basic cursor-pointer duration-200 focus:shadow-none w-full"
+            className="border-solid text-sm sm:text-base border-4 border-darkGray py-3 px-2 bg-tomatoRed font-lalezar text-center text-lightGray shadow-basic cursor-pointer duration-200 focus:shadow-none w-full"
          />
       </div>
    )
