@@ -2,8 +2,8 @@
 
 A real-time voting application 
 
-| [Technologies used](#-technologies-used) | [Getting started](#-getting-started) |[Flow](#-flow)  | [App Demonstration](#-app-demonstration)  | [Design](#-design) | [Packages](#-custom-local-packages) | [Scripts](#-scripts) | 
-| ---------------------------------------- | ------------------------------------ |--------------- | ----------------------------------------- | ------------------ | ----------------------------------- | -------------------- | 
+| [Technologies used](#-technologies-used) | [Features](#-features) |[Getting started](#-getting-started) |[Flow](#-flow)  | [App Demonstration](#-app-demonstration)  | [Design](#-design) | [Packages](#-custom-local-packages) | [Scripts](#-scripts) | 
+| ---------------------------------------- | ---------------------- |------------------------------------ |--------------- | ----------------------------------------- | ------------------ | ----------------------------------- | -------------------- | 
 
 
 
@@ -14,6 +14,7 @@ A real-time voting application
 ![React](https://img.shields.io/badge/-React-%2320232a?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Redux](https://img.shields.io/badge/-Redux-%23593d88?style=for-the-badge&logo=redux&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/-Tailwind%20CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
 ![React Hook Form](https://img.shields.io/badge/-React%20Hook%20Form-%23EC5990?style=for-the-badge&logo=reacthookform&logoColor=white)
 
 ![Node.js](https://img.shields.io/badge/-Node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
@@ -31,6 +32,18 @@ A real-time voting application
 ![Figma](https://img.shields.io/badge/-Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
 ![Docker](https://img.shields.io/badge/-Docker-%232496ED?style=for-the-badge&logo=Docker&logoColor=white)
 ![PlanetScale](https://img.shields.io/badge/-PlanetScale-131415?style=for-the-badge)
+
+## 💡 Features
+
+- Realtime voting system
+- Passwordless magic link authentication
+- Private pools [ in development ]
+- Voting data visualistation
+- Responsive design
+- Time-limited pools
+- Guests can vote as well, and it is protected to ensure users can vote only once for particular answers
+- User-friendly interface for creating and managing pools
+- Anonymous voting to protect user privacy
 
 ## 🚀 Getting Started 
 
