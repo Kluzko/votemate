@@ -171,5 +171,6 @@ Feel free to explore the design to get an overview of the app's layout, color sc
 | `prisma:gp:test` | Generate and push test Prisma schema | Server, Global |
 | `db:up`          |Launch Docker container with MySQL server instance| Server, Global |
 | `db:down`        | Stop and remove Docker container with MySQL server instance | Server, Global |
-| `prebuild`       | Check TypeScript code before building| Web            |
+| `prebuild`       | Check TypeScript code before building  | Web  |
+| `test:coverage`  | Shows test coverage for server         | Server, Global   |
 
