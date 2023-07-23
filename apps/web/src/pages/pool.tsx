@@ -19,7 +19,7 @@ export const Pool = () => {
    useOnVoteUpdate({ poolId: id })
 
    if (isLoading) {
-      return <Loading text="Loading pool" />
+      return <Loading text="Loading pool" withFullHeight />
    }
 
    if (!pool) {

@@ -56,7 +56,7 @@ export const useCreatePoolForm = () => {
          closeModal('createPoolModal')
       },
       onError: () => {
-         toast.error('Someting went wrong,try again')
+         toast.error('Someting went wrong')
       },
    })
 

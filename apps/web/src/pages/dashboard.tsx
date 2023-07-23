@@ -38,7 +38,7 @@ export const Dashboard = () => {
    }
 
    if (isLoading) {
-      return <Loading text="Loading pools" />
+      return <Loading text="Loading pools" withFullHeight />
    }
 
    const filderedPools = filterSelectedPool(selectedOption, pools)
@@ -85,7 +85,6 @@ export const Dashboard = () => {
                <p className="font-lalezar mt-20 text-2xl sm:text-4xl">Missing Pools? Click Add Pool to add one!</p>
             ) : (
                <p className="font-lalezar mt-20 text-2xl sm:text-4xl">
-                  {' '}
                   No <span className="lowercase">{selectedOption}</span> pools found
                </p>
             )}
