@@ -2,7 +2,7 @@
 
 A real-time voting application 
 
-| [Technologies used](#-technologies-used) | [Features](#-features) |[Getting started](#-getting-started) |[Flow](#-flow)  | [App Demonstration](#-app-demonstration)  | [Design](#-design) | [Packages](#-custom-local-packages) | [Scripts](#-scripts) | 
+| [Technologies used](#-technologies-used) | [Features](#-features) |[Getting started](#-getting-started) |[Flow](#-flow)  | [App Preview](#-app-demonstration)  | [Design](#-design) | [Packages](#-custom-local-packages) | [Scripts](#-scripts) | 
 | ---------------------------------------- | ---------------------- |------------------------------------ |--------------- | ----------------------------------------- | ------------------ | ----------------------------------- | -------------------- | 
 
 
