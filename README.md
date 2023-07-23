@@ -1,14 +1,9 @@
-# 🗳️ Votemate
+# 🗳️ Votemate - real-time voting application 
 
-A real-time voting application 
-
-| [Technologies used](#-technologies-used) | [Features](#-features) |[Getting started](#-getting-started) |[Flow](#-flow)  | [App Preview](#-app-demonstration)  | [Design](#-design) | [Packages](#-custom-local-packages) | [Scripts](#-scripts) | 
+| [Tech Stack](#-tech-stack) | [Features](#-features) |[Getting started](#-getting-started) |[Flow](#-flow)  | [App Preview](#-app-demonstration)  | [Design](#-design) | [Packages](#-custom-local-packages) | [Scripts](#-scripts) | 
 | ---------------------------------------- | ---------------------- |------------------------------------ |--------------- | ----------------------------------------- | ------------------ | ----------------------------------- | -------------------- | 
 
-
-
-
-## 🔧 Technologies used
+## 🔧 Tech Stack
 
 ![TypeScript](https://img.shields.io/badge/-TypeScript-%23007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/-React-%2320232a?style=for-the-badge&logo=react&logoColor=%2361DAFB)
