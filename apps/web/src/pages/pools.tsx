@@ -6,9 +6,8 @@ export const Pools = () => {
    const { isLoading, pools } = useGetPublicPools()
 
    if (isLoading) {
-      return <Loading text="Loading pools" />
+      return <Loading text="Loading pools" withFullHeight />
    }
-   console.log(pools)
    return (
       <div className="container mx-auto mt-20 px-4 h-full flex flex-col items-center">
          <h1 className="font-lalezar text-3xl sm:text-4xl lg:text-5xl text-center">Community Choice Corner</h1>

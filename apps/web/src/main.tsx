@@ -10,7 +10,7 @@ import { App } from 'components/App'
 import { store, persistor } from '@redux'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false } } })
 
 createRoot(document.getElementById('root') as HTMLElement).render(
    <Provider store={store}>
